@@ -1,0 +1,8 @@
+.navbarContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10vw;
+    background-color: white;
+    width: 80vw;
+    height: 4vh;
+}
