@@ -6,7 +6,9 @@ import Home from './routes/home'
 import Temp3 from './routes/temp3'
 import Temp4 from './routes/temp4'
 import Temp5 from './routes/temp5'
+
 function App() {
+  
   let component
   switch(window.location.pathname) {
     case "/":
@@ -29,6 +31,9 @@ function App() {
     case "/temp5":
       component = <Temp5></Temp5>
       break
+
+    default:
+      component = <Home />
   }
 
   return (
