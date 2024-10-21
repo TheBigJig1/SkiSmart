@@ -2,7 +2,8 @@
     display: flex;
     justify-content: center;
     gap: 10vw;
-    background-color: white;
+    background-color: grey;
     width: 80vw;
     height: 4vh;
+    border-style:solid;
 }
