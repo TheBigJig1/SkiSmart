@@ -1,5 +1,5 @@
 //import React from 'react';
-import './home.css';
+import '@/styles/routes/home.css';
 
 function Home() {
     return (
