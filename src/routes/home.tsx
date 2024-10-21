@@ -1,11 +1,11 @@
-//import React from 'react';
-import './home.css';
+import React from 'react';
+import '../styles/routes/home.css';
 
 function Home() {
     return (
         <div>
-            <div id="image-container">
-                <img src="path/to/your-image.jpg" alt="Top Image" />
+            <div className="image-container">
+                <img src='../../assets/homeBackground.jpeg' alt="Top Image" />
             </div>
             <div>
                 Home page
