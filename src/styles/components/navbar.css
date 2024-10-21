@@ -1,15 +1,20 @@
-.navbarContainer {
+div.navbarContainer {
     display:flex;
-    justify-content: center;
-    gap: 3vw;
+    gap: 78vw;
     background-color: white;
-    width: 100vw;
+    width: 99.5vw;
     height: 4vh;
     border-style:solid;
 }
-.navLeft{
-    text-align:left;
+div.navLeft{
+    padding-left: 2vw;
+    justify-content: left;
+    padding-top:0.5vh;
+    
 }
-.navRight{
-    text-align:right
+div.navRight{
+    padding-top: 0.5vh;
+    padding-right:1vw;
+    gap: 5vw;
+    text-align: right;
 }
