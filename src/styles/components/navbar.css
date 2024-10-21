@@ -1,9 +1,15 @@
 .navbarContainer {
-    display: flex;
+    display:flex;
     justify-content: center;
-    gap: 10vw;
+    gap: 3vw;
     background-color: white;
-    width: 80vw;
+    width: 100vw;
     height: 4vh;
     border-style:solid;
+}
+.navLeft{
+    text-align:left;
+}
+.navRight{
+    text-align:right
 }
