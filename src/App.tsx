@@ -1,10 +1,10 @@
 import '@/App.css'
 import Navbar from './components/navbar'
-import Temp1 from './routes/temp1'
-import Temp2 from './routes/temp2'
+import Weather from './routes/weather'
+import Resort from './routes/resort'
 import Home from './routes/home'
-import Temp3 from './routes/temp3'
-import Temp4 from './routes/temp4'
+import Feedback from './routes/feedback'
+import Signin from './routes/signin'
 import Temp5 from './routes/temp5'
 
 function App() {
@@ -14,18 +14,18 @@ function App() {
     case "/":
       component = <Home />
       break
-    case "/temp1":
-      component = <Temp1></Temp1>
+    case "/weather":
+      component = <Weather />
       break
-    case "/temp2":
-      component = <Temp2></Temp2>
+    case "/resort":
+      component = <Resort />
       break
-    case "/temp3":
-      component = <Temp3></Temp3>
+    case "/feedback":
+      component = <Feedback />
       break
 
-    case "/temp4":
-      component = <Temp4></Temp4>
+    case "/Sign In":
+      component = <Signin />
       break
 
     case "/temp5":

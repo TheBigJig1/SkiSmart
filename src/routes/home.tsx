@@ -1,5 +1,5 @@
-import React from 'react';
-import '../styles/routes/home.css';
+//import React from 'react';
+import '@/styles/routes/home.css';
 import homeBackground from '../assets/homeBackground.jpeg';
 
 function Home() {
