@@ -1,11 +1,17 @@
-
+//import React from 'react';
+import './home.css';
 
 function Home() {
     return (
-    <div>
-        Home: Jaxon test push Another test push
-    </div>
-    )
- }
+        <div>
+            <div id="image-container">
+                <img src="path/to/your-image.jpg" alt="Top Image" />
+            </div>
+            <div>
+                Home page
+            </div>
+        </div>
+    );
+}
 
- export default Home
+export default Home;
