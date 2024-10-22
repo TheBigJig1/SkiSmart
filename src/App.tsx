@@ -5,7 +5,7 @@ import Resort from './routes/resort'
 import Home from './routes/home'
 import Feedback from './routes/feedback'
 import Signin from './routes/signin'
-import Temp5 from './routes/temp5'
+import Signup from './routes/signup'
 
 function App() {
   
@@ -28,8 +28,8 @@ function App() {
       component = <Signin />
       break
 
-    case "/temp5":
-      component = <Temp5></Temp5>
+    case "/signup":
+      component = <Signup />
       break
 
     default:
