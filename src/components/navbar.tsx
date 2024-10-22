@@ -13,9 +13,9 @@ import '@/styles/components/navbar.css'
         <img src = "src\assets\logo.png" />
         </div>
         <div className='navRight'><a href='/'>Home  </a>
-        <a href='/temp1'>Resorts  </a>
-        <a href='/temp2'>Feedback  </a>
-        <a href='/temp3'> Sign-in</a></div>
+        <a href='/resorts'>Resorts  </a>
+        <a href='/feedback'>Feedback  </a>
+        <a href='/signin'> Sign-in</a></div>
     </div>
     )
  }

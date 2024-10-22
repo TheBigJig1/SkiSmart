@@ -24,7 +24,7 @@ function App() {
       component = <Feedback />
       break
 
-    case "/Sign In":
+    case "/signin":
       component = <Signin />
       break
 
