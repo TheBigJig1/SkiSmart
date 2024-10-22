@@ -1,7 +1,6 @@
 import '@/styles/routes/signin.css';
 import skiMountains from '../assets/skiMountains.jpg';
-import logo from '../assets/logo.png';
-
+import logo from '../assets/logoCircle.png';
 
 const Signin = () => {
   return (
@@ -10,14 +9,12 @@ const Signin = () => {
         <div className="signin-form">
           <div className="signin-logo">
             <img src={logo} alt="Skismart Logo" className="logo-image" />
-            <h2 className="logo-text">Skismart</h2>
+            <h2 className="logo-text">SkiSmart</h2>
           </div>
           <form className="signin-form-fields">
             <div className="form-group">
               <label htmlFor="email" className="form-label">E-Mail:</label>
               <input
-                id="email"
-                name="email"
                 type="email"
                 autoComplete="email" 
                 required
@@ -28,8 +25,6 @@ const Signin = () => {
             <div className="form-group">
               <label htmlFor="password" className="form-label">Password:</label>
               <input
-                id="password"
-                name="password"
                 type="password"
                 autoComplete="current-password"
                 required
@@ -38,9 +33,7 @@ const Signin = () => {
               />
             </div>
             <div className="form-links">
-              <a href="/signup" className="signup-link">
-                Don't have an account? Create Account here
-              </a>
+              <div style={{ color: 'black' }}>Don't have an account? <a href="/signup" className="signup-link">Create Account</a></div>
               <a href="#" className="forgot-password-link">
                 Forgot password?
               </a>
@@ -52,7 +45,7 @@ const Signin = () => {
             </div>
           </form>
         </div>
-        <div className="contact-info" style={{ position: 'absolute', bottom: '1rem', width: '100%', textAlign: 'center', color: 'white', backgroundColor: 'rgba(0, 0, 0, 0)' }}>
+        <div className="contact-info" style={{ position: 'absolute', bottom: '3rem', width: '100%', textAlign: 'center', color: 'white', backgroundColor: 'rgba(0, 0, 0, 0)' }}>
           Contact Us: skismartwv@gmail.com (304) 449-4516
         </div>
       </div>

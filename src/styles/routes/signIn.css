@@ -1,115 +1,115 @@
 .signin-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-.signin-logo {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Anonymous Pro", monospace;
+}
 
 .logo-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: white;
-    padding: 10px;
-    object-fit: contain;
-  }
-  
-  .signin-background {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    background-image: url('../assets/skiMountains.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100vw;
-    height: 100vh;
-  }
-  
-  .signin-form {
-    background-color: rgba(182, 182, 182, 0.849);
-    padding: 5rem 15rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    max-width: 24rem;
-    width: 100%;
-  }
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
 
-  .logo-text {
-    font-size: 2rem;
-    color: white;
-    margin: 0;
-  }
+.signin-logo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
 
-  .signin-form-fields {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.signin-background {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-image: url('../assets/skiMountains.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+}
 
-  .form-group {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
+.signin-form {
+  background-color: rgba(182, 182, 182, 0.849);
+  padding: 5rem 15rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  max-width: 24rem;
+  width: 100%;
+}
 
-  .form-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color:black;
-  }
+.logo-text {
+  font-size: 2rem;
+  color: white;
+  margin: 0;
+  font-family: "Anonymous Pro", monospace;
+  font-weight: normal;
+}
 
-  .form-input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: black;
-    background-color: white;
-  }
+.signin-form-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .form-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
+.form-group {
+  width: 100%;
+  margin-bottom: 1rem;
+}
 
-  .signup-link,
-  .forgot-password-link {
-    color: #333;
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-  }
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color:black;
+}
 
-  .form-submit {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: black;
+  background-color: white;
+}
 
-  .submit-button {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+.form-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 
-  .contact-info {
-    text-align: center;
-    padding: 1rem;
-    background-color: #f8f9fa;
-  }
+.signup-link,
+.forgot-password-link {
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+.form-submit {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.contact-info {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f8f9fa;
+}

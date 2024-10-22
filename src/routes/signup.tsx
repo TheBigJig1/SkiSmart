@@ -1,17 +1,17 @@
 import '@/styles/routes/signin.css';
 import skiMountains from '../assets/skiMountains.jpg';
-import logo from '../assets/logo.png';
+import logo from '../assets/logoCircle.png';
 
 function Signup() {
     return (
         <div className="signin-container">
-            //id how to comment but pretend this isnt here
-            //need to change image based on window size
+            {/*id how to comment but pretend this isnt here*/}
+            {/*need to change image based on window size*/}
         <div className="signin-background" style={{ backgroundImage: `url(${skiMountains})` }}>
           <div className="signin-form">
             <div className="signin-logo">
               <img src={logo} alt="Skismart Logo" className="logo-image" />
-              <h2 className="logo-text">Skismart</h2>
+              <h2 className="logo-text">SkiSmart</h2>
             </div>
             <form className="signin-form-fields">
               <div className="form-group">
@@ -60,9 +60,9 @@ function Signup() {
               </div>
             </form>
           </div>
-        </div>
-        <div className="contact-info">
-          Contact Us: skismartwv@gmail.com (304) 449-4516
+          <div className="contact-info" style={{ position: 'absolute', bottom: '1rem', width: '100%', textAlign: 'center', color: 'white', backgroundColor: 'rgba(0, 0, 0, 0)', padding: '0.5rem 0' }}>
+            Contact Us: skismartwv@gmail.com (304) 449-4516
+          </div>
         </div>
       </div>
     )
