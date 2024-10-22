@@ -52,9 +52,9 @@ const Signin = () => {
             </div>
           </form>
         </div>
-      </div>
-      <div className="contact-info">
-        Contact Us: skismartwv@gmail.com (304) 449-4516
+        <div className="contact-info" style={{ position: 'absolute', bottom: '1rem', width: '100%', textAlign: 'center', color: 'white', backgroundColor: 'rgba(0, 0, 0, 0)' }}>
+          Contact Us: skismartwv@gmail.com (304) 449-4516
+        </div>
       </div>
     </div>
   );
