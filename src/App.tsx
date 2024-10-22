@@ -17,7 +17,7 @@ function App() {
     case "/weather":
       component = <Weather />
       break
-    case "/resort":
+    case "/resorts":
       component = <Resort />
       break
     case "/feedback":
