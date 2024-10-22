@@ -2,10 +2,12 @@ import '@/styles/routes/signin.css';
 import skiMountains from '../assets/skiMountains.jpg';
 import logo from '../assets/logo.png';
 
+
 const Signin = () => {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${skiMountains})` }}>
-        <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-md max-w-md w-full">
+  return (
+    <div className="signin-container">
+      <div className="signin-background" style={{ backgroundImage: `url(${skiMountains})` }}>
+        <div className="signin-form">
           <div className="text-center mb-8">
             <img src={logo} alt="Skismart Logo" className="mx-auto w-20 h-20 mb-4" />
             <h2 className="text-3xl font-extrabold text-gray-900">Skismart</h2>
@@ -17,7 +19,7 @@ const Signin = () => {
                 id="email"
                 name="email"
                 type="email"
-                autoComplete="email"
+                autoComplete="email" 
                 required
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="user@email.com"
@@ -53,11 +55,12 @@ const Signin = () => {
             </div>
           </form>
         </div>
-        <div className="absolute bottom-4 text-center w-full text-white text-sm">
-          Contact Us: skismartwv@gmail.com (304) 449-4516
-        </div>
       </div>
-    );
-  };
+      <div className="absolute bottom-4 text-center w-full text-white text-sm">
+        Contact Us: skismartwv@gmail.com (304) 449-4516
+      </div>
+    </div>
+  );
+};
 
  export default Signin

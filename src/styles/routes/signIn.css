@@ -13,6 +13,8 @@
     background-image: url('../assets/skiMountains.jpg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
   }
   
   .signin-form {
