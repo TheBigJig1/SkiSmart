@@ -15,14 +15,94 @@
     background-position: center;
     background-repeat: no-repeat;
     width: 100vw;
+    height: 100vh;
   }
   
   .signin-form {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 2rem;
+    background-color: rgba(182, 182, 182, 0.849);
+    padding: 5rem 15rem;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
     z-index: 10;
     max-width: 24rem;
     width: 100%;
+  }
+
+  .signin-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .logo-image {
+    width: 100px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .logo-text {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+  }
+
+  .signin-form-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-group {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .form-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .signup-link,
+  .forgot-password-link {
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-submit {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .submit-button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .contact-info {
+    text-align: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
   }
