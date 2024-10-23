@@ -1,15 +1,14 @@
-//import React from 'react';
 import '@/styles/routes/home.css';
-import homeBackground from '../assets/homeBackground.jpeg';
 
 function Home() {
     return (
-        <div>
-            <div className="image-container">
-                <img src={homeBackground} alt="Top Image" />
+        <div className="container">
+            <div className="backgroundImg">
+                <img src='src/assets/logoCircle.png' className="logo"></img> 
+                <div className="title">SkiSmart</div>
             </div>
-            <div>
-                Home page
+            <div className="textContainer">
+                Home page info
             </div>
         </div>
     );
