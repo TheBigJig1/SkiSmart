@@ -1,28 +1,44 @@
 div.navbarContainer {
     display:flex;
+    position: sticky;
     background-color: white;
     height: 4vh;
     width: 100vw;
     border-style:solid;
+    font-family: "Anonymous Pro";
 }
 div.navLeft{
+    display: flex;
+    flex-direction: row;
     padding-left: 2vw;
     text-align: left;
     padding-top:0.5vh;
+    width: 50%;
    
 }
 div.navRight{
-    margin-left: 72vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
     padding-top: 0.5vh;
     padding-right:2vw;
-   
+    gap: 1rem;
     text-align: right;
+    width: 50%;
+    
 }
 div.imgContainer{
     img {
-        width: 100%;
-        height: 100%;
+        width: 25px;
+        height: 25px;
         margin-left:.5vw;
       }
       
+}
+a {
+    transition: 500ms;
+}
+a:hover {
+    scale: 1.2;
 }
