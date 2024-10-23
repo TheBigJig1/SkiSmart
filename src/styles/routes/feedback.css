@@ -1,0 +1,35 @@
+.feedback-container 
+{
+    min-height: 25vh;
+    min-width: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Anonymous Pro", monospace;
+    background-color:#f4f4f469;
+}
+.outline-box 
+{
+    border: 2px solid #007BFF;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    background-color: #d9d9d986;
+}
+label
+{
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+
+}
+textarea 
+{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    margin-bottom: 20px;
+}
