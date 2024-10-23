@@ -7,6 +7,7 @@
 }
 
 .backgroundImg {
+    position: relative;
     height: 50vh;
     width: 100%;
     background-image: url('src/assets/HiResMountain.jpg');
@@ -15,20 +16,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; 
+    padding-top: 5vh;
 }
 
-.image {
-    width: 100%;
-    height: 50vh;
+.backgroundImg .logo {
+    height: 25vw; 
+    width: auto; 
+    max-width: 256px;
+    max-height: 256px;
 }
 
-.logo {
-    height: 256px;
-    width: 256px;
-}
-
-.title {
+.backgroundImg .title {
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
     text-shadow: 0 0 15px black;
