@@ -58,10 +58,10 @@ function Signup() {
                   Create Account
                 </button>
               </div>
+              <div className="contact-info" style={{ width: '100%', textAlign: 'center', color: 'black', backgroundColor: 'rgba(0, 0, 0, 0)'}}>
+                Contact Us: skismartwv@gmail.com (304) 449-4516
+              </div>
             </form>
-          </div>
-          <div className="contact-info" style={{ position: 'absolute', bottom: '1rem', width: '100%', textAlign: 'center', color: 'white', backgroundColor: 'rgba(0, 0, 0, 0)', padding: '0.5rem 0' }}>
-            Contact Us: skismartwv@gmail.com (304) 449-4516
           </div>
         </div>
       </div>
