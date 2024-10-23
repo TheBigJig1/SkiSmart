@@ -1,7 +1,9 @@
 .container {
-  width: 100vw;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
+  overflow-x: hidden;
+  width: 100%;
 }

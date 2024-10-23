@@ -1,8 +1,8 @@
 div.navbarContainer {
     display:flex;
     background-color: white;
-    width: 99.5vw;
     height: 4vh;
+    width: 100vw;
     border-style:solid;
 }
 div.navLeft{

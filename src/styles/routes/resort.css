@@ -1,15 +1,16 @@
 .container {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: white;
+    width: 100%;
 }
 
 .backgroundImg {
     height: 50vh;
-    width: 100vw;
+    width: 100%;
     background-image: url('src/assets/HiResMountain.jpg');
-    background-size: 100vw;
+    background-size: 100%;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
@@ -34,10 +35,19 @@
 }
 
 .resortsCardContainer {
-    width: 100vw;
+    width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.resortInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
 }
 
 @media only screen and (max-width: 1000px) {

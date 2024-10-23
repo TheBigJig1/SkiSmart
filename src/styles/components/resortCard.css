@@ -1,0 +1,33 @@
+.resortName {
+    font-family: 'Anonymous Pro';
+}
+
+.resortImg {
+
+    padding-bottom: 1rem;
+
+    img {
+        height: 60vh;
+        width: 75vw;
+    }
+}
+
+.resortInfo {
+    padding-block: 1rem;
+    font-family: "Anonymous Pro";
+}
+
+.address {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    height: fit-content;
+}
+
+.snowfall {
+    width: 15vw;
+}
+
+.visitPageButton {
+    width: 15vw;
+}
