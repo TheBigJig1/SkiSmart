@@ -1,5 +1,11 @@
+.fcontainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+}
 .backImg {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,17 +17,23 @@
     background-repeat: no-repeat;
     width: 100vw;
     height: 100vh;
+    padding-top: 50px;
 }
-
-.ftitle {
-    position: absolute;
-    top: 240px; 
-    left: 50%;
+.backImg .flogo
+{
+    height: 25vw; 
+    width: auto; 
+    max-width: 256px;
+    max-height: 256px;
+    top: 0px;
+}
+.backImg .ftitle
+{
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
-    text-shadow: 0 0 15px 
+    text-shadow: 0 0 15px black;
+    top:-20px;
 }
-
 .feedback-container {
     min-height: 25vh;
     min-width: 80vh;
@@ -30,15 +42,31 @@
     justify-content: center;
     align-items: center;
     font-family: "Anonymous Pro", monospace;
-    background-color: #d9d9d9;
-    padding-top: 150px;
+    background-color: rgba(217,217,217,0.8);;
+    padding-top: 20px;
+}
+label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-family: "Anonymous Pro", monospace;
 }
 
-.flogo {
-    top: 100px; 
-    height: 128px;
-    width: 128px;
-    left: 50%;
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 4px solid #000000;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 20px;
+
 }
-
-
+.feedback-box {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 8px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
