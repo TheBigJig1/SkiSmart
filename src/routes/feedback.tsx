@@ -4,10 +4,10 @@ import mountain from '../assets/skiMountains.jpg';
 
 function Feedback() {
     return (
-        <div className="container">
+        <div className="fcontainer">
             <div className="backImg" style={{ backgroundImage: `url(${mountain})` }}>
-                <img src='src/assets/logoCircle.png' className="logo"></img>
-                <div className="title">SkiSmart</div>
+                <img src='src/assets/logoCircle.png' className="flogo"></img>
+                <div className="ftitle">SkiSmart</div>
                 <div className= "feedback-container">
                     <div className="feedback-box">
                         <label htmlFor="feedback">Feedback: </label>
