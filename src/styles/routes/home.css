@@ -1,4 +1,4 @@
-.container {
+.landingContainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.homeBackground {
+.landingBackground {
     position: relative;
     height: 50vh;
     width: 100%;
@@ -20,25 +20,26 @@
     padding-top: 5vh;
 }
 
-.homeBackground img.homeLogo {
+.landingBackground img.landingLogo {
     height: 25vw; 
     width: auto; 
     max-width: 256px;
     max-height: 256px;
 }
 
-.homeBackground .homeTitle {
+.landingBackground .landingTitle {
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
     text-shadow: 0 0 15px black;
 }
 
 .textContainer {
-    top: 50vh;
+    font-family: "Anonymous Pro"," monospace";
     width: 100%;
+    max-width: 96vw;
     height: fit-content;
     display: flex;
-    flex-direction: center;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     color: black;
