@@ -2,7 +2,7 @@ import '@/styles/routes/home.css';
 
 function Home() {
     return (
-        <div className="container">
+        <div className="landingContainer">
             <div className="landingBackground">
                 <img className="landingLogo" src='src/assets/logoCircle.png'></img> 
                 <div className="landingTitle">SkiSmart</div>

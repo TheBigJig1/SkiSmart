@@ -1,5 +1,6 @@
 .landingContainer {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: white;
@@ -43,4 +44,67 @@
     justify-content: center;
     align-items: center;
     color: black;
+    margin-top: 0vw;
+    transition: margin-top 0.5s ease;
+}
+
+@media (max-width: 964px) {
+    .textContainer {
+        margin-top: -2vw;
+    }
+}
+
+@media (max-width: 912px) {
+    .textContainer {
+        margin-top: -4vw;
+    }
+}
+
+@media (max-width: 861px) {
+    .textContainer {
+        margin-top: -6vw;
+    }
+}
+
+
+@media (max-width: 809px) {
+    .textContainer {
+        margin-top: -9vw;
+    }
+}
+
+@media (max-width: 758px) {
+    .textContainer {
+        margin-top: -12vw;
+    }
+}
+
+@media (max-width: 706px) {
+    .textContainer {
+        margin-top: -18vw;
+    }
+}
+
+@media (max-width: 655px) {
+    .textContainer {
+        margin-top: -25vw;
+    }
+}
+
+@media (max-width: 603px) {
+    .textContainer {
+        margin-top: -30vw;
+    }
+}
+
+@media (max-width: 552px) {
+    .textContainer {
+        margin-top: -37vw;
+    }
+}
+
+@media (max-width: 500px) {
+    .textContainer {
+        margin-top: -45vw;
+    }
 }
