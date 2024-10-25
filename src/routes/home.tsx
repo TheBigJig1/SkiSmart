@@ -8,12 +8,12 @@ function Home() {
                 <div className="landingTitle">SkiSmart</div>
             </div>
             <div className = "textContainer">
-                <h1>Welcome to SkiSafe: Your Ultimate Companion for Safer Skiing</h1>
+                <h1>Welcome to SkiSmart: Your Ultimate Companion for Safer Skiing</h1>
                 <h2>Real-Time Weather and Ski Conditions at Your Fingertips</h2>
                     <p>
-                        <strong>Experience the thrill of the slopes with confidence.</strong> SkiSafe provides you with current weather updates and detailed ski conditions for your favorite snow sports areas, ensuring you have all the information you need for a safe and enjoyable adventure.
+                        <strong>Experience the thrill of the slopes with confidence.</strong> SkiSmart provides you with current weather updates and detailed ski conditions for your favorite snow sports areas, ensuring you have all the information you need for a safe and enjoyable adventure.
                     </p>
-                <h3>Why Choose SkiSafe?</h3>
+                <h3>Why Choose SkiSmart?</h3>
                     <ul>
                         <li>
                             <strong>Stay Informed:</strong> Access real-time weather forecasts, snowfall reports, and temperature readings.
@@ -36,14 +36,14 @@ function Home() {
                     </ul>
                 <h3>Your Safety is Our Priority</h3>
                 <p>
-                At SkiSafe, we believe that safety enhances enjoyment. By providing accurate and timely information, we empower you to make informed decisions, reduce risks, and fully embrace the joy of snow sports.
+                At SkiSmart, we believe that safety enhances enjoyment. By providing accurate and timely information, we empower you to make smarter decisions, reduce risks, and fully embrace the joy of snow sports.
                 </p>
                 <h3>Ready to Elevate Your Skiing Experience?</h3>
                     <p>
-                        <strong>Join SkiSafe today and glide into a safer, more informed adventure on the slopes.</strong>
+                        <strong>Join SkiSmart today and glide into a safer, more informed adventure on the slopes.</strong>
                     </p>
                     <a href="./signin" style={{ textDecoration: 'none' }}>
-                        <button style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>Get Started Now</button>
+                        <button style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}}>Get Started Now</button>
                     </a>
                 <hr />
 
