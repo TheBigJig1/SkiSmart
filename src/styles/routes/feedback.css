@@ -70,3 +70,21 @@ textarea {
     flex-direction: column;
     align-items: flex-start; 
 }
+.starRating
+{
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.star
+{
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+    transition: color 0.2s;
+}
+.star:hover
+{
+    color: gold;
+}
