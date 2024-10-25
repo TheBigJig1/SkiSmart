@@ -48,7 +48,7 @@ function Home() {
                 <hr />
 
                 <p style={{ fontStyle: 'italic', textAlign: 'center' }}>
-                    Stay safe. Stay informed. Enjoy every moment with SnowSafe.
+                    Stay safe. Stay informed. Enjoy every moment with SkiSmart.
                 </p>
             </div>
         </div>

@@ -1,110 +1,64 @@
 .landingContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
+    display: grid;
     width: 100%;
+    grid-template-columns:
+        "landingBackground"
+        "textContainer";
 }
 
 .landingBackground {
-    position: relative;
-    height: 50vh;
+    
+    grid-area: landingBackground;
+
+    height: 26vw;
     width: 100%;
+    
     background-image: url('src/assets/HiResMountain.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; 
+
+    grid-template-columns:
+        "landingLogo"
+        "landingTitle";
+
     padding-top: 5vh;
+    
 }
 
-.landingBackground img.landingLogo {
-    height: 25vw; 
-    width: auto; 
-    max-width: 256px;
-    max-height: 256px;
+.landingLogo {
+    grid-area: landingLogo;
+    padding-left: 41vw;
+    width: auto;
+    height: 18vw;
+
 }
 
-.landingBackground .landingTitle {
+.landingTitle {
+    grid-area: landingTitle;
+    padding-left: 42vw;
+
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
     text-shadow: 0 0 15px black;
+
+    height: 4vw;
+
 }
 
-.textContainer {
-    font-family: "Anonymous Pro"," monospace";
-    width: 100%;
-    max-width: 96vw;
-    height: fit-content;
+.landingContainer .textContainer {
+    grid-area: textContainer;
+    margin-top: 31vw;
+    margin-left: 2vh;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    font-size: 1.5vw;
+    
+    font-family: "Anonymous Pro"," monospace";
     color: black;
-    margin-top: 0vw;
     transition: margin-top 0.5s ease;
 }
-
-@media (max-width: 964px) {
-    .textContainer {
-        margin-top: -2vw;
-    }
-}
-
-@media (max-width: 912px) {
-    .textContainer {
-        margin-top: -4vw;
-    }
-}
-
-@media (max-width: 861px) {
-    .textContainer {
-        margin-top: -6vw;
-    }
-}
-
-
-@media (max-width: 809px) {
-    .textContainer {
-        margin-top: -9vw;
-    }
-}
-
-@media (max-width: 758px) {
-    .textContainer {
-        margin-top: -12vw;
-    }
-}
-
-@media (max-width: 706px) {
-    .textContainer {
-        margin-top: -18vw;
-    }
-}
-
-@media (max-width: 655px) {
-    .textContainer {
-        margin-top: -25vw;
-    }
-}
-
-@media (max-width: 603px) {
-    .textContainer {
-        margin-top: -30vw;
-    }
-}
-
-@media (max-width: 552px) {
-    .textContainer {
-        margin-top: -37vw;
-    }
-}
-
-@media (max-width: 500px) {
-    .textContainer {
-        margin-top: -45vw;
-    }
-}
+  
