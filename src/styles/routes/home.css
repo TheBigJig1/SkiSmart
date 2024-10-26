@@ -1,7 +1,6 @@
 .landingContainer {
     display: grid;
-    width: 100%;
-    grid-template-columns:
+    grid-template-areas:
         "landingBackground"
         "textContainer";
 }
@@ -47,7 +46,6 @@
 
 .landingContainer .textContainer {
     grid-area: textContainer;
-    margin-top: 31vw;
     margin-left: 2vh;
     width: 97%;
 

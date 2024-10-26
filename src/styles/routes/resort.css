@@ -1,57 +1,63 @@
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    width: 100%;
+    display: grid;
+    grid-template-areas:
+        "backgroundImg"
+        "resortsCardContainer";
 }
 
 .backgroundImg {
-    position: relative;
-    height: 50vh;
+    
+    grid-area: backgroundImg;
+
+    height: 26vw;
     width: 100%;
+
     background-image: url('src/assets/HiResMountain.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; 
+
+    grid-template-columns:
+        "logo"
+        "title";
+
     padding-top: 5vh;
 }
 
-.backgroundImg .logo {
-    height: 25vw; 
-    width: auto; 
-    max-width: 256px;
-    max-height: 256px;
+.logo {
+    grid-area: logo;
+    padding-left: 41vw;
+    width: auto;
+    height: 18vw;
+
 }
 
-.backgroundImg .title {
+.title {
+    grid-area: title;
+    padding-left: 42vw;
+
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
     text-shadow: 0 0 15px black;
+
+    height: 4vw;
+
 }
 
 .resortsCardContainer {
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    grid-area: resortsCardContainer;
+
+    margin-top: 50vw;
+    margin-left: 2vh;
+    width: 97%;
+    height: 35vh;
+    
     color: black;
+
+    background-color: green;
 }
 
 .resortInfo {
     display: flex;
     flex-direction: row;
     gap: 5rem;
-}
-
-@media only screen and (max-width: 1000px) {
-    .logo {
-        height: 128px;
-        width: 128px;
-    }
 }
