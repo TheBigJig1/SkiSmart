@@ -49,6 +49,7 @@
     grid-area: textContainer;
     margin-top: 31vw;
     margin-left: 2vh;
+    width: 97%;
 
     display: flex;
     flex-direction: column;
