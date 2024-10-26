@@ -1,13 +1,13 @@
-.landingContainer {
+.pageContainer {
     display: grid;
     grid-template-areas:
-        "landingBackground"
-        "textContainer";
+        "pageBackground"
+        "contentContainer";
 }
 
-.landingBackground {
+.pageBackground {
     
-    grid-area: landingBackground;
+    grid-area: pageBackground;
 
     height: 26vw;
     width: 100%;
@@ -17,23 +17,23 @@
     background-repeat: no-repeat;
 
     grid-template-columns:
-        "landingLogo"
-        "landingTitle";
+        "logo"
+        "title";
 
     padding-top: 5vh;
     
 }
 
-.landingLogo {
-    grid-area: landingLogo;
+.logo {
+    grid-area: logo;
     padding-left: 41vw;
     width: auto;
     height: 18vw;
 
 }
 
-.landingTitle {
-    grid-area: landingTitle;
+.title {
+    grid-area: title;
     padding-left: 42vw;
 
     font-size: 4vw;
@@ -44,8 +44,8 @@
 
 }
 
-.landingContainer .textContainer {
-    grid-area: textContainer;
+.pageContainer .contentContainer {
+    grid-area: contentContainer;
     margin-left: 2vh;
     width: 97%;
 

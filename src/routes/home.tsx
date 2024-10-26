@@ -2,12 +2,12 @@ import '@/styles/routes/home.css';
 
 function Home() {
     return (
-        <div className="landingContainer">
-            <div className="landingBackground">
-                <img className="landingLogo" src='src/assets/logoCircle.png'></img> 
-                <div className="landingTitle">SkiSmart</div>
+        <div className="pageContainer">
+            <div className="pageBackground">
+                <img className="logo" src='src/assets/logoCircle.png'></img> 
+                <div className="title">SkiSmart</div>
             </div>
-            <div className = "textContainer">
+            <div className = "contentContainer">
                 <h1>Welcome to SkiSmart: Your Ultimate Companion for Safer Skiing</h1>
                 <h2>Real-Time Weather and Ski Conditions at Your Fingertips</h2>
                     <p>
