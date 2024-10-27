@@ -1,38 +1,40 @@
-.container {
+.resortContainer {
     display: grid;
+    width: 100%;
     grid-template-areas:
-        "backgroundImg"
-        "resortsCardContainer";
+        "resortBackground"
+        "resortContentContainer";
 }
 
-.backgroundImg {
+.resortBackground {
     
-    grid-area: backgroundImg;
+    grid-area: resortBackground;
 
     height: 26vw;
     width: 100%;
-
+    
     background-image: url('src/assets/HiResMountain.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
 
     grid-template-columns:
-        "logo"
-        "title";
+        "resortLogo"
+        "resortTitle";
 
     padding-top: 5vh;
+    
 }
 
-.logo {
-    grid-area: logo;
+.resortLogo {
+    grid-area: resortLogo;
     padding-left: 41vw;
     width: auto;
     height: 18vw;
 
 }
 
-.title {
-    grid-area: title;
+.resortTitle {
+    grid-area: resortTitle;
     padding-left: 42vw;
 
     font-size: 4vw;
@@ -40,19 +42,25 @@
     text-shadow: 0 0 15px black;
 
     height: 4vw;
-
 }
 
-.resortsCardContainer {
-    grid-area: resortsCardContainer;
+.resortContainer .resortContentContainer {
+    grid-area: resortContentContainer;
+    margin-left: 2vh;
+    margin-right: 2vh;
 
-    width: 96%;
-    height: 20vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.5vw;
     
+    font-family: "Anonymous Pro"," monospace";
     color: black;
-
-    background-color: green;
+    transition: margin-top 0.5s ease;
 }
+  
 
 .resortInfo {
     display: flex;
