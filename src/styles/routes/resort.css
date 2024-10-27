@@ -46,10 +46,8 @@
 .resortsCardContainer {
     grid-area: resortsCardContainer;
 
-    margin-top: 50vw;
-    margin-left: 2vh;
-    width: 97%;
-    height: 35vh;
+    width: 96%;
+    height: 20vw;
     
     color: black;
 

@@ -1,33 +1,52 @@
+.cardContainer {
+    display: grid;
+    grid-template-areas:
+        "resortName"
+        "resortImg"
+        "resortInfo";
+}
+
 .resortName {
+    grid-area: resortName;
     font-family: 'Anonymous Pro';
 }
 
 .resortImg {
 
+    grid-area: resortImg;
     padding-bottom: 1rem;
 
     img {
-        height: 60vh;
-        width: 75vw;
+        width: 90vw;
+        height: auto;
     }
 }
 
 .resortInfo {
+    grid-area: resortInfo;
+
     padding-block: 1rem;
     font-family: "Anonymous Pro";
+
+    grid-template-areas:
+        "visitPageButton" "snowfall" "address";
 }
 
 .address {
+    grid-area: address;
     width: 100%;
+    padding-right: 2vw;
     display: flex;
     flex-direction: row-reverse;
     height: fit-content;
 }
 
 .snowfall {
+    grid-area: snowfall;
     width: 15vw;
 }
 
 .visitPageButton {
+    grid-area: visitPageButton;
     width: 15vw;
 }
