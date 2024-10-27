@@ -7,49 +7,52 @@ function Home() {
                 <img className="logo" src='src/assets/logoCircle.png'></img> 
                 <div className="title">SkiSmart</div>
             </div>
-            <div className = "contentContainer">
-                <h1>Welcome to SkiSmart: Your Ultimate Companion for Safer Skiing</h1>
-                <h2>Real-Time Weather and Ski Conditions at Your Fingertips</h2>
+            <div className="contentContainer">
+                <div className="intro">
+                    <h1>Welcome to SkiSmart: Your Ultimate Companion for Safer Skiing</h1>
+                </div>
+                <div className="mission">
+                    <h2>Our Mission</h2>
                     <p>
-                        <strong>Experience the thrill of the slopes with confidence.</strong> SkiSmart provides you with current weather updates and detailed ski conditions for your favorite snow sports areas, ensuring you have all the information you need for a safe and enjoyable adventure.
+                        MISSION STUFF MISSION STUFF MISSION STUFF MISSION STUFF MISSION STUFF MISSION STUFF
+                        MISSION STUFF MISSION STUFF MISSION STUFF MISSION STUFF MISSION STUFF MISSION STUFF
                     </p>
-                <h3>Why Choose SkiSmart?</h3>
-                    <ul>
-                        <li>
-                            <strong>Stay Informed:</strong> Access real-time weather forecasts, snowfall reports, and temperature readings.
-                        </li>
-                        <li>
-                            <strong>Know the Slopes:</strong> Get detailed information on trail conditions, lift statuses, and terrain parks.
-                        </li>
-                        <li>
-                            <strong>Stay Connected:</strong> Share your experiences and always have ski patrol at your fingertips.
-                        </li>
-                        <li>
-                            <strong>Safety Alerts:</strong> Receive immediate notifications about avalanche warnings, trail closures, and other safety concerns.
-                        </li>
-                        <li>
-                            <strong>Plan Ahead:</strong> View extended forecasts and historical data to plan the perfect ski trip.
-                        </li>
-                        <li>
-                            <strong>Personalized Experience:</strong> Customize your dashboard to focus on the locations and data that matter most to you.
-                        </li>
-                    </ul>
-                <h3>Your Safety is Our Priority</h3>
-                <p>
-                At SkiSmart, we believe that safety enhances enjoyment. By providing accurate and timely information, we empower you to make smarter decisions, reduce risks, and fully embrace the joy of snow sports.
-                </p>
-                <h3>Ready to Elevate Your Skiing Experience?</h3>
-                    <p>
-                        <strong>Join SkiSmart today and glide into a safer, more informed adventure on the slopes.</strong>
-                    </p>
-                    <a href="./signin" style={{ textDecoration: 'none' }}>
-                        <button style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}}>Get Started Now</button>
-                    </a>
-                <hr />
+                </div>
+                <div className="NOAA">
+                    <h2 className="NOAAText"> NOAA Data
+                        <p>
+                            NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA
+                            NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA
+                            NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA NOAA
+                        </p>
+                    </h2>
+                    <div className="NOAAImg"> </div>
 
-                <p style={{ fontStyle: 'italic', textAlign: 'center' }}>
-                    Stay safe. Stay informed. Enjoy every moment with SkiSmart.
-                </p>
+                </div>
+                <div className="team">
+                    <div className="teamImg"></div>
+                    <h2 className="teamText">The team
+                        <p>
+                            TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM
+                            TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM
+                            TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM
+                        </p>
+                    </h2>
+                </div>
+                <div className="footer">
+                    <h3>Ready to Elevate Your Skiing Experience?</h3>
+                        <p>
+                            <strong>Join SkiSmart today and glide into a safer, more informed adventure on the slopes.</strong>
+                        </p>
+                        <a href="./signin" style={{ textDecoration: 'none' }}>
+                            <button style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}}>Get Started Now</button>
+                        </a>
+                    <hr />
+
+                    <p style={{ fontStyle: 'italic', textAlign: 'center' }}>
+                        Stay safe. Stay informed. Enjoy every moment with SkiSmart.
+                    </p>
+                </div>
             </div>
         </div>
     );

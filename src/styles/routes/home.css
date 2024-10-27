@@ -52,11 +52,102 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    font-size: 1.5vw;
     
+    font-size: 1.5vw;
     font-family: "Anonymous Pro"," monospace";
     color: black;
-    transition: margin-top 0.5s ease;
+
+    grid-template-areas:
+        "intro"
+        "mission"
+        "NOAA"
+        "team"
+        "footer";
+}
+
+.intro {
+    grid-area: intro;
+    margin-top: 4vw;
+}
+
+.mission {
+    grid-area: mission;
+    margin-top: 4vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: orange;
+}
+
+.NOAA {
+    grid-area: NOAA;
+    margin-top: 4vw;
+    display: grid; 
+    grid-template-columns: 2fr 1fr; 
+    grid-template-areas: 
+        "NOAAText NOAAImg";
+}
+
+.NOAAText {
+    grid-area: NOAAText;
+
+    margin-right: 2vw;
+    
+    background-color: purple;
+}
+
+.NOAAImg {
+    grid-area: NOAAImg;
+    
+    border: 2px solid black;
+    border-radius: 20px;
+    background-image: url('src/assets/NOAALandingImg.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+
+    width: 100%;
+}
+
+.team {
+    grid-area: team;
+    margin-top: 4vw;
+    display: grid; 
+    grid-template-columns: 1fr 2fr; 
+    grid-template-areas: 
+        "teamImg teamText";
+}
+
+.teamImg {
+    grid-area: teamImg;
+
+    border: 2px solid black;
+    border-radius: 20px;
+    background-image: url('src/assets/placeholder.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+
+    width: 100%;
+}
+
+
+.teamText {
+    grid-area: teamText;
+    margin-top: 4vw;
+    margin-left: 2vw;
+    background-color: pink;
+}
+
+
+.footer {
+    grid-area: footer;
+    margin-top: 5vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
   
