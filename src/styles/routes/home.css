@@ -47,7 +47,7 @@
 .pageContainer .contentContainer {
     grid-area: contentContainer;
     margin-left: 2vh;
-    width: 97%;
+    margin-right: 2vh;
 
     display: flex;
     flex-direction: column;
