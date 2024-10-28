@@ -53,13 +53,14 @@
     justify-content: center;
     align-items: center;
     
-    font-size: 1.5vw;
+    font-size: 1.3em;
     font-family: "Anonymous Pro"," monospace";
     color: black;
 
     grid-template-areas:
         "intro"
         "mission"
+        "popularResorts"
         "NOAA"
         "team"
         "footer";
@@ -68,23 +69,61 @@
 .intro {
     grid-area: intro;
     margin-top: 4vw;
+
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
 .mission {
     grid-area: mission;
     margin-top: 4vw;
 
+    height: 105vh;
+
+    font-size: 1.4em;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
 
-    background-color: orange;
+.popularResorts {
+    grid-area: popularResorts;
+    margin-top: 4vw;
+
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    height: 20%;
+
+}
+
+.exploreButtonImg {
+    width: 85%; 
+    height: auto; 
+    cursor: pointer; 
+    transition: transform 0.3s ease; 
+}
+
+.exploreButtonImg:hover {
+    transform: scale(1.1); 
 }
 
 .NOAA {
     grid-area: NOAA;
     margin-top: 4vw;
+    height: 100vh;
+
     display: grid; 
     grid-template-columns: 2fr 1fr; 
     grid-template-areas: 
@@ -94,19 +133,21 @@
 .NOAAText {
     grid-area: NOAAText;
 
+    font-size: 1.4em;
+
     margin-right: 2vw;
-    
-    background-color: purple;
 }
 
 .NOAAImg {
     grid-area: NOAAImg;
-    
+
+    margin-top: 20vh;
+
+    width: auto;
+    height: auto;
+
     border: 2px solid black;
     border-radius: 20px;
-    background-image: url('src/assets/NOAALandingImg.png');
-    background-size: 100%;
-    background-repeat: no-repeat;
 
     width: 100%;
 }
@@ -114,6 +155,10 @@
 .team {
     grid-area: team;
     margin-top: 4vw;
+    height: 100vh;
+
+    font-size: 2vw;
+    
     display: grid; 
     grid-template-columns: 1fr 2fr; 
     grid-template-areas: 
@@ -123,11 +168,13 @@
 .teamImg {
     grid-area: teamImg;
 
+    margin-top: 20vh;
+
+    width: auto;
+    height: auto;
+
     border: 2px solid black;
     border-radius: 20px;
-    background-image: url('src/assets/placeholder.png');
-    background-size: 100%;
-    background-repeat: no-repeat;
 
     width: 100%;
 }
@@ -135,6 +182,9 @@
 
 .teamText {
     grid-area: teamText;
+
+    font-size: 1.4em;
+
     margin-top: 4vw;
     margin-left: 2vw;
     background-color: pink;
@@ -151,3 +201,20 @@
     align-items: center;
 }
   
+@media (max-width: 964px) {
+    .NOAA {
+        height: auto;
+        grid-template-columns: 1fr; 
+        grid-template-areas: 
+            "NOAAText"
+            "NOAAImg";
+    }
+
+    .team {
+        height: auto;
+        grid-template-columns: 1fr; 
+        grid-template-areas: 
+            "teamText"
+            "teamImg";
+    }
+}

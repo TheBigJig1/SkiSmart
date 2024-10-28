@@ -48,5 +48,6 @@
 
 .visitPageButton {
     grid-area: visitPageButton;
+    color: white;
     width: 15vw;
 }
