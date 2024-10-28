@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/jquery": "^3.5.32",
     "@types/node": "^22.7.5",
+    "esri-leaflet": "^3.0.13",
+    "jQuery": "^1.7.4",
+    "leaflet": "^1.9.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
