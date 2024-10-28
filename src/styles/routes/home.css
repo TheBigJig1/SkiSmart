@@ -9,7 +9,7 @@
     
     grid-area: pageBackground;
 
-    height: 26vw;
+    height: 55vh;
     width: 100%;
     
     background-image: url('src/assets/HiResMountain.jpg');
@@ -21,6 +21,7 @@
         "title";
 
     padding-top: 5vh;
+    margin-bottom: 5vh;
     
 }
 
@@ -68,7 +69,7 @@
 
 .intro {
     grid-area: intro;
-    margin-top: 4vw;
+    margin-top: 0vh;
 
     height: 100vh;
 
@@ -80,9 +81,9 @@
 
 .mission {
     grid-area: mission;
-    margin-top: 4vw;
+    margin-top: 10vh;
 
-    height: 105vh;
+    height: auto;
 
     font-size: 1.4em;
 

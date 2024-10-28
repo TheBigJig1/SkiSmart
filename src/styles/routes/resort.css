@@ -11,7 +11,7 @@
     
     grid-area: resortBackground;
 
-    height: 26vw;
+    height: 55vh;
     width: 100%;
     
     background-image: url('src/assets/HiResMountain.jpg');
@@ -23,6 +23,7 @@
         "resortTitle";
 
     padding-top: 5vh;
+    margin-bottom: 10vh;
     
 }
 
@@ -79,8 +80,14 @@
     border: 2px solid black;
     
     border-radius: 5px;
+    background-color: black;
     color: white; 
     cursor: pointer;
+    transition: transform 0.3s ease; 
+}
+
+.searchButton:hover {
+    transform: scale(1.1); 
 }
 
 .resortContentContainer {

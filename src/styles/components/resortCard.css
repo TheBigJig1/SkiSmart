@@ -48,6 +48,12 @@
 
 .visitPageButton {
     grid-area: visitPageButton;
-    color: white;
+    background-color: black;
+    color:white;
     width: 15vw;
+    transition: transform 0.3s ease; 
+}
+
+.visitPageButton:hover {
+    transform: scale(1.1);
 }
