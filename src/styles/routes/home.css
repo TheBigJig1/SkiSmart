@@ -21,7 +21,6 @@
         "title";
 
     padding-top: 5vh;
-    margin-bottom: 5vh;
     
 }
 
@@ -58,6 +57,7 @@
     font-family: "Anonymous Pro"," monospace";
     color: black;
 
+    display: grid;
     grid-template-areas:
         "intro"
         "mission"
@@ -71,7 +71,7 @@
     grid-area: intro;
     margin-top: 0vh;
 
-    height: 100vh;
+    height: 50vh;
 
     display: flex;
     flex-direction: column;
