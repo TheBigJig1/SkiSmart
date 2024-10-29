@@ -8,7 +8,8 @@
 }
 .fbackground {
     grid-area: fbackground;
-    height: 130vh;
+    height: 70vw;
+    min-height: 70vh;
 
     justify-items: center;
 
@@ -43,6 +44,8 @@
     grid-area: ftitle;
     justify-self: center;
     align-items: top;
+
+    transform: translateY(-3vw);
 
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
