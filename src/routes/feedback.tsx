@@ -1,5 +1,5 @@
 import '@/styles/routes/feedback.css';
-import mountain from '../assets/skiMountains.jpg';
+import mountain from '../assets/review-background.jpg';
 
 
 function Feedback() {

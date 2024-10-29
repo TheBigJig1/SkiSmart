@@ -2,7 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-image: url('src/assets/review-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 100%;
 }
 .backImg {
@@ -11,7 +14,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    background-image: url('../assets/skiMountains.jpg');
+    background-image: url('src/assets/review-background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
