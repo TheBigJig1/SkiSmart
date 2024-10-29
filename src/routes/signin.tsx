@@ -5,7 +5,7 @@ import logo from '../assets/logoCircle.png';
 const Signin = () => {
   return (
     <div className="signin-container">
-      <div className="signin-background" style={{ backgroundImage: `url(${skiMountains})` }}>
+      <div className="signin-background">
         <div className="signin-form">
           <div className="signin-logo">
             <img src={logo} alt="Skismart Logo" className="logo-image" />

@@ -57,12 +57,12 @@ function ResortInfo() {
             <div className="indvPageContainer">
                 <div className="pageInfo">
                     <h1>Resort Name</h1>
-                        <img src="src/assets/placeholder.png" alt="resort.png" />
-                        <h3>Address: Resort Address Address: Resort Address Address: Resort Address</h3>
+                        <img src="src/assets/TheWisp.jpg" alt="resort.png" />
+                        <h3>Address: Resort</h3>
                         <h3>Coordinates: Latitude, Longitude</h3>
                 </div>
                 <div className="leaflet">
-                    <h1>Map</h1>
+                    <h1>Interactive Mountain Map</h1>
                     <div className="mapContainer">
                         <img src="src/assets/map.png" alt="map" />
                     </div>
