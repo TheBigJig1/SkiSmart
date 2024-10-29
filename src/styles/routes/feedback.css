@@ -2,10 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('src/assets/review-background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: white;
     width: 100%;
 }
 .backImg {
