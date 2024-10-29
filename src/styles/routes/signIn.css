@@ -2,7 +2,7 @@
   height: 96vh;
   width: 100%;
 
-  background-image: url('src/assets/HiResMountain.jpg');
+  background-image: url('src/assets/sign-in-background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -52,7 +52,6 @@
 }
 
 .signin-logo {
-
   position: relative;
   display: flex;
   flex-direction: column;
@@ -62,7 +61,7 @@
 
 .logo-text {
   font-size: 2rem;
-  color: white;
+  color: black;
   margin: 0;
   font-family: "Anonymous Pro", monospace;
   font-weight: normal;

@@ -1,7 +1,7 @@
 import '@/styles/routes/signin.css';
 import logo from '../assets/logoCircle.png';
 
-const Signin = () => {
+function Signin () {
   return (
     <div className="signin-container">
       <div className="signin-form">
