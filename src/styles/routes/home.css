@@ -82,6 +82,7 @@
 .mission {
     grid-area: mission;
     margin-top: 10vh;
+    margin-bottom: 10vh;
 
     height: auto;
 
@@ -96,6 +97,7 @@
 .popularResorts {
     grid-area: popularResorts;
     margin-top: 4vw;
+    margin-bottom: 10vw;
 
     height: 100vh;
     
