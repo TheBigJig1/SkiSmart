@@ -1,57 +1,78 @@
 .fcontainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
+    display: grid;
     width: 100%;
+    color: black;
+    grid-template-areas:
+        "fbackground"
+        "feedbackDisplay";
 }
-.backImg {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+.fbackground {
+    grid-area: fbackground;
+    height: 130vh;
+
+    justify-items: center;
+
     background-image: url('src/assets/review-background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 100vw;
-    height: 100vh;
-    padding-top: 50px;
+
+    display: grid;
+    grid-template-areas:
+        "flogo"
+        "ftitle"
+        "feedback-container";
+
+    padding-top: 5vh;
+    
 }
-.backImg .flogo
-{
-    height: 25vw; 
-    width: auto; 
-    max-width: 256px;
-    max-height: 256px;
-    top: 0px;
+
+.flogo {
+    grid-area: flogo;
+
+    width: auto;
+    height: 18vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: top;
+
 }
-.backImg .ftitle
-{
+
+.ftitle {
+    grid-area: ftitle;
+    justify-self: center;
+    align-items: top;
+
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
     text-shadow: 0 0 15px black;
-    top:-20px;
+
 }
+
 .feedback-container {
-    min-height: 25vh;
-    min-width: 80vh;
+    grid-area: feedback-container;
+    width: 70vw;
+    height: 30vw;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     font-family: "Anonymous Pro", monospace;
-    background-color: rgba(217,217,217,0.8);;
-    padding-top: 20px;
+    background-color: rgba(217,217,217,0.8);
+
+    margin-bottom: 4vw;
 }
-label {
+
+.label {
     margin-bottom: 10px;
     font-weight: bold;
     font-family: "Anonymous Pro", monospace;
 }
 
-textarea {
+.textarea {
     width: 100%;
     padding: 10px;
     border: 4px solid #000000;
@@ -60,6 +81,7 @@ textarea {
     margin-bottom: 20px;
 
 }
+
 .feedback-box {
     width: 100%;
     max-width: 600px;
@@ -70,21 +92,31 @@ textarea {
     flex-direction: column;
     align-items: flex-start; 
 }
-.starRating
-{
+
+.starRating {
     display: flex;
     justify-content: center;
     margin: 10px 0;
 }
 
-.star
-{
+.star {
     font-size: 2rem;
     cursor: pointer;
     color: white;
     transition: color 0.2s;
 }
-.star:hover
-{
+
+.star:hover {
     color: gold;
+}
+
+.feedbackDisplay {
+    grid-area: feedbackDisplay;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: aqua;
 }

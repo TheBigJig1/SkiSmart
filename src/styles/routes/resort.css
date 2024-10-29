@@ -1,6 +1,7 @@
 .resortContainer {
     display: grid;
     width: 100%;
+    color: black;
     grid-template-areas:
         "resortBackground"
         "searchbar"
@@ -21,12 +22,10 @@
     justify-items:center;
     grid-template-columns:
         "resortLogo"
-        "resortTitle"
-        "resortText";
+        "resortTitle";
 
     padding-top: 5vh;
     margin-bottom: 10vh;
-    
 }
 
 .resortBackground::after {
@@ -44,7 +43,6 @@
     grid-area: resortLogo;
     width: auto;
     height: 18vw;
-
 }
 
 .resortTitle {
@@ -58,16 +56,17 @@
     height: 4vw;
 }
 
-.resortText {
+/*.resortText {
     grid-area: resortText;
+    margin-top: 2vw;
     justify-self: center;
 
-    font-size: 2vw;
+    font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
     text-shadow: 0 0 15px black;
 
     height: 4vw;
-}
+}*/
 
 .searchbar {
     grid-area: searchbar;
