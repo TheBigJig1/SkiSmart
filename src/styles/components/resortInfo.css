@@ -19,6 +19,8 @@
     background-size: 100%;
     background-repeat: no-repeat;
 
+    justify-items:center;
+
     grid-template-columns:
         "indvLogo"
         "indvTitle";
@@ -29,7 +31,6 @@
 
 .indvLogo {
     grid-area: indvLogo;
-    padding-left: 41vw;
     width: auto;
     height: 18vw;
 
@@ -37,7 +38,6 @@
 
 .indvTitle {
     grid-area: indvTitle;
-    padding-left: 42vw;
 
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;

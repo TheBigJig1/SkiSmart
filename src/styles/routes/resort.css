@@ -8,28 +8,40 @@
 }
 
 .resortBackground {
-    
+    position: relative;
     grid-area: resortBackground;
 
     height: 35vw;
     width: 100%;
     
-    background-image: url('src/assets/HiResMountain.jpg');
+    background-image: url('src/assets/resort-page-background.png');
     background-size: 100%;
     background-repeat: no-repeat;
 
+    justify-items:center;
     grid-template-columns:
         "resortLogo"
-        "resortTitle";
+        "resortTitle"
+        "resortText";
 
     padding-top: 5vh;
     margin-bottom: 10vh;
     
 }
 
+.resortBackground::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 33%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    pointer-events: none; 
+}
+
 .resortLogo {
     grid-area: resortLogo;
-    padding-left: 41vw;
     width: auto;
     height: 18vw;
 
@@ -37,9 +49,20 @@
 
 .resortTitle {
     grid-area: resortTitle;
-    padding-left: 42vw;
+    justify-self: center;
 
     font-size: 4vw;
+    font-family: "Anonymous Pro", monospace;
+    text-shadow: 0 0 15px black;
+
+    height: 4vw;
+}
+
+.resortText {
+    grid-area: resortText;
+    justify-self: center;
+
+    font-size: 2vw;
     font-family: "Anonymous Pro", monospace;
     text-shadow: 0 0 15px black;
 
