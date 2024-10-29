@@ -7,7 +7,9 @@ function ResortCard(props: {resortName: String; snowfall: String; address: Strin
             <img src={`src/assets/${props.resortName.replace(' ', '')}.jpg`}></img>
         </div>
         <div className="resortInfo">
-            <button className="visitPageButton">Visit Page</button>
+            <a href="/resortInfo">
+                <button className="visitPageButton">Visit Page</button>
+            </a>
             <div className="snowfall">
                 <h2>{props.snowfall}</h2>
             </div>

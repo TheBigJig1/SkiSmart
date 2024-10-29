@@ -6,6 +6,7 @@ import Home from './routes/home'
 import Feedback from './routes/feedback'
 import Signin from './routes/signin'
 import Signup from './routes/signup'
+import ResortInfo from './components/resortInfo'
 
 function App() {
   
@@ -31,6 +32,9 @@ function App() {
     case "/signup":
       component = <Signup />
       break
+      case "/resortInfo":
+        component = <ResortInfo />
+        break
 
     default:
       component = <Home />

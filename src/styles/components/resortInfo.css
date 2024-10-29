@@ -1,0 +1,191 @@
+.indvContainer {
+    display: grid;
+    width: 100%;
+
+    grid-template-columns: 1fr; 
+    grid-template-areas:
+        "indvBackground"
+        "indvPageContainer";
+}
+
+.indvBackground {
+    
+    grid-area: indvBackground;
+
+    height: 55vh;
+    width: 100%;
+    
+    background-image: url('src/assets/HiResMountain.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+
+    grid-template-columns:
+        "indvLogo"
+        "indvTitle";
+
+    padding-top: 5vh;
+    margin-bottom: 10vh;
+}
+
+.indvLogo {
+    grid-area: indvLogo;
+    padding-left: 41vw;
+    width: auto;
+    height: 18vw;
+
+}
+
+.indvTitle {
+    grid-area: indvTitle;
+    padding-left: 42vw;
+
+    font-size: 4vw;
+    font-family: "Anonymous Pro", monospace;
+    text-shadow: 0 0 15px black;
+
+    height: 4vw;
+}
+
+.indvPageContainer {
+    grid-area: indvPageContainer;
+    margin-left: 2vh;
+    margin-right: 2vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 1.3em;
+    font-family: "Anonymous Pro"," monospace";
+    color: black;
+
+    display: grid;
+    grid-template-areas:
+        "pageInfo"
+        "leaflet"
+        "skiData";
+}
+
+.pageInfo {
+    grid-area: pageInfo;
+    margin: 2vh;
+    padding: 2vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    height: auto;
+
+    background-color: green;
+}
+
+.pageInfo img {
+    width: 80%;
+    height: auto;
+}
+
+.leaflet {
+    height: auto; 
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background-color: red;
+}
+
+.mapContainer {
+    width: 90%;
+    height: 70vh;
+
+    margin-bottom: 2vh;
+
+    background-color: blue;
+}
+
+
+.skiData {
+    grid-area: skiData;
+
+    margin-top: 5vh;
+    height: auto;
+    width: 100%;
+
+    grid-template-areas:
+        "skiIntro"
+        "skiConditions";
+}
+
+.skiIntro {
+    grid-area: skiIntro;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    height: 10vh;
+    width: auto;
+
+    background-color: yellow;
+}
+
+.skiConditions {
+    grid-area: skiConditions;
+
+    height: auto;
+    width: 100%;
+
+    display: grid;
+    grid-template-areas:
+        "temperature windSpeed"
+        "snowfallRecent sunTime"
+        "snowDepth visibility"
+        "cloudCover weatherAdvisories";
+}
+
+.temperature {
+    grid-area: temperature;
+    background-color: orange;
+}
+
+.windSpeed {
+    grid-area: windSpeed;
+    background-color: purple;
+}
+
+.snowfallRecent {
+    grid-area: snowfallRecent;
+    background-color: pink;
+}
+
+.sunTime {
+    grid-area: sunTime;
+    background-color: lightblue;
+}
+
+.snowDepth {
+    grid-area: snowDepth;
+    background-color: lightgreen;
+}
+
+.visibility {
+    grid-area: visibility;
+    background-color: lightgray;
+}
+
+.cloudCover {
+    grid-area: cloudCover;
+    background-color: lightcoral;
+}
+
+.weatherAdvisories {
+    grid-area: weatherAdvisories;
+    background-color: lightgoldenrodyellow;
+}
