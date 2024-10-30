@@ -9,9 +9,9 @@
     
     grid-template-areas:
         "fbackground"
-        "feedback-box"
         "feedbackDisplay";
 }
+
 .fbackground {
     position: relative;
     grid-area: fbackground;
@@ -21,10 +21,13 @@
     width: 100%;
 
     justify-items:center;
-    grid-template-columns:
-        "flogo"
-        "ftitle";
 
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "flogo"
+        "ftitle"
+        "feedback-box";
     padding-top: 5vh;
 }
 
@@ -41,24 +44,19 @@
 
 .flogo {
     grid-area: flogo;
-
     width: auto;
     height: 18vw;
-
-    display: flex;
-    justify-content: center;
-    align-items: top;
-
 }
 
 .ftitle {
     grid-area: ftitle;
-    justify-self: center;
-    align-items: top;
-
+    
+    
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
     text-shadow: 0 0 15px black;
+
+    height: 4vw;
 
 }
 
