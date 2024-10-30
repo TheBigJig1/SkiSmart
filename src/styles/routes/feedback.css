@@ -9,7 +9,7 @@
     
     grid-template-areas:
         "fbackground"
-        "feedback-container"
+        "feedback-box"
         "feedbackDisplay";
 }
 .fbackground {
@@ -17,6 +17,7 @@
     grid-area: fbackground;
 
     height: 70vw;
+    min-height: 80vh;
     width: 100%;
 
     justify-items:center;
@@ -25,8 +26,17 @@
         "ftitle";
 
     padding-top: 5vh;
-    margin-bottom: 10vh;
-    
+}
+
+.fbackground::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 33%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    pointer-events: none; 
 }
 
 .flogo {
@@ -52,10 +62,11 @@
 
 }
 
-.feedback-container {
-    grid-area: feedback-container;
+.feedback-box {
+    grid-area: feedback-box;
     width: 70vw;
     height: 30vw;
+    min-height: 35vh;
 
     display: flex;
     flex-direction: column;
@@ -64,45 +75,49 @@
 
     font-family: "Anonymous Pro", monospace;
     background-color: rgba(217,217,217,0.8);
-
     border-radius: 20px;
+
+    grid-template-areas: 
+        "label"
+        "textarea"
+        "thisfeedback"
+        "starRating"
+        "submit";
 
     margin-bottom: 4vw;
 }
 
 .label {
+    grid-area: label;
+
     margin-bottom: 10px;
     font-weight: bold;
     font-family: "Anonymous Pro", monospace;
 }
 
-.textarea {
-    width: 40vw;
-    padding: 10px;
-    border: 4px solid #000000;
-    border-radius: 5px;
-    resize: none;
-    margin-bottom: 20px;
-}
-
-.thisfeedback {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 2vw;
-
-}
-
 .feedback-box {
-    width: 100%;
-    max-width: 600px;
+    max-width: 90vw;
     padding: 20px;
     border-radius: 8px;
     
     display: flex;
     flex-direction: column;
     align-items: center; 
+}
+
+.thisfeedback {
+    grid-area: thisfeedback;
+    min-height: 5vw;
+
+    border: 1px solid #000000;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 2vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .starRating {
@@ -122,13 +137,32 @@
     color: gold;
 }
 
+.submitButton {
+    cursor: pointer;
+    transition: transform 0.3s ease; 
+}
+
+.submitButton:hover {
+    transform: scale(1.1); 
+}
+
 .feedbackDisplay {
     grid-area: feedbackDisplay;
+    
+    background-color: white;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+}
 
-    background-color: aqua;
+.feedbackItem {
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 1vw;
+    width: 80%;
+    background-color: rgba(217,217,217,0.8);
 }
