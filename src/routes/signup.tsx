@@ -1,5 +1,4 @@
 import '@/styles/routes/signin.css';
-import skiMountains from '../assets/skiMountains.jpg';
 import logo from '../assets/logoCircle.png';
 
 function Signup() {
@@ -7,13 +6,12 @@ function Signup() {
         <div className="signin-container">
             {/*id how to comment but pretend this isnt here*/}
             {/*need to change image based on window size*/}
-        <div className="signin-background">
           <div className="signin-form">
             <div className="signin-logo">
               <img src={logo} alt="Skismart Logo" className="logo-image" />
               <h2 className="logo-text">SkiSmart</h2>
             </div>
-            <form className="signin-form-fields">
+            <form className="signup-form-fields">
               <div className="form-group">
                 <label htmlFor="full-name" className="form-label">Full Name:</label>
                 <input 
@@ -63,7 +61,6 @@ function Signup() {
               </div>
             </form>
           </div>
-        </div>
       </div>
     )
  }

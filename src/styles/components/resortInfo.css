@@ -20,8 +20,10 @@
     background-repeat: no-repeat;
 
     justify-items:center;
-
-    grid-template-columns:
+    
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
         "indvLogo"
         "indvTitle";
 

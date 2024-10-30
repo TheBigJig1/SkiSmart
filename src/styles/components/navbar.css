@@ -3,7 +3,7 @@ div.navbarContainer {
     position: sticky;
     background-color: white;
     height: 4vh;
-    width: 100vw;
+    width: calc(100vw - 4px);
     border-style:solid;
     font-family: "Anonymous Pro";
     font-size: calc(0.5vw + 10px);
