@@ -7,6 +7,7 @@ function Resort() {
         <div className="resortBackground">
             <img src='src/assets/logoCircle.png' className="resortLogo"></img>
             <div className="resortTitle">SkiSmart</div>
+            
         </div>
         <div className="searchbar">
             <input type="text" className="textBar" placeholder="Search for a resort..." />

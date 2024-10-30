@@ -1,90 +1,166 @@
 .fcontainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
+    display: grid;
     width: 100%;
-}
-.backImg {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    background-image: url('../assets/skiMountains.jpg');
+
+    background-image: url('src/assets/feedback-background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 100vw;
-    height: 100vh;
-    padding-top: 50px;
+    
+    grid-template-areas:
+        "fbackground"
+        "feedbackDisplay";
 }
-.backImg .flogo
-{
-    height: 25vw; 
-    width: auto; 
-    max-width: 256px;
-    max-height: 256px;
-    top: 0px;
+
+.fbackground {
+    position: relative;
+    grid-area: fbackground;
+
+    height: 70vw;
+    min-height: 80vh;
+    width: 100%;
+
+    justify-items:center;
+
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "flogo"
+        "ftitle"
+        "feedback-box";
+    padding-top: 5vh;
 }
-.backImg .ftitle
-{
+
+.fbackground::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 33%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    pointer-events: none; 
+}
+
+.flogo {
+    grid-area: flogo;
+    width: auto;
+    height: 18vw;
+}
+
+.ftitle {
+    grid-area: ftitle;
+    
+    
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
     text-shadow: 0 0 15px black;
-    top:-20px;
+
+    height: 4vw;
+
 }
-.feedback-container {
-    min-height: 25vh;
-    min-width: 80vh;
+
+.feedback-box {
+    grid-area: feedback-box;
+    width: 70vw;
+    height: 30vw;
+    min-height: 35vh;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     font-family: "Anonymous Pro", monospace;
-    background-color: rgba(217,217,217,0.8);;
-    padding-top: 20px;
+    background-color: rgba(217,217,217,0.8);
+    border-radius: 20px;
+
+    grid-template-areas: 
+        "label"
+        "textarea"
+        "thisfeedback"
+        "starRating"
+        "submit";
+
+    margin-bottom: 4vw;
 }
-label {
+
+.label {
+    grid-area: label;
+
     margin-bottom: 10px;
     font-weight: bold;
     font-family: "Anonymous Pro", monospace;
 }
 
-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 4px solid #000000;
-    border-radius: 5px;
-    resize: none;
-    margin-bottom: 20px;
-
-}
 .feedback-box {
-    width: 100%;
-    max-width: 600px;
+    max-width: 90vw;
     padding: 20px;
     border-radius: 8px;
     
     display: flex;
     flex-direction: column;
-    align-items: flex-start; 
+    align-items: center; 
 }
-.starRating
-{
+
+.thisfeedback {
+    grid-area: thisfeedback;
+    min-height: 5vw;
+
+    border: 1px solid #000000;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 2vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.starRating {
     display: flex;
     justify-content: center;
     margin: 10px 0;
 }
 
-.star
-{
+.star {
     font-size: 2rem;
     cursor: pointer;
     color: white;
     transition: color 0.2s;
 }
-.star:hover
-{
+
+.star:hover {
     color: gold;
+}
+
+.submitButton {
+    cursor: pointer;
+    transition: transform 0.3s ease; 
+}
+
+.submitButton:hover {
+    transform: scale(1.1); 
+}
+
+.feedbackDisplay {
+    grid-area: feedbackDisplay;
+    
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.feedbackItem {
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 1vw;
+    width: 80%;
+    background-color: rgba(217,217,217,0.8);
 }
