@@ -1,7 +1,6 @@
 .resortContainer {
     display: grid;
     width: 100%;
-    color: black;
     grid-template-areas:
         "resortBackground"
         "searchbar"
