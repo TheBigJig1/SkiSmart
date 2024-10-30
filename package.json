@@ -12,7 +12,6 @@
   "dependencies": {
     "@types/node": "^22.7.5",
     "esri-leaflet": "^3.0.13",
-    "jquery": "^3.7.1",
     "jQuery": "^1.7.4",
     "leaflet": "^1.9.4",
     "react": "^18.3.1",
@@ -28,6 +27,9 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",
+    "i": "^0.3.7",
+    "jquery": "^3.7.1",
+    "npm": "^10.9.0",
     "react-router-dom": "^6.27.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.7.0",

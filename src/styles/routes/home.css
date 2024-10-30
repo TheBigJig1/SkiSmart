@@ -18,10 +18,11 @@
 
     justify-items:center;
 
-    grid-template-columns:
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
         "logo"
         "title";
-
     padding-top: 5vh;
     
 }

@@ -18,8 +18,10 @@
     background-size: 100%;
     background-repeat: no-repeat;
 
-    justify-items:center;
-    grid-template-columns:
+    justify-items: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
         "resortLogo"
         "resortTitle";
 

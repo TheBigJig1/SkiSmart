@@ -7,7 +7,7 @@ function Signup() {
         <div className="signin-container">
             {/*id how to comment but pretend this isnt here*/}
             {/*need to change image based on window size*/}
-        <div className="signin-background" style={{ backgroundImage: `url(${skiMountains})` }}>
+        <div className="signin-background">
           <div className="signin-form">
             <div className="signin-logo">
               <img src={logo} alt="Skismart Logo" className="logo-image" />
