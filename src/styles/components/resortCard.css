@@ -27,9 +27,6 @@
 
     padding-block: 1rem;
     font-family: "Anonymous Pro";
-
-    grid-template-areas:
-        "visitPageButton" "snowfall" "address";
 }
 
 .address {
@@ -43,7 +40,7 @@
 
 .snowfall {
     grid-area: snowfall;
-    width: 15vw;
+    width: 20vw;
 }
 
 .visitPageButton {
