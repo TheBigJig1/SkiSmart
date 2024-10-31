@@ -141,5 +141,7 @@
   flex-direction: column;
   align-items: center;
 
+  transform: translateY(-3vh);
+
   margin-bottom: 4vw;
 }

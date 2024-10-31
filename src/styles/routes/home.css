@@ -244,3 +244,57 @@
             "teamImg";
     }
 }
+
+@media (prefers-color-scheme: dark) {
+ 
+    .pageContainer {
+        background-color: #141414;
+    }
+
+    .pageBackground {
+        background-image: url('src/assets/dark-mode-background.jpg');
+        background-position: center;
+    }
+
+    .title {
+        color: #ededeb;
+    }
+
+    .pageBackground::after {
+        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
+    }
+
+    .intro {
+        color: #ededeb;
+    }
+
+    .mission {
+        color: #ededeb;
+    }
+
+    .popularResorts {
+        color: #ededeb;
+    }
+
+    .exploreButtonImg {
+        background-image: url('src/assets/exploreButtonDark.jpg');
+    }
+
+    .footer {
+        color: #ededeb;
+    }
+
+    .teamText {
+        color: #ededeb;
+    }
+
+    .NOAAText {
+        color: #ededeb;
+    }
+
+    .signinRedirect {
+        margin-top: 2vh;
+        border: 1px solid #ededeb;
+    }
+
+}
