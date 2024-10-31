@@ -124,14 +124,22 @@
 
 }
 
-.exploreButtonImg {
-    width: 85%; 
-    height: auto; 
+.exploreButtonContainer {
+    justify-self: center;
+    width: 85%;
+    background-image: url("src/assets/exploreButton.png");
+    background-size: cover;
     cursor: pointer; 
     transition: transform 0.3s ease; 
 }
 
-.exploreButtonImg:hover {
+.exploreButtonImg {
+    width: 100%; 
+    height: auto; 
+    opacity: 0;
+}
+
+.exploreButtonContainer:hover {
     transform: scale(1.1); 
 }
 
@@ -277,8 +285,8 @@
         color: #ededeb;
     }
 
-    .exploreButtonImg {
-        background-image: url('src/assets/exploreButtonDark.jpg');
+    .exploreButtonContainer {
+        background-image: url("src/assets/exploreButtonDark.png");
     }
 
     .footer {

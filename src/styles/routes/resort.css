@@ -3,6 +3,7 @@
     width: 100%;
     grid-template-areas:
         "resortBackground"
+        "resortText"
         "searchbar"
         "resortContentContainer";
 }
@@ -58,17 +59,21 @@
     height: 4vw;
 }
 
-/*.resortText {
+.resortText {
     grid-area: resortText;
     margin-top: 2vw;
     justify-self: center;
 
-    font-size: 4vw;
+    transform: translateY(-2vh);
+
+    font-size: 5vw;
     font-family: "Anonymous Pro", monospace;
+    color: white;
     text-shadow: 0 0 15px black;
 
     height: 4vw;
-}*/
+    margin-bottom: 2vw;
+}
 
 .searchbar {
     grid-area: searchbar;
@@ -87,7 +92,7 @@
 }
 
 .textBar {
-    width: 80%;
+    width: 75%;
     padding: 10px; 
     font-size: 1em; 
     border: 1px solid #ccc; 

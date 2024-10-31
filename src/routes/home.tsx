@@ -28,7 +28,9 @@ function Home() {
                 <div className="popularResorts">
                     <h1>Explore Popular Resorts</h1>
                     <a href="/resorts">
-                        <img className="exploreButtonImg" src="src/assets/exploreButton.png" alt="Explore Resorts" />
+                        <div className="exploreButtonContainer">
+                            <img className="exploreButtonImg" src="src/assets/exploreButton.png" alt="Explore Resorts" />
+                        </div>
                     </a>
                 </div>
                 <div className="NOAA">
