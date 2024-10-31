@@ -63,7 +63,6 @@ function Home() {
                         <a href="./signin" style={{ textDecoration: 'none' }}>
                             <button className="signinRedirect" style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}}>Get Started Now</button>
                         </a>
-
                     <p style={{ fontStyle: 'italic', textAlign: 'center' }}>
                         Stay safe. Stay informed. Enjoy every moment with SkiSmart.
                     </p>
