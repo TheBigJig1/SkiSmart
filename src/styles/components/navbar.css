@@ -37,6 +37,7 @@ div.navRight{
     
 }
 div.imgContainer{
+    transform: translateY(-2px);
     img {
         width: 25px;
         height: 25px;
