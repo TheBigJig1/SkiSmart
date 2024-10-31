@@ -145,3 +145,17 @@
 
   margin-bottom: 4vw;
 }
+
+@media (prefers-color-scheme: dark) {
+ 
+  .signin-container {
+    background-image: url('src/assets/sign-in-background-dark.jpg');
+    background-position: center;
+    height: calc(96vh - 2px);
+  }
+
+  .signin-logo {
+      color: #ededeb;
+  }
+
+}
