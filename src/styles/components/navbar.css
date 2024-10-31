@@ -44,3 +44,19 @@ div.imgContainer{
       }
       
 }
+
+@media (prefers-color-scheme: dark) {
+    div.navbarContainer {
+        background-color: #141414;
+        border: 1px solid #ededeb;
+        width: calc(100vw - 2px);
+        color: #ededeb;
+    }
+    div.navLeft a, div.navRight a{
+        color: #ededeb;
+    }
+    div.imgContainer img {
+        border: 1px solid #ededeb;
+        border-radius: 4px;
+    }
+}

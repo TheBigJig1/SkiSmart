@@ -136,3 +136,34 @@
     flex-direction: row;
     gap: 5rem;
 }
+
+@media (prefers-color-scheme: dark) {
+ 
+    .resortContainer {
+        background-color: #141414;
+    }
+
+    .resortBackground {
+        background-image: url('src/assets/dark-mode-background.jpg');
+        background-position: center;
+    }
+
+    .resortTitle {
+        color: #ededeb;
+    }
+
+    .resortBackground::after {
+        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
+    }
+
+    .searchButton {
+        border: 2px solid #ededeb;
+        background-color: black;
+        color: #ededeb; 
+    }
+
+    .resortContentContainer {
+        color: #ededeb;
+    }
+
+}
