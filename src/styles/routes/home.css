@@ -18,10 +18,11 @@
 
     justify-items:center;
 
-    grid-template-columns:
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
         "logo"
         "title";
-
     padding-top: 5vh;
     
 }
@@ -49,6 +50,7 @@
 
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
+    color: black;
     text-shadow: 0 0 15px black;
 
     height: 4vw;
@@ -80,14 +82,15 @@
 
 .intro {
     grid-area: intro;
-    margin-top: 0vh;
+    margin-top: 2vw;
 
-    height: 50vh;
+    font-size: clamp(1rem, 4vw, 2.5rem);
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    margin-bottom: 2vw;
 }
 
 .mission {
@@ -122,14 +125,22 @@
 
 }
 
-.exploreButtonImg {
-    width: 85%; 
-    height: auto; 
+.exploreButtonContainer {
+    justify-self: center;
+    width: 85%;
+    background-image: url("src/assets/exploreButton.png");
+    background-size: cover;
     cursor: pointer; 
     transition: transform 0.3s ease; 
 }
 
-.exploreButtonImg:hover {
+.exploreButtonImg {
+    width: 100%; 
+    height: auto; 
+    opacity: 0;
+}
+
+.exploreButtonContainer:hover {
     transform: scale(1.1); 
 }
 
@@ -242,4 +253,58 @@
             "teamText"
             "teamImg";
     }
+}
+
+@media (prefers-color-scheme: dark) {
+ 
+    .pageContainer {
+        background-color: #141414;
+    }
+
+    .pageBackground {
+        background-image: url('src/assets/dark-mode-background.jpg');
+        background-position: center;
+    }
+
+    .title {
+        color: #ededeb;
+    }
+
+    .pageBackground::after {
+        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
+    }
+
+    .intro {
+        color: #ededeb;
+    }
+
+    .mission {
+        color: #ededeb;
+    }
+
+    .popularResorts {
+        color: #ededeb;
+    }
+
+    .exploreButtonContainer {
+        background-image: url("src/assets/exploreButtonDark.png");
+    }
+
+    .footer {
+        color: #ededeb;
+    }
+
+    .teamText {
+        color: #ededeb;
+    }
+
+    .NOAAText {
+        color: #ededeb;
+    }
+
+    .signinRedirect {
+        margin-top: 2vh;
+        border: 1px solid #ededeb;
+    }
+
 }

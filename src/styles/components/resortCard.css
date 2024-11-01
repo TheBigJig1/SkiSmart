@@ -12,7 +12,7 @@
 }
 
 .resortImg {
-
+    
     grid-area: resortImg;
     padding-bottom: 1rem;
 
@@ -27,9 +27,6 @@
 
     padding-block: 1rem;
     font-family: "Anonymous Pro";
-
-    grid-template-areas:
-        "visitPageButton" "snowfall" "address";
 }
 
 .address {
@@ -43,7 +40,7 @@
 
 .snowfall {
     grid-area: snowfall;
-    width: 15vw;
+    width: 20vw;
 }
 
 .visitPageButton {
@@ -59,4 +56,18 @@
 
 .visitPageButton:hover {
     transform: scale(1.1);
+}
+
+@media (prefers-color-scheme: dark) {
+ 
+    .cardContainer {
+        background-color: #141414;
+    }
+
+    .visitPageButton {
+        border: 2px solid #ededeb;
+        background-color: black;
+        color: #ededeb; 
+    }
+
 }

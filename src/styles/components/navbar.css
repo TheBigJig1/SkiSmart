@@ -3,7 +3,7 @@ div.navbarContainer {
     position: sticky;
     background-color: white;
     height: 4vh;
-    width: 100vw;
+    width: calc(100vw - 4px);
     border-style:solid;
     font-family: "Anonymous Pro";
     font-size: calc(0.5vw + 10px);
@@ -37,10 +37,27 @@ div.navRight{
     
 }
 div.imgContainer{
+    transform: translateY(-2px);
     img {
         width: 20px;
         height: 20px;
         margin-left:.5vw;
       }
       
+}
+
+@media (prefers-color-scheme: dark) {
+    div.navbarContainer {
+        background-color: #141414;
+        border: 1px solid #ededeb;
+        width: calc(100vw - 2px);
+        color: #ededeb;
+    }
+    div.navLeft a, div.navRight a{
+        color: #ededeb;
+    }
+    div.imgContainer img {
+        border: 1px solid #ededeb;
+        border-radius: 4px;
+    }
 }

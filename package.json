@@ -10,23 +10,28 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/jquery": "^3.5.32",
     "@types/node": "^22.7.5",
     "esri-leaflet": "^3.0.13",
     "jQuery": "^1.7.4",
     "leaflet": "^1.9.4",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-leaflet": "^4.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "@types/jquery": "^3.5.32",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
+    "@types/react-leaflet": "^2.8.3",
     "@vitejs/plugin-react": "^4.3.2",
     "eslint": "^9.11.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",
+    "i": "^0.3.7",
+    "jquery": "^3.7.1",
+    "npm": "^10.9.0",
     "react-router-dom": "^6.27.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.7.0",

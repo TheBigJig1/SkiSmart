@@ -20,6 +20,7 @@
   margin-bottom: 2vh;
   width: 100%;
   height: auto;
+  max-height: 90vh;
 
   background-color: rgba(182, 182, 182, 0.849);
   border: 0px;
@@ -133,4 +134,28 @@
   padding: 1rem;
   background-color: #f8f9fa;
   font-size: small;
+}
+
+.signup-form-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  transform: translateY(-3vh);
+
+  margin-bottom: 4vw;
+}
+
+@media (prefers-color-scheme: dark) {
+ 
+  .signin-container {
+    background-image: url('src/assets/sign-in-background-dark.jpg');
+    background-position: center;
+    height: calc(96vh - 2px);
+  }
+
+  .signin-logo {
+      color: #ededeb;
+  }
+
 }

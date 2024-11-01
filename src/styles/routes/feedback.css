@@ -9,9 +9,9 @@
     
     grid-template-areas:
         "fbackground"
-        "feedback-box"
         "feedbackDisplay";
 }
+
 .fbackground {
     position: relative;
     grid-area: fbackground;
@@ -21,10 +21,13 @@
     width: 100%;
 
     justify-items:center;
-    grid-template-columns:
-        "flogo"
-        "ftitle";
 
+    display: grid;
+    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-areas:
+        "flogo"
+        "ftitle"
+        "feedback-box";
     padding-top: 5vh;
 }
 
@@ -41,24 +44,19 @@
 
 .flogo {
     grid-area: flogo;
-
     width: auto;
     height: 18vw;
-
-    display: flex;
-    justify-content: center;
-    align-items: top;
-
 }
 
 .ftitle {
     grid-area: ftitle;
-    justify-self: center;
-    align-items: top;
-
+    
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
+    color: black;
     text-shadow: 0 0 15px black;
+
+    height: 4vw;
 
 }
 
@@ -67,6 +65,8 @@
     width: 70vw;
     height: 30vw;
     min-height: 35vh;
+
+    transform: translateY(-8vw);
 
     display: flex;
     flex-direction: column;
@@ -165,4 +165,42 @@
     margin: 1vw;
     width: 80%;
     background-color: rgba(217,217,217,0.8);
+}
+
+@media (max-width: 728px) {
+    .fbackground {
+        grid-template-rows: 1fr 1fr 3fr;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+ 
+    .fcontainer {
+        background-color: #141414;
+    }
+
+    .fbackground {
+        background-image: url('src/assets/feedback-background-dark.jpg');
+        background-position: center;
+    }
+
+    .ftitle {
+        color: #ededeb;
+    }
+
+    .fbackground::after {
+        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
+    }
+
+    .submitButton {
+        border: 2px solid #ededeb;
+        background-color: black;
+        color: #ededeb; 
+    }
+
+    .feedbackDisplay {
+        background-color: #141414;
+        color: #ededeb;
+    }
+
 }
