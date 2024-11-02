@@ -9,44 +9,25 @@ import Signup from './routes/signup'
 import ResortInfo from './components/resortInfo'
 import Account from './routes/account'
 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 function App() {
-  
-  let component
-  switch(window.location.pathname) {
-    case "/":
-      component = <Home />
-      break
-    case "/weather":
-      component = <Weather />
-      break
-    case "/resorts":
-      component = <Resort />
-      break
-    case "/feedback":
-      component = <Feedback />
-      break
-    case "/signin":
-      component = <Signin />
-      break
-    case "/signup":
-      component = <Signup />
-      break
-    case "/resortInfo":
-        component = <ResortInfo />
-      break
-    case "/account":
-      component = <Account />
-      break
-    default:
-      component = <Home />
-  }
 
   return (
-    <div className='container'>
-      <Navbar></Navbar>
-      {component}
-    </div>
-  )
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/weather' element={<Weather />} />
+        <Route path='/resorts' element={<Resort />} />
+        <Route path='/feedback' element={<Feedback />} />
+        <Route path='/signin' element={<Signin />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/resortInfo' element={<ResortInfo />} />
+        <Route path='/account' element={<Account />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App
