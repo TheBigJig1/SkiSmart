@@ -7,6 +7,7 @@ import Feedback from './routes/feedback'
 import Signin from './routes/signin'
 import Signup from './routes/signup'
 import ResortInfo from './components/resortInfo'
+import Account from './routes/account'
 
 function App() {
   
@@ -24,18 +25,18 @@ function App() {
     case "/feedback":
       component = <Feedback />
       break
-
     case "/signin":
       component = <Signin />
       break
-
     case "/signup":
       component = <Signup />
       break
-      case "/resortInfo":
+    case "/resortInfo":
         component = <ResortInfo />
-        break
-
+      break
+    case "/account":
+      component = <Account />
+      break
     default:
       component = <Home />
   }

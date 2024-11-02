@@ -64,7 +64,7 @@ function ResortInfo() {
             <div className="indvPageContainer">
                 <div className="pageInfo">
                     <h1>Resort Name</h1>
-                    <img src="src/assets/TheWisp.jpg" alt="Resort" />
+                    <img src="src/assets/Timberline.jpg" alt="Resort" />
                     <h3>Address: Resort</h3>
                     <h3>Coordinates: {resortCoordinates.lat}, {resortCoordinates.lng}</h3>
                 </div>
