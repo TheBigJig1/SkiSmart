@@ -36,11 +36,13 @@ function Signin () {
           Forgot password?
           </a>
         </div>
+        <a href="/">
         <div className="form-submit">
           <button type="submit" className="submit-button">
           Sign in
           </button>
         </div>
+        </a>
         <div className="contact-info" style={{ width: '100%', textAlign: 'center', color: 'black', backgroundColor: 'rgba(0, 0, 0, 0)', fontSize: '12'}}>
           Contact Us: skismartwv@gmail.com (304) 449-4516
         </div>
