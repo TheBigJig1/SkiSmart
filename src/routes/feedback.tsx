@@ -1,16 +1,23 @@
+import {useState} from 'react';
 import '@/styles/routes/feedback.css';
 
-
 function Feedback() {
-    const hanStarCl= () =>
+    const [selectRate, setSelectRate]=useState(0);
+    const [feedback,setFeedback]=useState('');
+
+    const hanStarCl= (index: number) =>
     {
+        setSelectRate(index+1);
         console.log('Star clicked');
     };
     const handleSub= () =>
     {
-        console.log('Feedback submitted');
+        //We'll just need to add a submit part that actually submits the feedback and ratings before reseting
+        console.log('Feedback submitted', feedback,selectRate);
+        setFeedback(''); //resets feedback
+        setSelectRate(0); //resets star rating
 
-    }
+    };
     return (
         <div className="fcontainer">
             <div className="fbackground">
@@ -18,14 +25,14 @@ function Feedback() {
                 <div className="ftitle">SkiSmart</div>
                     <form className="feedback-box" onSubmit={handleSub}>
                         <label htmlFor="feedback">Feedback: </label>
-                        <textarea className="thisfeedback" rows={3} placeholder="Type feedback here" style={{ width: '100%' }}></textarea>
+                        <textarea className="thisfeedback" rows={3} placeholder="Type feedback here" style={{ width: '100%' }} value={feedback} onChange={(e)=>setFeedback(e.target.value)}></textarea>
                         <h3> Leave Us A Review:</h3>
                         <div className="starRating">
                             {[...Array(5)].map((_,index)=> (
                                 <span 
                                     key= {index} 
-                                    className="star" 
-                                    onClick={()=> hanStarCl()}
+                                    className={`star ${selectRate > index ? 'selected' : ''}`}
+                                    onClick={()=> hanStarCl(index)}
                                     >
                                         ★
                                     </span>
@@ -35,7 +42,9 @@ function Feedback() {
                     </form>
             </div>
             
+            //We can add a feedback table here later once we get the database set up
             <div className="feedbackDisplay">
+                <h3>User Reviews</h3>
                 <div className="feedbackItem"><h2>Feedback: FEEEEEEEEEE</h2></div>
                 <div className="feedbackItem"><h2>Feedback: FEEEEEEEEEE</h2></div>
                 <div className="feedbackItem"><h2>Feedback: FEEEEEEEEEE</h2></div>

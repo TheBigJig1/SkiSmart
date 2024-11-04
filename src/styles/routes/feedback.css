@@ -136,6 +136,9 @@
 .star:hover {
     color: gold;
 }
+.star.selected{
+    color: gold;
+}
 
 .submitButton {
     cursor: pointer;
