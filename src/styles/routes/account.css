@@ -1,61 +1,3 @@
-.accountContainer {
-    display: grid;
-    grid-template-areas:
-        "accountBackground"
-        "accountContentContainer";
-}
-
-.accountBackground {
-    position: relative;
-    grid-area: accountBackground;
-
-    height: 35vw;
-    width: 100%;
-    
-    background-image: url('src/assets/HiResMountain.jpg');
-    background-size: 100%;
-    background-repeat: no-repeat;
-
-    justify-items:center;
-
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-        "accountLogo"
-        "accountTitle";
-    padding-top: 5vh;
-    
-}
-
-.accountBackground::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 33%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-    pointer-events: none; 
-}
-
-.accountLogo {
-    grid-area: accountLogo;
-    width: auto;
-    height: 18vw;
-
-}
-
-.accountTitle {
-    grid-area: accountTitle;
-
-    font-size: 4vw;
-    font-family: "Anonymous Pro", monospace;
-    color: black;
-    text-shadow: 0 0 15px black;
-
-    height: 4vw;
-}
-
 .accountContainer .accountContentContainer {
     grid-area: accountContentContainer;
     margin-left: 2vh;
@@ -72,7 +14,8 @@
 
     display: grid;
     grid-template-areas:
-        "accountHeader";
+        "accountHeader"
+        "accountPersonal";
 }
 
 .accountHeader {
@@ -88,27 +31,45 @@
     margin-bottom: 2vw;
 }
 
+.accountPersonal {
+    grid-area: accountPersonal;
+    margin-top: 2vw;
+
+    font-size: clamp(1rem, 4vw, 2.5rem);
+
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vw;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "accountResorts accountInfo";
+}
+
+.accountResorts {
+    grid-area: accountResorts;
+    margin-left: 4vw;
+    display: flex;
+}
+
+.accountInfo {
+    grid-area: accountInfo;
+    margin-left: 2vw;
+    display: flex;
+}
+
 
 @media (prefers-color-scheme: dark) {
- 
-    .accountContainer {
-        background-color: #141414;
-    }
-
-    .accountBackground {
-        background-image: url('src/assets/dark-mode-background.jpg');
-        background-position: center;
-    }
-
-    .accountTitle {
+    .accountHeader {
         color: #ededeb;
     }
 
-    .accountBackground::after {
-        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
+    .accountResorts {
+        color: #ededeb;
     }
 
-    .accountHeader {
+    .accountInfo {
         color: #ededeb;
     }
 
