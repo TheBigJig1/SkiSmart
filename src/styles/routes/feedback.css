@@ -184,7 +184,7 @@
 
     .fbackground {
         background-image: url('src/assets/feedback-background-dark.jpg');
-        background-position: center;
+        background-position: top;
     }
 
     .ftitle {
