@@ -42,7 +42,7 @@ function Feedback() {
                     </form>
             </div>
             
-            //We can add a feedback table here later once we get the database set up
+            
             <div className="feedbackDisplay">
                 <h3>User Reviews</h3>
                 <div className="feedbackItem"><h2>Feedback: FEEEEEEEEEE</h2></div>
