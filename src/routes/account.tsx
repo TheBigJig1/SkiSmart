@@ -5,11 +5,12 @@ function Account() {
         <div className="accountContainer">
             <div className="accountContentContainer">
                 <div className="accountHeader">
-                    <h1>Welcome to Your Experience</h1>
+                    <h1>Welcome #Name#!</h1>
                 </div>
                 <div className="accountPersonal">
                     <div className="accountResorts">
                         <ol>
+                            <h3>Your Resorts</h3>
                             <li>Wisp</li>
                             <li>Timberline</li>
                             <li>Hell</li>
