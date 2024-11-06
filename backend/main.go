@@ -4,11 +4,9 @@ package main
 import (
 	"context"
 	"database/sql"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
-	"log/slog"
 	"net/http"
 
 	_ "github.com/microsoft/go-mssqldb"
@@ -21,14 +19,6 @@ var port = 1433
 var user = ""
 var password = ""
 var database = "CS_330_1"
-
-// Create user struct
-type User struct {
-	Email       string
-	Password    string
-	First, Last string
-	Zipcode     string
-}
 
 func main() {
 	// Establish up Database connection
@@ -64,38 +54,4 @@ func main() {
 	log.Println("Listening...")
 	server.ListenAndServe() // Run the http server
 
-}
-
-func UserCreate(w http.ResponseWriter, r *http.Request) {
-	slog.Info("recieved create request")
-	if err := r.ParseForm(); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	u := User{}
-	u.Email = r.FormValue("email")
-	u.Password = r.FormValue("password")
-	u.First = r.FormValue("first")
-	// TODO Save to database
-}
-
-func UserLogin(w http.ResponseWriter, r *http.Request) {
-	slog.Info("recieved create request")
-	if err := r.ParseForm(); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-	}
-	// email := r.FormValue("email")
-	// passwd := r.FormValue("password")
-
-	user, ok := User{}, true
-	if !ok {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
-	// if user.Password != passwd {
-	// 	w.WriteHeader(http.StatusUnauthorized)
-	// 	return
-	// }
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(&user)
 }
