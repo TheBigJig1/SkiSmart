@@ -3,14 +3,16 @@ import '@/styles/routes/account.css';
 function Account() {
     return (
         <div className="accountContainer">
-            <div className="accountContentContainer">
+            <div className="accountBackground">
                 <div className="accountHeader">
                     <h1>Welcome #Name#!</h1>
                 </div>
+            </div>
+            <div className="accountContentContainer">
                 <div className="accountPersonal">
                     <div className="accountResorts">
                         <ol>
-                            <h3>Your Resorts</h3>
+                            <h3>Your Resorts:</h3>
                             <li>Wisp</li>
                             <li>Timberline</li>
                             <li>Hell</li>
@@ -18,9 +20,9 @@ function Account() {
                     </div>
                     <div className="accountInfo">
                         <ul>
-                            <li>Your name: </li>
-                            <li>I dont know</li>
-                            <li>uh</li>
+                            <h3>Your Info:</h3>
+                            <li>Resorts Viewed: </li>
+                            <li>Trips Completed: </li>
                         </ul>
                     </div>
                 </div>

@@ -1,3 +1,25 @@
+.accountBackground
+{
+    position: relative;
+    grid-area: resortBackground;
+
+    height: 35vw;
+    width: 100%;
+    
+    background-image: url('src/assets/accountbackground3.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+
+    justify-items: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "accountHeader";
+
+    padding-top: 5vh;
+    margin-bottom: 10vh;
+}
+
 .accountContainer .accountContentContainer {
     grid-area: accountContentContainer;
     margin-left: 2vh;
@@ -14,21 +36,33 @@
 
     display: grid;
     grid-template-areas:
-        "accountHeader"
         "accountPersonal";
 }
-
 .accountHeader {
     grid-area: accountHeader;
     margin-top: 2vw;
 
-    font-size: clamp(1rem, 4vw, 2.5rem);
+    font-size: 2vw;
+    font-family: "Anonymous Pro", monospace;
+    color: black;
+
+    height: 4vw;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     margin-bottom: 2vw;
+}
+.accountBackground::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 33%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    pointer-events: none; 
 }
 
 .accountPersonal {
@@ -72,5 +106,8 @@
     .accountInfo {
         color: #ededeb;
     }
-
+    .accountBackground {
+        background-image: url('src/assets/accountnightbackground.jpg');
+        background-position: center;
+    }
 }
