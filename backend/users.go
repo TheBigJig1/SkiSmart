@@ -47,7 +47,7 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserLogin(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("recieved create request")
+	fmt.Println("recieved Login request")
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 	}
@@ -75,6 +75,7 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 
 	if u.Password != passwd {
 		w.WriteHeader(http.StatusUnauthorized) // Unauthorized if not matched
+		fmt.Println("Invalid Login Request")
 		return
 	}
 

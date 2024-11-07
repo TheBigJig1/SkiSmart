@@ -84,6 +84,12 @@ func main() {
 			log.Fatalf("Failed to populate Users database: %v", err)
 		}
 		fmt.Println("Populated User database successfully.")
+
+		_, err = db.ExecContext(ctx, InsertResorts)
+		if err != nil {
+			log.Fatalf("Failed to populate Resorts database: %v", err)
+		}
+		fmt.Println("Populated Resorts database successfully.")
 	}
 
 	// TODO add function to wipe user data

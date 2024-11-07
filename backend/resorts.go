@@ -18,7 +18,9 @@ var CreateResorts = `CREATE TABLE Resorts (
 );`
 
 // TODO add insert resort SQL code
-var InsertResorts = ``
+var InsertResorts = `INSERT INTO Resorts 
+	VALUES 
+		('Wisp', '296 Marsh Hill Rd, McHenry, MD 21541', 39.3329, 79.2147)`
 
 var WipeResorts = `TRUNCATE TABLE [dbo].[Resorts];`
 
