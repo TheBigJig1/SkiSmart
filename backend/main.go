@@ -87,8 +87,8 @@ func main() {
 
 	// Start web server
 	mux := http.NewServeMux()
-	mux.HandleFunc("/user/create", UserCreate)
-	mux.HandleFunc("/user/login", UserLogin)
+	mux.HandleFunc("/users/create", UserCreate)
+	mux.HandleFunc("/users/login", UserLogin)
 	server := &http.Server{
 		Addr:    ":8080",
 		Handler: mux,

@@ -46,18 +46,33 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 	}
-	// email := r.FormValue("email")
-	// passwd := r.FormValue("password")
 
-	user, ok := User{}, true
-	if !ok {
-		w.WriteHeader(http.StatusUnauthorized)
+	email := r.FormValue("email")
+	passwd := r.FormValue("password")
+
+	// TODO Convert to prepared statement
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM [dbo].[Users] WHERE Email = '%s';", email))
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized) // TODO Correct error (server error)
 		return
 	}
-	// if user.Password != passwd {
-	// 	w.WriteHeader(http.StatusUnauthorized)
-	// 	return
-	// }
+	if !rows.Next() {
+		w.WriteHeader(http.StatusUnauthorized) // TODO Verify error code
+		return
+	}
+
+	u := User{}
+	err = rows.Scan(&u.Email, &u.Password, &u.First, &u.Last, &u.Zipcode) // Returns good or not good
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized) // TODO Correct error (server error)
+		return
+	}
+
+	if u.Password != passwd {
+		w.WriteHeader(http.StatusUnauthorized) // Unauthorized if not matched
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(&user)
+	json.NewEncoder(w).Encode(&u)
 }
