@@ -26,7 +26,8 @@ func main() {
 	flag.StringVar(&user, "user", "cs330admin", "user")
 	flag.IntVar(&port, "port", 1433, "port")
 	createdb := flag.Bool("create-db", false, "initialize DB")
-	populatedb := flag.Bool("populate", false, "populared DB")
+	populatedb := flag.Bool("populate-db", false, "populated DB")
+	wipedb := flag.Bool("wipe-db", false, "wiped DB")
 	dropdb := flag.Bool("drop-db", false, "dropped DB")
 	flag.Parse()
 
@@ -50,42 +51,56 @@ func main() {
 	if *dropdb {
 		_, err = db.ExecContext(ctx, DropUsers)
 		if err != nil {
-			log.Fatalf("Failed to create database: %v", err)
+			log.Fatalf("Failed to drop Users database: %v", err)
 		}
-		fmt.Println("Database Users deleted successfully.")
+		fmt.Println("Users Database deleted successfully.")
 
 		_, err = db.ExecContext(ctx, DropResorts)
 		if err != nil {
-			log.Fatalf("Failed to create database: %v", err)
+			log.Fatalf("Failed to drop Resorts database: %v", err)
 		}
-		fmt.Println("Database Resorts deleted successfully.")
+		fmt.Println("Resorts database deleted successfully.")
 	}
 
 	// Create whole database
 	if *createdb {
 		_, err = db.ExecContext(ctx, CreateUsers)
 		if err != nil {
-			log.Fatalf("Failed to create database: %v", err)
+			log.Fatalf("Failed to create Users database: %v", err)
 		}
-		fmt.Println("Database Users created successfully.")
+		fmt.Println("Users database created successfully.")
 
 		_, err = db.ExecContext(ctx, CreateResorts)
 		if err != nil {
-			log.Fatalf("Failed to create database: %v", err)
+			log.Fatalf("Failed to create Resorts database: %v", err)
 		}
-		fmt.Println("Database Resorts created successfully.")
+		fmt.Println("Resorts database created successfully.")
 	}
 
 	// Populate whole DB
 	if *populatedb {
 		_, err = db.ExecContext(ctx, InsertUsers)
 		if err != nil {
-			log.Fatalf("Failed to create database: %v", err)
+			log.Fatalf("Failed to populate Users database: %v", err)
 		}
-		fmt.Println("Populated DB successfully.")
+		fmt.Println("Populated User database successfully.")
 	}
 
 	// TODO add function to wipe user data
+	if *wipedb {
+		_, err = db.ExecContext(ctx, WipeUsers)
+		if err != nil {
+			log.Fatalf("Failed to find User database: %v", err)
+		}
+		fmt.Println("Wiped Users database successfully.")
+
+		_, err = db.ExecContext(ctx, WipeResorts)
+		if err != nil {
+			log.Fatalf("Failed to find Resorts database: %v", err)
+		}
+		fmt.Println("Wiped Resorts database successfully.")
+
+	}
 
 	// Start web server - connects backend to npm app
 	mux := http.NewServeMux()

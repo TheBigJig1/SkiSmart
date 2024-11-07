@@ -17,4 +17,9 @@ var CreateResorts = `CREATE TABLE Resorts (
 	Long FLOAT(32) NOT NULL
 );`
 
+// TODO add insert resort SQL code
+var InsertResorts = ``
+
+var WipeResorts = `TRUNCATE TABLE [dbo].[Resorts];`
+
 var DropResorts = `DROP TABLE if exists Resorts`

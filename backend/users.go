@@ -24,7 +24,12 @@ var CreateUsers = `CREATE TABLE Users (
 
 var InsertUsers = `INSERT INTO Users 
 	VALUES 
-		('jaxon.fielding@gmail.com', 'shitfart', 'Jaxon', 'Fielding', '26505')`
+		('jaxon.fielding@gmail.com', 'complexPW', 'Jaxon', 'Fielding', '26505'),
+		('landonurcho17@gmail.com', 'landtest', 'Landon', 'Urcho', '15243'),
+		('test1g@yahoo.com', 'test1', 'test1first', 'test1last', '89273'),
+		('test2g@hotmail.com', 'test1', 'test2first', 'test2last', '51823-2030')`
+
+var WipeUsers = `TRUNCATE TABLE [dbo].[Users];`
 
 var DropUsers = `DROP TABLE if exists Users;`
 
