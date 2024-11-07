@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"log/slog"
+	"fmt"
 	"net/http"
 )
 
@@ -18,14 +18,18 @@ var CreateUsers = `CREATE TABLE Users (
     Email VARCHAR(255) NOT NULL PRIMARY KEY,
     Password VARCHAR(255) NOT NULL,
     First VARCHAR(100) NOT NULL,
-    Last VARCHAR(100) NOT NULL,
-    Zipcode VARCHAR(20) NOT NULL
+    Last VARCHAR(100),
+    Zipcode VARCHAR(20)
 );`
 
-var DropUsers = `DROP TABLE Users;`
+var InsertUsers = `INSERT INTO Users 
+	VALUES 
+		('jaxon.fielding@gmail.com', 'shitfart', 'Jaxon', 'Fielding', '26505')`
+
+var DropUsers = `DROP TABLE if exists Users;`
 
 func UserCreate(w http.ResponseWriter, r *http.Request) {
-	slog.Info("recieved create request")
+	fmt.Println("recieved create request")
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
@@ -38,7 +42,7 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserLogin(w http.ResponseWriter, r *http.Request) {
-	slog.Info("recieved create request")
+	fmt.Println("recieved create request")
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 	}
