@@ -43,7 +43,21 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 	u.Email = r.FormValue("email")
 	u.Password = r.FormValue("password")
 	u.First = r.FormValue("first")
+
+	if r.FormValue("last") != "" {
+		u.Last = r.FormValue("last")
+	} else {
+		u.Last = ""
+	}
+
+	if r.FormValue("zipcode") != "" {
+		u.Zipcode = r.FormValue("zipcode")
+	} else {
+		u.Zipcode = ""
+	}
+
 	// TODO Save to database
+
 }
 
 func UserLogin(w http.ResponseWriter, r *http.Request) {
