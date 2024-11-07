@@ -85,6 +85,8 @@ func main() {
 		fmt.Println("Populated DB successfully.")
 	}
 
+	// TODO add function to wipe user data
+
 	// Start web server - connects backend to npm app
 	mux := http.NewServeMux()
 	mux.HandleFunc("/users/create", UserCreate)
