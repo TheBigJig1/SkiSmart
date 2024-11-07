@@ -51,9 +51,11 @@ const ResortInfo: React.FC<ResortInfoProps> = ({
 
 function ResortInfo() {
     const resortCoordinates = {
-        lat: 39.6295,  // Example latitude
-        lng: -79.3747, // Example longitude
+        lat: Number(localStorage.getItem("lat")),  // Example latitude
+        lng: Number(localStorage.getItem("long")) // Example longitude
     };
+
+
 
     return (
         <div className="indvContainer">
@@ -63,10 +65,10 @@ function ResortInfo() {
             </div>
             <div className="indvPageContainer">
                 <div className="pageInfo">
-                    <h1>Resort Name</h1>
-                    <img src="src/assets/Timberline.jpg" alt="Resort" />
-                    <h3>Address: Resort</h3>
-                    <h3>Coordinates: {resortCoordinates.lat}, {resortCoordinates.lng}</h3>
+                    <h1>{localStorage.getItem("resortName")}</h1>
+                    <img src={`src/assets/${localStorage.getItem("resortName")?.replace(" ", "")}.jpg`} alt="Resort" />
+                    <h3>Address: {localStorage.getItem("address")}</h3>
+                    <h3>Coordinates: {localStorage.getItem("lat")}, {localStorage.getItem("long")}</h3>
                 </div>
                 <div className="leaflet">
                     <h1>Interactive Mountain Map</h1>

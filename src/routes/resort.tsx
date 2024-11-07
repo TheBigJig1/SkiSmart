@@ -16,8 +16,8 @@ function Resort() {
             <button className="searchButton">Search</button>
         </div>
         <div className="resortContentContainer">
-            <ResortCard resortName="Timberline" snowfall="3 in." address="254 Four Seasons Dr, Davis, WV 26260"/>
-            <ResortCard resortName="The Wisp" snowfall="1.4 in." address="296 Marsh Hill Rd, McHenry, MD 21541"/>
+            <ResortCard resortName="Timberline" snowfall="3 in." address="254 Four Seasons Dr, Davis, WV 26260" lat="39.6295" long="-79.3747" />
+            <ResortCard resortName="The Wisp" snowfall="1.4 in." address="296 Marsh Hill Rd, McHenry, MD 21541" lat="39.3329" long="-79.2147"/>
         </div>
     </div>
     )
