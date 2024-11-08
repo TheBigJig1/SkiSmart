@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -81,7 +82,7 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Prepared statement to avoid SQL injection
-	stmt, err := db.Prepare("INSERT INTO [dbo].[Users] (Email, Password, First, Last, Zipcode) VALUES (?, ?, ?, ?, ?)")
+	stmt, err := db.Prepare("INSERT INTO [dbo].[Users] VALUES (@Email, @Password, @First, @Last, @Zipcode)")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println("Error preparing statement: ", err)
@@ -90,7 +91,14 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 	defer stmt.Close()
 
 	// Execute prepared statement with user input
-	_, err = stmt.Exec(u.Email, hashedPW, u.First, u.Last, u.Zipcode)
+	_, err = stmt.Exec(
+		sql.Named("Email", u.Email),
+		sql.Named("Password", hashedPW),
+		sql.Named("First", u.First),
+		sql.Named("Last", u.Last),
+		sql.Named("Zipcode", u.Zipcode),
+	)
+
 	if err != nil {
 		// Handle primary key violation (email already exists)
 		var sqlErr *mssql.Error
