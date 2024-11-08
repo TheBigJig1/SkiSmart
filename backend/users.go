@@ -116,6 +116,7 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 
 	u.Password = "" // Clear password before sending back to client
 
+	fmt.Println("User created in DB successfully")
 	w.WriteHeader(http.StatusCreated) // 201
 	json.NewEncoder(w).Encode(&u)
 
@@ -126,35 +127,50 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("recieved Login request")
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
+		fmt.Println("Error parsing form: ", err)
+		return
 	}
 
 	email := r.FormValue("email")
 	passwd := r.FormValue("password")
 
 	// TODO Convert to prepared statement
-	rows, err := db.Query(fmt.Sprintf("SELECT * FROM [dbo].[Users] WHERE Email = '%s';", email))
+	stmt, err := db.Prepare("SELECT * FROM [dbo].[Users] WHERE Email = @Email")
 	if err != nil {
-		w.WriteHeader(http.StatusUnauthorized) // TODO Correct error (server error)
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error preparing statement: ", err)
 		return
 	}
-	if !rows.Next() {
-		w.WriteHeader(http.StatusUnauthorized) // TODO Verify error code
-		return
-	}
+	defer stmt.Close()
+
+	row := stmt.QueryRow(sql.Named("Email", email))
 
 	u := User{}
-	err = rows.Scan(&u.Email, &u.Password, &u.First, &u.Last, &u.Zipcode) // Returns good or not good
+	err = row.Scan(&u.Email, &u.Password, &u.First, &u.Last, &u.Zipcode) // Returns good or not good
 	if err != nil {
-		w.WriteHeader(http.StatusUnauthorized) // TODO Correct error (server error)
+		if err == sql.ErrNoRows {
+			w.WriteHeader(http.StatusUnauthorized)
+			fmt.Println("Email does not exist: ", email)
+			return
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Println("Error scanning row: ", err)
+			return
+		}
+	}
+
+	// Compare hashed password
+	err = bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(passwd))
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		fmt.Println("Invalid password for user: ", email)
 		return
 	}
 
-	if u.Password != passwd {
-		w.WriteHeader(http.StatusUnauthorized) // Unauthorized if not matched
-		fmt.Println("Invalid Login Request")
-		return
-	}
+	// Passwords match - Clear password before sending back to client
+	u.Password = ""
 
-	w.WriteHeader(http.StatusOK)
+	fmt.Println("User logged in successfully")
+	w.WriteHeader(http.StatusOK) // 200
 	json.NewEncoder(w).Encode(&u)
 }
