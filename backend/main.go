@@ -25,9 +25,12 @@ func main() {
 	flag.StringVar(&password, "password", "", "password")
 	flag.StringVar(&user, "user", "cs330admin", "user")
 	flag.IntVar(&port, "port", 1433, "port")
+
+	// Optional flags
 	createdb := flag.Bool("create-db", false, "initialize DB")
 	populatedb := flag.Bool("populate-db", false, "populated DB")
-	wipedb := flag.Bool("wipe-db", false, "wiped DB")
+	wipeuserdb := flag.Bool("wipe-users", false, "wiped Users DB")
+	wiperesortdb := flag.Bool("wipe-resorts", false, "wiped Resorts DB")
 	dropdb := flag.Bool("drop-db", false, "dropped DB")
 	flag.Parse()
 
@@ -47,7 +50,7 @@ func main() {
 	}
 	fmt.Println("Connected!")
 
-	// Drop all databases
+	// Drop all databases flag
 	if *dropdb {
 		_, err = db.ExecContext(ctx, DropUsers)
 		if err != nil {
@@ -62,7 +65,7 @@ func main() {
 		fmt.Println("Resorts database deleted successfully.")
 	}
 
-	// Create whole database
+	// Create whole database flag
 	if *createdb {
 		_, err = db.ExecContext(ctx, CreateUsers)
 		if err != nil {
@@ -77,7 +80,7 @@ func main() {
 		fmt.Println("Resorts database created successfully.")
 	}
 
-	// Populate whole DB
+	// Populate whole DB flag
 	if *populatedb {
 		_, err = db.ExecContext(ctx, InsertUsers)
 		if err != nil {
@@ -92,23 +95,25 @@ func main() {
 		fmt.Println("Populated Resorts database successfully.")
 	}
 
-	// TODO add function to wipe user data
-	if *wipedb {
+	// TODO add flag function to wipe user data
+	if *wipeuserdb {
 		_, err = db.ExecContext(ctx, WipeUsers)
 		if err != nil {
 			log.Fatalf("Failed to find User database: %v", err)
 		}
 		fmt.Println("Wiped Users database successfully.")
+	}
 
+	// TODO add flag function to wipe resort data
+	if *wiperesortdb {
 		_, err = db.ExecContext(ctx, WipeResorts)
 		if err != nil {
 			log.Fatalf("Failed to find Resorts database: %v", err)
 		}
 		fmt.Println("Wiped Resorts database successfully.")
-
 	}
 
-	// Start web server - connects backend to npm app
+	// Start web server - connects backend to npm app / terminal
 	mux := http.NewServeMux()
 	mux.HandleFunc("/users/create", UserCreate)
 	mux.HandleFunc("/users/login", UserLogin)

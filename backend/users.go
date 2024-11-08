@@ -14,6 +14,7 @@ type User struct {
 	Zipcode     string
 }
 
+// SQL command to create Users table
 var CreateUsers = `CREATE TABLE Users (
     Email VARCHAR(255) NOT NULL PRIMARY KEY,
     Password VARCHAR(255) NOT NULL,
@@ -22,6 +23,7 @@ var CreateUsers = `CREATE TABLE Users (
     Zipcode VARCHAR(20)
 );`
 
+// SQL command for insert user value into table
 var InsertUsers = `INSERT INTO Users 
 	VALUES 
 		('jaxon.fielding@gmail.com', 'complexPW', 'Jaxon', 'Fielding', '26505'),
@@ -29,16 +31,21 @@ var InsertUsers = `INSERT INTO Users
 		('test1g@yahoo.com', 'test1', 'test1first', 'test1last', '89273'),
 		('test2g@hotmail.com', 'test1', 'test2first', 'test2last', '51823-2030')`
 
+// SQL command to wipe Users table
 var WipeUsers = `TRUNCATE TABLE [dbo].[Users];`
 
+// SQL command to remove Resorts table
 var DropUsers = `DROP TABLE if exists Users;`
 
+// Function to take value from front end and create new entry in Users
 func UserCreate(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("recieved create request")
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+
+	// Intialize User object
 	u := User{}
 	u.Email = r.FormValue("email")
 	u.Password = r.FormValue("password")
@@ -58,8 +65,33 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 
 	// TODO Save to database
 
+	// send the new user obejct to the Datase in SQL
+	//
+	// Essentially, run the create user flag with a custom SQL command obtained from front end
+	// Rename var InsertUser
+	// run InsertUsers (from populate flag function)
+	InsertUsers = InsertUserCreateQuery(u)
+	// Now not sure where to go once I have renamed InsertUsers.
+	// 		Do I need to establish another connection to the database, and if so how do i do that securely
+
+	// _, err = db.ExecContext(ctx, InsertUsers)
+	// 	if err != nil {
+	// 		log.Fatalf("Failed to populate Users database: %v", err)
+	// 	}
+	// 	fmt.Println("Populated User database successfully.")
+
 }
 
+func InsertUserCreateQuery(u User) string {
+	query := fmt.Sprintf(
+		`INSERT INTO Users VALUES
+		(email, password, first, last, zipcode) VALUES ('%s', '%s', '%s', '%s', '%s');`,
+		u.Email, u.Password, u.First, u.Last, u.Zipcode,
+	)
+	return query
+}
+
+// Function to take value from front end and check against existing Users credentials
 func UserLogin(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("recieved Login request")
 	if err := r.ParseForm(); err != nil {
