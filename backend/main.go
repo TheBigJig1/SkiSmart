@@ -1,4 +1,3 @@
-// Go connection Sample Code:
 package main
 
 import (

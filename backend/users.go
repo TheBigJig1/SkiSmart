@@ -2,8 +2,12 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
+
+	mssql "github.com/microsoft/go-mssqldb"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // Create user struct
@@ -42,14 +46,16 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("recieved create request")
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
+		fmt.Println("Error parsing form: ", err)
 		return
 	}
 
 	// Intialize User object
-	u := User{}
-	u.Email = r.FormValue("email")
-	u.Password = r.FormValue("password")
-	u.First = r.FormValue("first")
+	u := User{
+		Email:    r.FormValue("email"),
+		Password: r.FormValue("password"),
+		First:    r.FormValue("first"),
+	}
 
 	if r.FormValue("last") != "" {
 		u.Last = r.FormValue("last")
@@ -62,33 +68,49 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 	} else {
 		u.Zipcode = ""
 	}
+	fmt.Println("User object initalized")
 
-	// TODO Save to database
+	// TODO Save to database -> send the new user obejct to the Datase in SQL
 
-	// send the new user obejct to the Datase in SQL
-	//
-	// Essentially, run the create user flag with a custom SQL command obtained from front end
-	// Rename var InsertUser
-	// run InsertUsers (from populate flag function)
-	InsertUsers = InsertUserCreateQuery(u)
-	// Now not sure where to go once I have renamed InsertUsers.
-	// 		Do I need to establish another connection to the database, and if so how do i do that securely
+	// Hash PW
+	hashedPW, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error hashing password: ", err)
+		return
+	}
 
-	// _, err = db.ExecContext(ctx, InsertUsers)
-	// 	if err != nil {
-	// 		log.Fatalf("Failed to populate Users database: %v", err)
-	// 	}
-	// 	fmt.Println("Populated User database successfully.")
+	// Prepared statement to avoid SQL injection
+	stmt, err := db.Prepare("INSERT INTO [dbo].[Users] (Email, Password, First, Last, Zipcode) VALUES (?, ?, ?, ?, ?)")
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error preparing statement: ", err)
+		return
+	}
+	defer stmt.Close()
 
-}
+	// Execute prepared statement with user input
+	_, err = stmt.Exec(u.Email, hashedPW, u.First, u.Last, u.Zipcode)
+	if err != nil {
+		// Handle primary key violation (email already exists)
+		var sqlErr *mssql.Error
+		if errors.As(err, &sqlErr) {
+			if sqlErr.Number == 2627 { // SQL Server error code for primary key violation
+				w.WriteHeader(http.StatusConflict) // 409 Conflict
+				fmt.Println("Email already exists:", u.Email)
+				return
+			}
+		}
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error executing statement:", err)
+		return
+	}
 
-func InsertUserCreateQuery(u User) string {
-	query := fmt.Sprintf(
-		`INSERT INTO Users VALUES
-		(email, password, first, last, zipcode) VALUES ('%s', '%s', '%s', '%s', '%s');`,
-		u.Email, u.Password, u.First, u.Last, u.Zipcode,
-	)
-	return query
+	u.Password = "" // Clear password before sending back to client
+
+	w.WriteHeader(http.StatusCreated) // 201
+	json.NewEncoder(w).Encode(&u)
+
 }
 
 // Function to take value from front end and check against existing Users credentials
