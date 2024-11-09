@@ -79,8 +79,6 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("User object initalized")
 
-	// TODO Save to database -> send the new user obejct to the Datase in SQL
-
 	// Hash PW
 	hashedPW, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 	if err != nil {
@@ -142,9 +140,6 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
 	passwd := r.FormValue("password")
 
-	fmt.Println("Email: ", email)
-	fmt.Println("Password: ", passwd)
-
 	// Create prepared statement stmt
 	stmt, err := db.Prepare("SELECT * FROM [dbo].[Users] WHERE Email = @Email")
 	if err != nil {
@@ -196,15 +191,6 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error generating token: :, err")
 		return
 	}
-
-	// http.SetCookie(w, &http.Cookie{
-	// 	Name:     "token",
-	// 	Value:    tokenString,
-	// 	Expires:  expirationTime,
-	// 	HttpOnly: true,
-	// 	Secure:   true,
-	// 	SameSite: http.SameSiteStrictMode, // Adjust as needed
-	// })
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
