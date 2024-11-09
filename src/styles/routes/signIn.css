@@ -1,5 +1,5 @@
 .signin-container {
-  height: 96vh;
+  height: calc(100vh- 2px);
   width: 100%;
 
   background-image: url('src/assets/sign-in-background.jpg');
