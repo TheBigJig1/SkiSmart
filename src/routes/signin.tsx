@@ -8,37 +8,50 @@ function Signin() {
   const [password, setPassword] = useState('');
 
   // Form submission handler
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault(); // Prevent the default form submission
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     try {
-      // Sending the form data to the server
-      const response = await fetch('http://localhost:8080/user/login', {
+      // Prepare form data
+      const formData = new URLSearchParams();
+      formData.append('email', email);
+      formData.append('password', password);
+
+      // Sending form data to server
+      const response = await fetch('http://localhost:8080/users/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form0-urlencoded',
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: formData.toString(),
       });
 
       if (response.ok) {
-        // Handle successful response (e.g., navigate to another page or display a message)
+        // Handle successful response
+        const data = await response.json();
+        const token = data.token;
+
+        // Store token in localstorage 
+        // TODO verify security
+        localStorage.setItem('token', token);
+
+        // Store user information
+        localStorage.setItem('user', JSON.stringify(data.user));
+
         console.log('Login successful');
-        // Optionally, you can redirect the user:
-        // window.location.href = '/';
+        
+        // Redirect the user to account page
+        window.location.href = '/account'
       } else {
-        // Handle error response
         console.error('Login failed');
         alert('Invalid email or password');
       }
     } catch (error) {
-      console.error('An error occurred:', error);
-      alert('An error occurred during login. Please try again.');
+        // catch login error
+        console.error('An error occurred', error);
+        alert('An error occurred during login. Please try again.');
     }
-  };
+  }
 
   return (
     <div className="signin-container">

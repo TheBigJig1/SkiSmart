@@ -7,8 +7,9 @@ import (
 	"fmt"
 	"net/http"
 
-	// "github.com/golang-jwt/jwt"
-	// "time"
+	"time"
+
+	"github.com/golang-jwt/jwt"
 
 	mssql "github.com/microsoft/go-mssqldb"
 	"golang.org/x/crypto/bcrypt"
@@ -44,6 +45,9 @@ var WipeUsers = `TRUNCATE TABLE [dbo].[Users];`
 
 // SQL command to remove Resorts table
 var DropUsers = `DROP TABLE if exists Users;`
+
+// JWT secret key
+var jwtKey = []byte("SBk@1c$km3@nrdt")
 
 // Function to take value from front end and create new entry in Users
 func UserCreate(w http.ResponseWriter, r *http.Request) {
@@ -137,7 +141,7 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
 	passwd := r.FormValue("password")
 
-	// TODO Convert to prepared statement
+	// Create prepared statement stmt
 	stmt, err := db.Prepare("SELECT * FROM [dbo].[Users] WHERE Email = @Email")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -146,7 +150,7 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	}
 	defer stmt.Close()
 
-	row := stmt.QueryRow(sql.Named("Email", email))
+	row := stmt.QueryRow(sql.Named("Email", email)) // Query database for row with given email
 
 	u := User{}
 	err = row.Scan(&u.Email, &u.Password, &u.First, &u.Last, &u.Zipcode) // Returns good or not good
@@ -173,7 +177,43 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	// Passwords match - Clear password before sending back to client
 	u.Password = ""
 
+	// Generate JWT Token
+	expirationTime := time.Now().Add(1 * time.Hour) // Login valid for 1 hour
+	claims := &jwt.StandardClaims{
+		Subject:   u.Email,
+		ExpiresAt: expirationTime.Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error generating token: :, err")
+		return
+	}
+
+	// http.SetCookie(w, &http.Cookie{
+	// 	Name:     "token",
+	// 	Value:    tokenString,
+	// 	Expires:  expirationTime,
+	// 	HttpOnly: true,
+	// 	Secure:   true,
+	// 	SameSite: http.SameSiteStrictMode, // Adjust as needed
+	// })
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	response := map[string]interface{}{
+		"token": tokenString,
+		"user": map[string]string{
+			"email":   u.Email,
+			"first":   u.First,
+			"last":    u.Last,
+			"zipcode": u.Zipcode,
+		},
+	}
+
 	fmt.Println("User logged in successfully")
-	w.WriteHeader(http.StatusOK) // 200
-	json.NewEncoder(w).Encode(&u)
+	json.NewEncoder(w).Encode(response)
 }
