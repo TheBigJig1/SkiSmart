@@ -21,9 +21,10 @@ function Signin() {
       const response = await fetch('http://localhost:8080/users/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form0-urlencoded',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: formData.toString(),
+        credentials: 'include',
       });
 
       if (response.ok) {
@@ -32,7 +33,7 @@ function Signin() {
         const token = data.token;
 
         // Store token in localstorage 
-        // TODO verify security
+        // TODO verify security - want to turn this into cookies
         localStorage.setItem('token', token);
 
         // Store user information

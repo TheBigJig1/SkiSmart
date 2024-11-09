@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 
 	"time"
@@ -141,6 +142,9 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
 	passwd := r.FormValue("password")
 
+	fmt.Println("Email: ", email)
+	fmt.Println("Password: ", passwd)
+
 	// Create prepared statement stmt
 	stmt, err := db.Prepare("SELECT * FROM [dbo].[Users] WHERE Email = @Email")
 	if err != nil {
@@ -150,7 +154,8 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	}
 	defer stmt.Close()
 
-	row := stmt.QueryRow(sql.Named("Email", email)) // Query database for row with given email
+	// Execute prepared statement
+	row := stmt.QueryRow(sql.Named("Email", email))
 
 	u := User{}
 	err = row.Scan(&u.Email, &u.Password, &u.First, &u.Last, &u.Zipcode) // Returns good or not good
@@ -214,6 +219,6 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	fmt.Println("User logged in successfully")
+	log.Println("User logged in successfully")
 	json.NewEncoder(w).Encode(response)
 }

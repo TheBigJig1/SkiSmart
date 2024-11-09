@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	_ "github.com/microsoft/go-mssqldb"
+	"github.com/rs/cors"
 )
 
 // Connection arguments
@@ -116,10 +117,21 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/users/create", UserCreate)
 	mux.HandleFunc("/users/login", UserLogin)
+
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:5173"}, // Frontend origin
+		AllowCredentials: true,
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Content-Type"},
+	})
+
+	handler := corsHandler.Handler(mux)
+
 	server := &http.Server{
 		Addr:    ":8080",
-		Handler: mux,
+		Handler: handler,
 	}
+
 	log.Println("Listening...")
 	server.ListenAndServe() // Run the http server
 
