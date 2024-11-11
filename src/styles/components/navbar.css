@@ -2,9 +2,8 @@ div.navbarContainer {
     display:flex;
     position: sticky;
     background-color: white;
-    height: 4vh;
     width: calc(100vw - 4px);
-    border-style:solid;
+    border: 2px solid #141414;
     font-family: "Anonymous Pro";
     font-size: calc(0.5vw + 10px);
 
