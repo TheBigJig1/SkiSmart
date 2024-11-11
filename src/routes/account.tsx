@@ -1,11 +1,23 @@
 import '@/styles/routes/account.css';
+import { useState, useEffect } from 'react';
 
 function Account() {
+
+    const [name, setName] = useState('Guest');
+
+  useEffect(() => {
+    // Retrieve user data from localStorage
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user.first) {
+      setName(user.first);
+    }
+  }, []);
+
     return (
         <div className="accountContainer">
             <div className="accountBackground">
                 <div className="accountHeader">
-                    <h1>Welcome #Name#!</h1>
+                    <h1>Welcome {name}!</h1>
                 </div>
             </div>
             <div className="accountContentContainer">
