@@ -18,6 +18,11 @@ function Account() {
         }
     }, []);
 
+    const logoutHandler = () => {
+        console.log('Logging out');
+        localStorage.removeItem('token');
+    };
+
     return (
         <div className="accountContainer">
             <div className="accountBackground">
@@ -42,6 +47,15 @@ function Account() {
                             <li>Trips Completed: </li>
                         </ul>
                     </div>
+                </div>
+                <div className="accountFooter">
+                    <h3>Log out here</h3>
+                        <a href="./" style={{ textDecoration: 'none' }}>
+                            <button className="homeRedirect" 
+                            onClick={logoutHandler} 
+                            style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}}
+                            >Log out</button>
+                        </a>
                 </div>
             </div>
         </div>
