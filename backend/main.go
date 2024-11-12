@@ -117,12 +117,13 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/users/create", UserCreate)
 	mux.HandleFunc("/users/login", UserLogin)
+	mux.HandleFunc("/users/logout", UserLogout)
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173"}, // Frontend origin
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowedHeaders:   []string{"Content-Type"},
+		AllowedHeaders:   []string{"*"},
 	})
 
 	handler := corsHandler.Handler(mux)

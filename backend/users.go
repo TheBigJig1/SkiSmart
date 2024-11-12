@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"time"
 
@@ -210,4 +211,34 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("User logged in successfully")
 	json.NewEncoder(w).Encode(response)
+}
+
+// In case something needs cleaned up server side
+// TODO: revoke JWT token
+func UserLogout(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	bearer := r.Header.Get("Authorization")
+
+	if !strings.HasPrefix(bearer, "Bearer ") {
+		w.WriteHeader(http.StatusUnauthorized)
+		fmt.Println("Invalid token")
+		return
+	}
+
+	token := strings.TrimPrefix(bearer, "Bearer ")
+
+	t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
+		return jwtKey, nil
+	})
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error parsing token: ", err)
+		return
+	}
+
+	// Eat error, we don't care if it fails
+	u := t.Claims.(jwt.MapClaims)["user"]
+	b, _ := json.MarshalIndent(u, "", "  ")
+
+	log.Printf("User logged out successfully: %s\n", string(b))
 }

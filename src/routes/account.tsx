@@ -18,9 +18,33 @@ function Account() {
         }
     }, []);
 
-    const logoutHandler = () => {
-        console.log('Logging out');
-        localStorage.removeItem('token');
+    const logoutHandler = async () => {
+        const token = localStorage.getItem('token') || ''
+
+        try{
+            // Offering server chance to revoke token
+            const response = await fetch('http://localhost:8080/users/logout', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+                },
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                console.log('Logging out');
+                localStorage.removeItem('token');
+                window.location.href = '/';
+            } else {
+                console.error('Logout failed');
+                alert('Invalid email or password');
+            }
+        } catch (error) {
+            // catch login error
+            console.error('An error occurred', error);
+            alert('An error occurred during logout. Please try again.');
+        }
     };
 
     return (
@@ -50,7 +74,7 @@ function Account() {
                 </div>
                 <div className="accountFooter">
                     <h3>Log out here</h3>
-                        <a href="./" style={{ textDecoration: 'none' }}>
+                        <a style={{ textDecoration: 'none' }}>
                             <button className="homeRedirect" 
                             onClick={logoutHandler} 
                             style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}}
