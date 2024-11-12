@@ -31,14 +31,10 @@ function Signin() {
         // Handle successful response
         const data = await response.json();
         const token = data.token;
-
+        
         // Store token in localstorage 
-        // TODO verify security - want to turn this into cookies
         localStorage.setItem('token', token);
-
-        // Store user information
-        localStorage.setItem('user', JSON.stringify(data.user));
-
+        
         console.log('Login successful');
         
         // Redirect the user to account page

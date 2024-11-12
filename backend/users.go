@@ -18,10 +18,16 @@ import (
 
 // Create user struct
 type User struct {
-	Email       string
-	Password    string
-	First, Last string
-	Zipcode     string
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	First    string `json:"first"`
+	Last     string `json:"last"`
+	Zipcode  string `json:"zipcode"`
+}
+
+type UserClaims struct {
+	User User `json:"user"`
+	jwt.StandardClaims
 }
 
 // SQL command to create Users table
@@ -179,9 +185,12 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 
 	// Generate JWT Token
 	expirationTime := time.Now().Add(1 * time.Hour) // Login valid for 1 hour
-	claims := &jwt.StandardClaims{
-		Subject:   u.Email,
-		ExpiresAt: expirationTime.Unix(),
+	claims := &UserClaims{
+		StandardClaims: jwt.StandardClaims{
+			Subject:   u.Email,
+			ExpiresAt: expirationTime.Unix(),
+		},
+		User: u,
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -197,12 +206,6 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 
 	response := map[string]interface{}{
 		"token": tokenString,
-		"user": map[string]string{
-			"email":   u.Email,
-			"first":   u.First,
-			"last":    u.Last,
-			"zipcode": u.Zipcode,
-		},
 	}
 
 	log.Println("User logged in successfully")

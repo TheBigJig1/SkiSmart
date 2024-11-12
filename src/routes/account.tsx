@@ -1,17 +1,22 @@
 import '@/styles/routes/account.css';
 import { useState, useEffect } from 'react';
+import { jwtDecode }  from 'jwt-decode';
 
 function Account() {
 
     const [name, setName] = useState('Guest');
 
-  useEffect(() => {
-    // Retrieve user data from localStorage
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user && user.first) {
-      setName(user.first);
-    }
-  }, []);
+    useEffect(() => {
+        // Retrieve user data from localStorage
+
+        const token = localStorage.getItem('token') || ''
+        const decoded = jwtDecode(token) as { user: { email: string; first: string; last: string; zipcode: string } };
+        const user = decoded.user;
+        console.log(user);
+        if (user && user.first) {
+            setName(user.first);
+        }
+    }, []);
 
     return (
         <div className="accountContainer">
