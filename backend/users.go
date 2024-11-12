@@ -43,10 +43,10 @@ var CreateUsers = `CREATE TABLE Users (
 // SQL command for insert user value into table
 var InsertUsers = `INSERT INTO Users 
 	VALUES 
-		('jaxon.fielding@gmail.com', 'complexPW', 'Jaxon', 'Fielding', '26505'),
-		('landonurcho17@gmail.com', 'landtest', 'Landon', 'Urcho', '15243'),
-		('test1g@yahoo.com', 'test1', 'test1first', 'test1last', '89273'),
-		('test2g@hotmail.com', 'test1', 'test2first', 'test2last', '51823-2030')`
+		('jaxon.fielding@gmail.com', '` + encryptPW("complexPW") + `', 'Jaxon', 'Fielding', '26505'),
+		('landonurcho17@gmail.com', '` + encryptPW("landtest") + `', 'Landon', 'Urcho', '15243'),
+		('test1g@yahoo.com', '` + encryptPW("test1test") + `', 'test1first', 'test1last', '89273'),
+		('test2g@hotmail.com', '` + encryptPW("test2test") + `', 'test2first', 'test2last', '51823-2030')`
 
 // SQL command to wipe Users table
 var WipeUsers = `TRUNCATE TABLE [dbo].[Users];`
@@ -56,6 +56,12 @@ var DropUsers = `DROP TABLE if exists Users;`
 
 // JWT secret key
 var jwtKey = []byte("SBk@1c$km3@nrdt")
+
+func encryptPW(pwd string) string {
+
+	hashedPW, _ := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
+	return string(hashedPW)
+}
 
 // Function to take value from front end and create new entry in Users
 func UserCreate(w http.ResponseWriter, r *http.Request) {
@@ -71,28 +77,13 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 		Email:    r.FormValue("email"),
 		Password: r.FormValue("password"),
 		First:    r.FormValue("first"),
-	}
-
-	if r.FormValue("last") != "" {
-		u.Last = r.FormValue("last")
-	} else {
-		u.Last = ""
-	}
-
-	if r.FormValue("zipcode") != "" {
-		u.Zipcode = r.FormValue("zipcode")
-	} else {
-		u.Zipcode = ""
+		Last:     r.FormValue("last"),
+		Zipcode:  r.FormValue("zipcode"),
 	}
 	fmt.Println("User object initalized")
 
 	// Hash PW
-	hashedPW, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Println("Error hashing password: ", err)
-		return
-	}
+	hashedPW := encryptPW(u.Password)
 
 	// Prepared statement to avoid SQL injection
 	stmt, err := db.Prepare("INSERT INTO [dbo].[Users] VALUES (@Email, @Password, @First, @Last, @Zipcode)")
