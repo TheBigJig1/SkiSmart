@@ -240,5 +240,8 @@ func UserLogout(w http.ResponseWriter, r *http.Request) {
 	u := t.Claims.(jwt.MapClaims)["user"]
 	b, _ := json.MarshalIndent(u, "", "  ")
 
-	log.Printf("User logged out successfully: %s\n", string(b))
+	user := User{}
+	_ = json.Unmarshal(b, &user) // Eat error
+
+	log.Printf("User logged out successfully: %v\n", user)
 }
