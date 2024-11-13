@@ -21,6 +21,7 @@ var password = ""
 var database = "CS_330_1"
 
 // TODO: Add JWT secret key flag
+var pwHash = "testHash"
 
 func main() {
 	// Establish up Database connection
