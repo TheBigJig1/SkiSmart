@@ -61,7 +61,7 @@ function Account() {
                             <h3>Your Resorts:</h3>
                             <li>Wisp</li>
                             <li>Timberline</li>
-                            <li>Hell</li>
+                            <li>Random Mountain</li>
                         </ol>
                     </div>
                     <div className="accountInfo">
