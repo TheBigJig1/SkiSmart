@@ -32,6 +32,7 @@ const Signup: React.FC = () => {
       if (response.ok) {
         // Handle successful response
         console.log('Account created successfully');
+        alert('Account created successfully, redirecting to Sign In page!');
         window.location.href = '/signin';
 
       } else {
