@@ -3,34 +3,37 @@ import logo from '../assets/logoCircle.png';
 import React, { useState } from 'react';
 
 const Signup: React.FC = () => {
-  const [formData, setFormData] = useState({
-    fullname: '',
-    email: '', 
-    password: '',
-    zipcode: '',
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value} = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
+  // State to store form inputs
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullname, setFullname] = useState('');
+  const [zipcode, setZipcode] = useState('');
 
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
+
     try {
-      const response = await fetch('http://localhost:8080/user/create', {
+
+      const formData = new URLSearchParams();
+      formData.append('fullname', fullname);
+      formData.append('email', email);
+      formData.append('password', password);
+      formData.append('zipcode', zipcode);
+      
+      const response = await fetch('http://localhost:8080/users/create', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: JSON.stringify(formData)
+        body: formData.toString(),
+        // credentials: 'include',
       });
+
       if (response.ok) {
         // Handle successful response
         console.log('Account created successfully');
+        window.location.href = '/signin';
+
       } else {
         // Handle error response
         console.error('Error creating account');
@@ -57,8 +60,8 @@ const Signup: React.FC = () => {
                   required
                   className="form-input"
                   placeholder="Firstname Lastname"
-                  value={formData.fullname}
-                  onChange={handleChange}
+                  value={fullname}
+                  onChange={(e) => setFullname(e.target.value)}
             />
               </div>  
               <div className="form-group">
@@ -71,8 +74,8 @@ const Signup: React.FC = () => {
                   required
                   className="form-input"
                   placeholder="user@email.com"
-                  value={formData.email}
-                  onChange={handleChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -85,8 +88,8 @@ const Signup: React.FC = () => {
                   required
                   className="form-input"
                   placeholder="Password"
-                  value={formData.password}
-                  onChange={handleChange}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -96,8 +99,8 @@ const Signup: React.FC = () => {
                     name="zipcode"
                     className="form-input"
                     placeholder="XXXXX"
-                    value={formData.zipcode}
-                    onChange={handleChange}
+                    value={zipcode}
+                    onChange={(e) => setZipcode(e.target.value)}
                 />
               </div>
               <div className="form-submit">

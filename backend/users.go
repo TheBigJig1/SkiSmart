@@ -72,12 +72,21 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Convert fullname to first and last name
+	parts := strings.Split(r.FormValue("fullname"), " ")
+	first := parts[0]
+	last := ""
+
+	if len(parts) > 0 {
+		last = parts[1]
+	}
+
 	// Intialize User object
 	u := User{
 		Email:    r.FormValue("email"),
 		Password: r.FormValue("password"),
-		First:    r.FormValue("first"),
-		Last:     r.FormValue("last"),
+		First:    first,
+		Last:     last,
 		Zipcode:  r.FormValue("zipcode"),
 	}
 	fmt.Println("User object initalized")
@@ -121,7 +130,7 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 	u.Password = "" // Clear password before sending back to client
 
 	fmt.Println("User created in DB successfully")
-	w.WriteHeader(http.StatusCreated) // 201
+	w.WriteHeader(http.StatusOK) // 200 OK
 	json.NewEncoder(w).Encode(&u)
 
 }
