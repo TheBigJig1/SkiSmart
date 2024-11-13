@@ -36,7 +36,8 @@
 
     display: grid;
     grid-template-areas:
-        "accountPersonal";
+        "accountPersonal"
+        "accountFooter";
 }
 .accountHeader {
     grid-area: accountHeader;
@@ -93,6 +94,22 @@
     display: flex;
 }
 
+.accountFooter {
+    grid-area: accountFooter;
+    justify-items: center;
+    margin-left: 2vw;
+    margin-bottom: 2vw;
+}
+
+.homeRedirect {
+    cursor: pointer;
+    transition: transform 0.3s ease; 
+}
+
+.homeRedirect:hover {
+    transform: scale(1.1); 
+}
+
 
 @media (prefers-color-scheme: dark) {
     .accountContainer {
@@ -110,13 +127,24 @@
     .accountInfo {
         color: #ededeb;
     }
+
     .accountBackground {
         background-image: url('src/assets/accountnightbackground.jpg');
         background-position: center;
     }
+
     .accountBackground::after {
         background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
 
+    }
+
+    .accountFooter {
+        color: #ededeb;
+    }
+
+    .homeRedirect {
+        margin-top: 2vh;
+        border: 1px solid #ededeb;
     }
 }
 

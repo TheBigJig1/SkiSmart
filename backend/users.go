@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"time"
 
@@ -18,10 +19,16 @@ import (
 
 // Create user struct
 type User struct {
-	Email       string
-	Password    string
-	First, Last string
-	Zipcode     string
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	First    string `json:"first"`
+	Last     string `json:"last"`
+	Zipcode  string `json:"zipcode"`
+}
+
+type UserClaims struct {
+	User User `json:"user"`
+	jwt.StandardClaims
 }
 
 // SQL command to create Users table
@@ -36,10 +43,10 @@ var CreateUsers = `CREATE TABLE Users (
 // SQL command for insert user value into table
 var InsertUsers = `INSERT INTO Users 
 	VALUES 
-		('jaxon.fielding@gmail.com', 'complexPW', 'Jaxon', 'Fielding', '26505'),
-		('landonurcho17@gmail.com', 'landtest', 'Landon', 'Urcho', '15243'),
-		('test1g@yahoo.com', 'test1', 'test1first', 'test1last', '89273'),
-		('test2g@hotmail.com', 'test1', 'test2first', 'test2last', '51823-2030')`
+		('jaxon.fielding@gmail.com', '` + encryptPW("complexPW") + `', 'Jaxon', 'Fielding', '26505'),
+		('landonurcho17@gmail.com', '` + encryptPW("landtest") + `', 'Landon', 'Urcho', '15243'),
+		('test1g@yahoo.com', '` + encryptPW("test1test") + `', 'test1first', 'test1last', '89273'),
+		('test2g@hotmail.com', '` + encryptPW("test2test") + `', 'test2first', 'test2last', '51823-2030')`
 
 // SQL command to wipe Users table
 var WipeUsers = `TRUNCATE TABLE [dbo].[Users];`
@@ -50,6 +57,12 @@ var DropUsers = `DROP TABLE if exists Users;`
 // JWT secret key
 var jwtKey = []byte("SBk@1c$km3@nrdt")
 
+func encryptPW(pwd string) string {
+
+	hashedPW, _ := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
+	return string(hashedPW)
+}
+
 // Function to take value from front end and create new entry in Users
 func UserCreate(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("recieved create request")
@@ -59,35 +72,27 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Convert fullname to first and last name
+	parts := strings.Split(r.FormValue("fullname"), " ")
+	first := parts[0]
+	last := ""
+
+	if len(parts) > 0 {
+		last = parts[1]
+	}
+
 	// Intialize User object
 	u := User{
 		Email:    r.FormValue("email"),
 		Password: r.FormValue("password"),
-		First:    r.FormValue("first"),
-	}
-
-	if r.FormValue("last") != "" {
-		u.Last = r.FormValue("last")
-	} else {
-		u.Last = ""
-	}
-
-	if r.FormValue("zipcode") != "" {
-		u.Zipcode = r.FormValue("zipcode")
-	} else {
-		u.Zipcode = ""
+		First:    first,
+		Last:     last,
+		Zipcode:  r.FormValue("zipcode"),
 	}
 	fmt.Println("User object initalized")
 
-	// TODO Save to database -> send the new user obejct to the Datase in SQL
-
 	// Hash PW
-	hashedPW, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Println("Error hashing password: ", err)
-		return
-	}
+	hashedPW := encryptPW(u.Password)
 
 	// Prepared statement to avoid SQL injection
 	stmt, err := db.Prepare("INSERT INTO [dbo].[Users] VALUES (@Email, @Password, @First, @Last, @Zipcode)")
@@ -125,7 +130,7 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 	u.Password = "" // Clear password before sending back to client
 
 	fmt.Println("User created in DB successfully")
-	w.WriteHeader(http.StatusCreated) // 201
+	w.WriteHeader(http.StatusOK) // 200 OK
 	json.NewEncoder(w).Encode(&u)
 
 }
@@ -141,9 +146,6 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 
 	email := r.FormValue("email")
 	passwd := r.FormValue("password")
-
-	fmt.Println("Email: ", email)
-	fmt.Println("Password: ", passwd)
 
 	// Create prepared statement stmt
 	stmt, err := db.Prepare("SELECT * FROM [dbo].[Users] WHERE Email = @Email")
@@ -184,9 +186,12 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 
 	// Generate JWT Token
 	expirationTime := time.Now().Add(1 * time.Hour) // Login valid for 1 hour
-	claims := &jwt.StandardClaims{
-		Subject:   u.Email,
-		ExpiresAt: expirationTime.Unix(),
+	claims := &UserClaims{
+		StandardClaims: jwt.StandardClaims{
+			Subject:   u.Email,
+			ExpiresAt: expirationTime.Unix(),
+		},
+		User: u,
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -197,28 +202,46 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// http.SetCookie(w, &http.Cookie{
-	// 	Name:     "token",
-	// 	Value:    tokenString,
-	// 	Expires:  expirationTime,
-	// 	HttpOnly: true,
-	// 	Secure:   true,
-	// 	SameSite: http.SameSiteStrictMode, // Adjust as needed
-	// })
-
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
 	response := map[string]interface{}{
 		"token": tokenString,
-		"user": map[string]string{
-			"email":   u.Email,
-			"first":   u.First,
-			"last":    u.Last,
-			"zipcode": u.Zipcode,
-		},
 	}
 
 	log.Println("User logged in successfully")
 	json.NewEncoder(w).Encode(response)
+}
+
+// In case something needs cleaned up server side
+// TODO: revoke JWT token
+func UserLogout(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	bearer := r.Header.Get("Authorization")
+
+	if !strings.HasPrefix(bearer, "Bearer ") {
+		w.WriteHeader(http.StatusUnauthorized)
+		fmt.Println("Invalid token")
+		return
+	}
+
+	token := strings.TrimPrefix(bearer, "Bearer ")
+
+	t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
+		return jwtKey, nil
+	})
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Invalid token or Error Parsing: ", err)
+		return
+	}
+
+	// Eat error, we don't care if it fails
+	u := t.Claims.(jwt.MapClaims)["user"]
+	b, _ := json.MarshalIndent(u, "", "  ")
+
+	user := User{}
+	_ = json.Unmarshal(b, &user) // Eat error
+
+	log.Printf("User logged out successfully: %v\n", user)
 }
