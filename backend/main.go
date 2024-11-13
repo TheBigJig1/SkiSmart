@@ -20,6 +20,8 @@ var user = ""
 var password = ""
 var database = "CS_330_1"
 
+// TODO: Add JWT secret key flag
+
 func main() {
 	// Establish up Database connection
 	flag.StringVar(&password, "password", "", "password")

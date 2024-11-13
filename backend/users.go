@@ -232,7 +232,7 @@ func UserLogout(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Println("Error parsing token: ", err)
+		fmt.Println("Invalid token or Error Parsing: ", err)
 		return
 	}
 
