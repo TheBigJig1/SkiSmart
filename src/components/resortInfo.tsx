@@ -75,7 +75,7 @@ function ResortInfo() {
                     <MapContainer
                         center={[resortCoordinates.lat, resortCoordinates.lng]}
                         zoom={13}
-                        style={{ height: "60vh", width: "90vw" }}
+                        style={{ height: "80vh", width: "90vw" }}
                     >
                         <TileLayer
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
