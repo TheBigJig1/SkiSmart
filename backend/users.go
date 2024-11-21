@@ -209,8 +209,9 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 		"token": tokenString,
 	}
 
+	// Report successful login, eat error
 	log.Println("User logged in successfully")
-	json.NewEncoder(w).Encode(response)
+	_ = json.NewEncoder(w).Encode(response)
 }
 
 // In case something needs cleaned up server side

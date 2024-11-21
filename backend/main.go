@@ -21,7 +21,7 @@ var password = ""
 var database = "CS_330_1"
 
 // TODO: Add JWT secret key flag
-var pwHash = "testHash"
+// var pwHash = "testHash"
 
 func main() {
 	// Establish up Database connection
@@ -34,6 +34,7 @@ func main() {
 	populatedb := flag.Bool("populate-db", false, "populated DB")
 	wipeuserdb := flag.Bool("wipe-users", false, "wiped Users DB")
 	wiperesortdb := flag.Bool("wipe-resorts", false, "wiped Resorts DB")
+	wipeFeedback := flag.Bool("wipe-feedback", false, "wiped Feedback DB")
 	dropdb := flag.Bool("drop-db", false, "dropped DB")
 	flag.Parse()
 
@@ -66,6 +67,12 @@ func main() {
 			log.Fatalf("Failed to drop Resorts database: %v", err)
 		}
 		fmt.Println("Resorts database deleted successfully.")
+
+		_, err = db.ExecContext(ctx, DropFeedback)
+		if err != nil {
+			log.Fatalf("Failed to drop Feedback database: %v", err)
+		}
+		fmt.Println("Feedback database deleted successfully.")
 	}
 
 	// Create whole database flag
@@ -81,6 +88,12 @@ func main() {
 			log.Fatalf("Failed to create Resorts database: %v", err)
 		}
 		fmt.Println("Resorts database created successfully.")
+
+		_, err = db.ExecContext(ctx, CreateFeedback)
+		if err != nil {
+			log.Fatalf("Failed to create Feedback database: %v", err)
+		}
+		fmt.Println("Feedback database created successfully.")
 	}
 
 	// Populate whole DB flag
@@ -96,6 +109,9 @@ func main() {
 			log.Fatalf("Failed to populate Resorts database: %v", err)
 		}
 		fmt.Println("Populated Resorts database successfully.")
+
+		// Do not need to populate feedback database
+
 	}
 
 	// TODO add flag function to wipe user data
@@ -116,11 +132,20 @@ func main() {
 		fmt.Println("Wiped Resorts database successfully.")
 	}
 
+	if *wipeFeedback {
+		_, err = db.ExecContext(ctx, WipeFeedback)
+		if err != nil {
+			log.Fatalf("Failed to find Feedback database: %v", err)
+		}
+		fmt.Println("Wiped Feedback database successfully.")
+	}
+
 	// Start web server - connects backend to npm app / terminal
 	mux := http.NewServeMux()
 	mux.HandleFunc("/users/create", UserCreate)
 	mux.HandleFunc("/users/login", UserLogin)
 	mux.HandleFunc("/users/logout", UserLogout)
+	mux.HandleFunc("/feedback/add", FeedbackAdd)
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173"}, // Frontend origin
