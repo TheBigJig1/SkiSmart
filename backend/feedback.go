@@ -80,7 +80,7 @@ func FeedbackAdd(w http.ResponseWriter, r *http.Request) {
 }
 
 // Function to grab Feedback from the database and display on the webpage
-func FeedbackGet(w http.ResponseWriter, r *http.Request) {
+func FeedbackList(w http.ResponseWriter, r *http.Request) {
 	// Server acknowledges request
 	fmt.Println("recieved get request")
 
