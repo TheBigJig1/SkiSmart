@@ -146,6 +146,7 @@ func main() {
 	mux.HandleFunc("/users/login", UserLogin)
 	mux.HandleFunc("/users/logout", UserLogout)
 	mux.HandleFunc("/feedback/add", FeedbackAdd)
+	mux.HandleFunc("/feedback/list", FeedbackList)
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173"}, // Frontend origin
