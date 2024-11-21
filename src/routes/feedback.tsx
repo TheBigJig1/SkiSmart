@@ -2,12 +2,20 @@ import {useEffect, useState} from 'react';
 import '@/styles/routes/feedback.css';
 import { jwtDecode }  from 'jwt-decode';
 
+// Define interface for response data
+interface FeedbackReview {
+    First:      string;
+    Rating:     number;
+    Feedback:   string;
+}
 
 function Feedback() {
     // State variables
     const [selectRate, setSelectRate]=useState(0);
     const [feedback,setFeedback]=useState('');
     const [first, setFirst] = useState('');
+
+    const [reviews, setReviews] = useState<FeedbackReview[]>([]);
     
     useEffect(() => {
         // Retrieve user data from localStorage
@@ -21,6 +29,10 @@ function Feedback() {
         if (user && user.first) {
             setFirst(user.first);
         }
+
+        // List reviews
+        listReviews();
+
     }, []);
 
     const hanStarCl= (index: number) =>
@@ -70,13 +82,6 @@ function Feedback() {
         setSelectRate(0); //resets star rating
     };
 
-    // Add state variable for reviews
-    const [reviews, setReviews] = useState([
-        { First: "AnonymousCoward", Rating: 4, Feedback: "Great experience!" },
-        { First: "AnonymousCoward", Rating: 5, Feedback: "Love the app!" },
-        { First: "AnonymousCoward", Rating: 3, Feedback: "Good but could improve." }
-    ]);
-
     // List reviews from the server
     const listReviews = async () => {
         try {
@@ -91,7 +96,12 @@ function Feedback() {
             if(response.ok) {
                 // Handle successful response
                 const data = await response.json();
-                setReviews(data);
+                const feedbacks = data.feedbacks;
+
+                // Update reviews state variable
+                setReviews(feedbacks);
+
+                // Log reviews
                 console.log("Reviews fetched successfully");
             }
         } catch (error) {
@@ -126,6 +136,22 @@ function Feedback() {
             
             <div className="feedbackDisplay">
                 <h3>User Reviews</h3>
+                {/* {reviews.map((review, index) => (
+                    <div key={index} className="feedbackItem">
+                        <h2>{review.First}</h2>
+                        <div className="starsGiven">
+                            {[...Array(5)].map((_, starIndex) => (
+                                <span 
+                                    key={starIndex} 
+                                    className={`staticReviewstar ${review.Rating > starIndex ? 'selected' : ''}`}
+                                >
+                                    ★
+                                </span>
+                            ))}
+                        </div>
+                        <h3>{review.Feedback}</h3>
+                    </div>
+                ))} */}
                 {reviews.map((review, reviewIndex) => (
                     <div key={reviewIndex} className="feedbackItem">
                         <h2>{review.First}</h2>
