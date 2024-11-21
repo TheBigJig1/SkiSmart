@@ -61,8 +61,8 @@ function Feedback() {
             console.error('Error:', error);
         }
 
-        // We'll just need to add a submit part that actually submits the feedback and ratings before reseting
         console.log('Feedback submitted', feedback,selectRate);
+        
         setFeedback(''); //resets feedback
         setSelectRate(0); //resets star rating
     };

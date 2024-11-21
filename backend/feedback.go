@@ -2,7 +2,9 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -82,6 +84,36 @@ func FeedbackGet(w http.ResponseWriter, r *http.Request) {
 	// Server acknowledges request
 	fmt.Println("recieved get request")
 
-	// Prepare SQL statement to avoid SQL injection
+	// Query the database for all feedback
+	rows, err := db.Query("SELECT * FROM [dbo].[Feedback]")
+	if err != nil {
+		if err == sql.ErrNoRows {
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Println("No feedback found")
+			return
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Println("Error scanning row: ", err)
+			return
+		}
+	}
 
+	defer rows.Close()
+
+	// Create slice of feedback objects
+	feedbacks := []Feedback{}
+
+	for rows.Next() {
+		f := Feedback{}
+		if err = rows.Scan(&f.ID, &f.Email, &f.Feedback, &f.Rating); err != nil {
+			// ToDo Handle Error
+		}
+		if f.Rating == 5 {
+			feedbacks = append(feedbacks, f)
+		}
+	}
+
+	// Server acknowledges success
+	log.Println("Feedbacks returned successfully")
+	_ = json.NewEncoder(w).Encode(feedbacks)
 }
