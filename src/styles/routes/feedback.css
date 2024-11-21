@@ -140,6 +140,17 @@
     color: gold;
 }
 
+.staticReviewstar {
+    font-size: 1.5rem;
+    color: white;
+    transition: color 0.2s;
+    cursor: default;
+}
+
+.staticReviewstar.selected {
+    color: gold;
+}
+
 .submitButton {
     cursor: pointer;
     transition: transform 0.3s ease; 
@@ -167,6 +178,9 @@
     padding: 10px;
     margin: 1vw;
     width: 80%;
+    max-width: 80vw;
+    height: fit-content;
+
     background-color: rgba(217,217,217,0.8);
 }
 

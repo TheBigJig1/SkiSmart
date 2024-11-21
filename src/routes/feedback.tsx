@@ -4,21 +4,22 @@ import { jwtDecode }  from 'jwt-decode';
 
 
 function Feedback() {
+    // State variables
     const [selectRate, setSelectRate]=useState(0);
     const [feedback,setFeedback]=useState('');
-    const [email, setEmail] = useState('');
+    const [first, setFirst] = useState('');
     
     useEffect(() => {
         // Retrieve user data from localStorage
         const token = localStorage.getItem('token') || ''
         if (!token) {
-            setEmail('AnonymousCoward');
+            setFirst('AnonymousCoward');
             return;
         }
         const decoded = jwtDecode(token) as { user: { email: string; first: string; last: string; zipcode: string } };
         const user = decoded.user;
-        if (user && user.email) {
-            setEmail(user.email);
+        if (user && user.first) {
+            setFirst(user.first);
         }
     }, []);
 
@@ -28,15 +29,17 @@ function Feedback() {
         console.log('Star clicked');
     };
 
-    const handleSub = async (e: React.FormEvent<HTMLFormElement>) =>
-    {
+    // Submit feedback
+    const handleSub = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        // Create form data
         const formData = new URLSearchParams();
-        formData.append('email', email);
+        formData.append('first', first);
         formData.append('feedback', feedback);
         formData.append('rating', selectRate.toString());
 
+        // Send feedback to server
         try {
             const response = await fetch('http://localhost:8080/feedback/add', {
                 method: 'POST',
@@ -67,6 +70,36 @@ function Feedback() {
         setSelectRate(0); //resets star rating
     };
 
+    // Add state variable for reviews
+    const [reviews, setReviews] = useState([
+        { First: "AnonymousCoward", Rating: 4, Feedback: "Great experience!" },
+        { First: "AnonymousCoward", Rating: 5, Feedback: "Love the app!" },
+        { First: "AnonymousCoward", Rating: 3, Feedback: "Good but could improve." }
+    ]);
+
+    // List reviews from the server
+    const listReviews = async () => {
+        try {
+            // Fetch reviews from server
+            const response = await fetch('http://localhost:8080/feedback/list', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if(response.ok) {
+                // Handle successful response
+                const data = await response.json();
+                setReviews(data);
+                console.log("Reviews fetched successfully");
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    
+
     return (
         <div className="fcontainer">
             <div className="fbackground">
@@ -91,16 +124,28 @@ function Feedback() {
                     </form>
             </div>
             
-            
             <div className="feedbackDisplay">
                 <h3>User Reviews</h3>
-                <div className="feedbackItem"><h2>Feedback: FEEEEEEEEEE</h2></div>
-                <div className="feedbackItem"><h2>Feedback: FEEEEEEEEEE</h2></div>
-                <div className="feedbackItem"><h2>Feedback: FEEEEEEEEEE</h2></div>
+                {reviews.map((review, reviewIndex) => (
+                    <div key={reviewIndex} className="feedbackItem">
+                        <h2>{review.First}</h2>
+                        <div className="starsGiven">
+                            {[...Array(5)].map((_, starIndex) => (
+                                <span 
+                                    key={starIndex} 
+                                    className={`staticReviewstar ${review.Rating > starIndex ? 'selected' : ''}`}
+                                >
+                                    ★
+                                </span>
+                            ))}
+                        </div>
+                        <h3>{review.Feedback}</h3>
+                    </div>
+                ))}
             </div>
         </div>
 
     );
- }
+}
 
- export default Feedback
+export default Feedback

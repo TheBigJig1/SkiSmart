@@ -12,7 +12,7 @@ import (
 // Create feedback struct
 type Feedback struct {
 	ID       int    `json:"id"`
-	Email    string `json:"email"`
+	First    string `json:"first"`
 	Feedback string `json:"feedback"`
 	Rating   int    `json:"rating"`
 }
@@ -20,7 +20,7 @@ type Feedback struct {
 // SQL command to create Feedback table
 var CreateFeedback = `CREATE TABLE Feedback (
 	ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	Email VARCHAR(255),
+	First VARCHAR(255),
 	Feedback VARCHAR(1028) NOT NULL,
 	Rating INT NOT NULL
 );`
@@ -41,24 +41,24 @@ func FeedbackAdd(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Set email and rating from form if not-null
-	email := "Anonymous"
-	if r.FormValue("email") != "" {
-		email = r.FormValue("email")
+	// Set name and rating from form if not-null
+	first := "Anonymous"
+	if r.FormValue("first") != "" {
+		first = r.FormValue("first")
 	}
 	ratingString := r.FormValue("rating")
 	rating, _ := strconv.Atoi(ratingString)
 
 	// Create new feedback object
 	feedback := Feedback{
-		Email:    email,
+		First:    first,
 		Feedback: r.FormValue("feedback"),
 		Rating:   rating,
 	}
 	fmt.Println("Feedback object intialized")
 
 	// Prepare SQL statement to avoid SQL injection
-	stmt, err := db.Prepare("INSERT INTO [dbo].[Feedback] VALUES (@Email, @Feedback, @Rating)")
+	stmt, err := db.Prepare("INSERT INTO [dbo].[Feedback] VALUES (@First, @Feedback, @Rating)")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println("Error preparing statement: ", err)
@@ -68,7 +68,7 @@ func FeedbackAdd(w http.ResponseWriter, r *http.Request) {
 
 	// Execute prepared statement with user input
 	_, _ = stmt.Exec(
-		sql.Named("Email", feedback.Email),
+		sql.Named("First", feedback.First),
 		sql.Named("Feedback", feedback.Feedback),
 		sql.Named("Rating", feedback.Rating),
 	)
@@ -105,8 +105,9 @@ func FeedbackList(w http.ResponseWriter, r *http.Request) {
 
 	for rows.Next() {
 		f := Feedback{}
-		if err = rows.Scan(&f.ID, &f.Email, &f.Feedback, &f.Rating); err != nil {
-			// ToDo Handle Error
+		if err = rows.Scan(&f.ID, &f.First, &f.Feedback, &f.Rating); err != nil {
+			fmt.Println("Error scanning row: ", err)
+			return
 		}
 		if f.Rating == 5 {
 			feedbacks = append(feedbacks, f)
