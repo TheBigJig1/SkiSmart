@@ -84,8 +84,35 @@ func FeedbackList(w http.ResponseWriter, r *http.Request) {
 	// Server acknowledges request
 	fmt.Println("recieved get request")
 
+	values := r.URL.Query()
+	// rating := values.Get("rating")
+
+	// // Convert to int, check error
+	// ratingInt, err := strconv.Atoi(rating)
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	return
+	// }
+
+	// Convert to int, check error
+	limit := values.Get("limit")
+	limitInt, err := strconv.Atoi(limit)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	// Create prepared statement stmt
+	stmt, err := db.Prepare("SELECT * FROM [dbo].[Feedback] ORDER BY RATING DESC, ID DESC OFFSET 0 ROWS FETCH NEXT @Limit ROWS ONLY")
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error preparing statement: ", err)
+		return
+	}
+	defer stmt.Close()
+
 	// Query the database for all feedback
-	rows, err := db.Query("SELECT * FROM [dbo].[Feedback]")
+	rows, err := stmt.Query(sql.Named("Limit", limitInt))
 	if err != nil {
 		if err == sql.ErrNoRows {
 			w.WriteHeader(http.StatusBadRequest)

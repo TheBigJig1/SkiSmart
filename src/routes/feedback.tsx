@@ -67,6 +67,9 @@ function Feedback() {
                 // Handle successful response
                 console.log('Feedback submitted successfully');
                 alert('Feedback submitted successfully!');
+
+                // Reload page
+                window.location.reload();
         
               } else {
                 // Handle error response
@@ -87,7 +90,8 @@ function Feedback() {
     const listReviews = async () => {
         try {
             // Fetch reviews from server
-            const response = await fetch('http://localhost:8080/feedback/list', {
+            // Endpoint is parameterized
+            const response = await fetch('http://localhost:8080/feedback/list?limit=3', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
