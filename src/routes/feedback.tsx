@@ -102,7 +102,7 @@ function Feedback() {
                 setReviews(feedbacks);
 
                 // Log reviews
-                console.log('Reviews fetched successfully:', feedbacks); // Log the reviews
+                console.log('Reviews fetched successfully');
                 
             }
         } catch (error) {
