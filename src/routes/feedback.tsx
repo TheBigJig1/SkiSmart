@@ -4,10 +4,10 @@ import { jwtDecode }  from 'jwt-decode';
 
 // Define interface for response data
 interface FeedbackReview {
-    ID:         number;
-    First:      string;
-    Rating:     number;
-    Feedback:   string;
+    id:         number;
+    first:      string;
+    rating:     number;
+    feedback:   string;
 }
 
 function Feedback() {
@@ -96,20 +96,20 @@ function Feedback() {
 
             if(response.ok) {
                 // Handle successful response
-                const data = await response.json();
+                const feedbacks = await response.json();
 
                 // Update reviews state variable
-                setReviews(data);
+                setReviews(feedbacks);
 
                 // Log reviews
-                console.log("Reviews fetched successfully");
+                console.log('Reviews fetched successfully:', feedbacks); // Log the reviews
+                
             }
         } catch (error) {
             console.error('Error:', error);
         }
     }
     
-
     return (
         <div className="fcontainer">
             <div className="fbackground">
@@ -138,18 +138,18 @@ function Feedback() {
                 <h3>User Reviews</h3>
                 {reviews && reviews.map((review, reviewIndex) => (
                     <div key={reviewIndex} className="feedbackItem">
-                        <h2>{review.First}</h2>
+                        <h2>{review.first}</h2>
                         <div className="starsGiven">
                             {[...Array(5)].map((_, starIndex) => (
                                 <span
                                     key={starIndex}
-                                    className={`staticReviewstar ${review.Rating > starIndex ? 'selected' : ''}`}
+                                    className={`staticReviewstar ${review.rating > starIndex ? 'selected' : ''}`}
                                 >
                                     ★
                                 </span>
                             ))}
                         </div>
-                        <h3>{review.Feedback}</h3>
+                        <h3>{review.feedback}</h3>
                     </div>
                 ))}
             </div>
