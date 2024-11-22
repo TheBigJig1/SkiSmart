@@ -19,6 +19,10 @@ function Feedback() {
     const [reviews, setReviews] = useState<FeedbackReview[]>([]);
     
     useEffect(() => {
+
+        // List reviews
+        listReviews();
+
         // Retrieve user data from localStorage
         const token = localStorage.getItem('token') || ''
         if (!token) {
@@ -30,9 +34,6 @@ function Feedback() {
         if (user && user.first) {
             setFirst(user.first);
         }
-
-        // List reviews
-        listReviews();
 
     }, []);
 
