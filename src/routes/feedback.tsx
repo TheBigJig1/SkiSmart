@@ -4,6 +4,7 @@ import { jwtDecode }  from 'jwt-decode';
 
 // Define interface for response data
 interface FeedbackReview {
+    ID:         number;
     First:      string;
     Rating:     number;
     Feedback:   string;
@@ -96,10 +97,9 @@ function Feedback() {
             if(response.ok) {
                 // Handle successful response
                 const data = await response.json();
-                const feedbacks = data.feedbacks;
 
                 // Update reviews state variable
-                setReviews(feedbacks);
+                setReviews(data);
 
                 // Log reviews
                 console.log("Reviews fetched successfully");
@@ -136,29 +136,13 @@ function Feedback() {
             
             <div className="feedbackDisplay">
                 <h3>User Reviews</h3>
-                {/* {reviews.map((review, index) => (
-                    <div key={index} className="feedbackItem">
-                        <h2>{review.First}</h2>
-                        <div className="starsGiven">
-                            {[...Array(5)].map((_, starIndex) => (
-                                <span 
-                                    key={starIndex} 
-                                    className={`staticReviewstar ${review.Rating > starIndex ? 'selected' : ''}`}
-                                >
-                                    ★
-                                </span>
-                            ))}
-                        </div>
-                        <h3>{review.Feedback}</h3>
-                    </div>
-                ))} */}
-                {reviews.map((review, reviewIndex) => (
+                {reviews && reviews.map((review, reviewIndex) => (
                     <div key={reviewIndex} className="feedbackItem">
                         <h2>{review.First}</h2>
                         <div className="starsGiven">
                             {[...Array(5)].map((_, starIndex) => (
-                                <span 
-                                    key={starIndex} 
+                                <span
+                                    key={starIndex}
                                     className={`staticReviewstar ${review.Rating > starIndex ? 'selected' : ''}`}
                                 >
                                     ★

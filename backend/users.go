@@ -205,6 +205,7 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
+	// TODO undo response embedding
 	response := map[string]interface{}{
 		"token": tokenString,
 	}
