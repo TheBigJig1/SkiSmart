@@ -164,13 +164,19 @@
     grid-area: feedbackDisplay;
     
     background-color: white;
-
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
 }
+
+.feedbackDisplay h1 {
+    font-size: 4vw;
+    font-family: "Anonymous Pro", monospace;
+    color: black;
+}
+
 
 .feedbackItem {
     border: 1px solid #000;
@@ -182,6 +188,22 @@
     height: fit-content;
 
     background-color: rgba(217,217,217,0.8);
+}
+
+.moreReviews {
+    padding: 10px 20px;
+    margin-top: 4vw;
+    margin-bottom: 2vw;
+
+    font-size: 16px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease; 
+}
+
+.moreReviews:hover {
+    transform: scale(1.1); 
 }
 
 @media (max-width: 728px) {
@@ -218,6 +240,16 @@
     .feedbackDisplay {
         background-color: #141414;
         color: #ededeb;
+    }
+
+    .feedbackDisplay h1 {
+        color: #ededeb
+
+    }
+
+    .moreReviews {
+        margin-top: 2vh;
+        border: 1px solid #ededeb;
     }
 
 }

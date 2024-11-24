@@ -142,7 +142,7 @@ function Feedback() {
             </div>
             
             <div className="feedbackDisplay">
-                <h3>User Reviews</h3>
+                <h1>Our Reviews!</h1>
                 {reviews && reviews.map((review, reviewIndex) => (
                     <div key={reviewIndex} className="feedbackItem">
                         <h2>{review.first}</h2>
