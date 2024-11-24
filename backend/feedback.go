@@ -128,9 +128,11 @@ func FeedbackList(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Error scanning row: ", err)
 			return
 		}
-		if f.Rating == 5 {
-			feedbacks = append(feedbacks, f)
-		}
+		// if f.Rating == 5 {
+		// 	feedbacks = append(feedbacks, f)
+		// }
+
+		feedbacks = append(feedbacks, f)
 	}
 
 	// Server acknowledges success

@@ -15,13 +15,13 @@ function Feedback() {
     const [selectRate, setSelectRate]=useState(0);
     const [feedback,setFeedback]=useState('');
     const [first, setFirst] = useState('');
-
+    const [limit, setLimit] = useState(3);
     const [reviews, setReviews] = useState<FeedbackReview[]>([]);
     
     useEffect(() => {
 
         // List reviews
-        listReviews();
+        listReviews(limit);
 
         // Retrieve user data from localStorage
         const token = localStorage.getItem('token') || ''
@@ -35,7 +35,7 @@ function Feedback() {
             setFirst(user.first);
         }
 
-    }, []);
+    }, [limit]); // Add limit as a dependency to re-fetch reviews when limit changes
 
     const hanStarCl= (index: number) =>
     {
@@ -88,11 +88,12 @@ function Feedback() {
     };
 
     // List reviews from the server
-    const listReviews = async () => {
+    const listReviews = async (limit: number) => {
         try {
             // Fetch reviews from server
+
             // Endpoint is parameterized
-            const response = await fetch('http://localhost:8080/feedback/list?limit=3', {
+            const response = await fetch(`http://localhost:8080/feedback/list?limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -108,7 +109,8 @@ function Feedback() {
 
                 // Log reviews
                 console.log('Reviews fetched successfully');
-                
+                console.log(feedbacks);
+                return;
             }
         } catch (error) {
             console.error('Error:', error);
@@ -157,6 +159,10 @@ function Feedback() {
                         <h3>{review.feedback}</h3>
                     </div>
                 ))}
+                <div>
+                    <button className="moreReviews" 
+                    onClick={() => {setLimit(limit + 3) }}>More Reviews</button>
+                </div>
             </div>
         </div>
 
