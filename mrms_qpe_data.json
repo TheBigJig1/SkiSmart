@@ -1,0 +1,217 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "stac_version": "1.0.0",
+            "stac_extensions": [
+                "https://stac-extensions.github.io/noaa-mrms-qpe/v1.0.0/schema.json",
+                "https://stac-extensions.github.io/raster/v1.1.0/schema.json",
+                "https://stac-extensions.github.io/classification/v1.1.0/schema.json",
+                "https://stac-extensions.github.io/projection/v1.1.0/schema.json"
+            ],
+            "id": "CONUS_MRMS_MultiSensor_QPE_24H_Pass2_00.00_20241121-010000",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            -130,
+                            55
+                        ],
+                        [
+                            -60,
+                            55
+                        ],
+                        [
+                            -60,
+                            20
+                        ],
+                        [
+                            -130,
+                            20
+                        ],
+                        [
+                            -130,
+                            55
+                        ]
+                    ]
+                ]
+            },
+            "bbox": [
+                -130.0,
+                20.0,
+                -60.0,
+                55.0
+            ],
+            "properties": {
+                "datetime": "2024-11-21T01:00:00Z",
+                "proj:epsg": null,
+                "description": "Multi-sensor accumulation 24-hour (2-hour latency) [mm]",
+                "proj:projjson": {
+                    "name": "unknown",
+                    "type": "GeographicCRS",
+                    "datum": {
+                        "name": "unknown",
+                        "type": "GeodeticReferenceFrame",
+                        "ellipsoid": {
+                            "name": "unknown",
+                            "semi_major_axis": 6378160,
+                            "inverse_flattening": 298.253916296469
+                        }
+                    },
+                    "$schema": "https://proj.org/schemas/v0.4/projjson.schema.json",
+                    "coordinate_system": {
+                        "axis": [
+                            {
+                                "name": "Longitude",
+                                "unit": "degree",
+                                "direction": "east",
+                                "abbreviation": "lon"
+                            },
+                            {
+                                "name": "Latitude",
+                                "unit": "degree",
+                                "direction": "north",
+                                "abbreviation": "lat"
+                            }
+                        ],
+                        "subtype": "ellipsoidal"
+                    }
+                },
+                "noaa_mrms_qpe:pass": 2,
+                "noaa_mrms_qpe:period": 24,
+                "noaa_mrms_qpe:region": "CONUS"
+            },
+            "links": [
+                {
+                    "rel": "collection",
+                    "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/noaa-mrms-qpe-24h-pass2",
+                    "type": "application/json"
+                },
+                {
+                    "rel": "parent",
+                    "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/noaa-mrms-qpe-24h-pass2",
+                    "type": "application/json"
+                },
+                {
+                    "rel": "root",
+                    "href": "https://planetarycomputer.microsoft.com/api/stac/v1",
+                    "type": "application/json",
+                    "title": "Microsoft Planetary Computer STAC API"
+                },
+                {
+                    "rel": "self",
+                    "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/noaa-mrms-qpe-24h-pass2/items/CONUS_MRMS_MultiSensor_QPE_24H_Pass2_00.00_20241121-010000",
+                    "type": "application/geo+json"
+                },
+                {
+                    "rel": "preview",
+                    "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/map?collection=noaa-mrms-qpe-24h-pass2&item=CONUS_MRMS_MultiSensor_QPE_24H_Pass2_00.00_20241121-010000",
+                    "type": "text/html",
+                    "title": "Map of item"
+                }
+            ],
+            "assets": {
+                "cog": {
+                    "href": "https://mrms.blob.core.windows.net/mrms-cogs/CONUS/MultiSensor_QPE_24H_Pass2_00.00/20241121/MRMS_MultiSensor_QPE_24H_Pass2_00.00_20241121-010000.tif",
+                    "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+                    "title": "Processed Cloud Optimized GeoTIFF file",
+                    "proj:shape": [
+                        7000,
+                        3500
+                    ],
+                    "raster:bands": [
+                        {
+                            "nodata": -1,
+                            "statistics": {
+                                "maximum": 201.0,
+                                "minimum": 0.0
+                            },
+                            "classification:classes": [
+                                {
+                                    "name": "no-data",
+                                    "value": -1,
+                                    "nodata": true,
+                                    "description": "No coverage or missing value (no-data)"
+                                }
+                            ],
+                            "unit": "mm",
+                            "data_type": "float64",
+                            "spatial_resolution": 1000
+                        }
+                    ],
+                    "proj:transform": [
+                        0.009999999714244895,
+                        0.0,
+                        -129.99999999985712,
+                        0.0,
+                        -0.009999999714204058,
+                        54.9999999998571
+                    ],
+                    "roles": [
+                        "data"
+                    ]
+                },
+                "grib2": {
+                    "href": "https://mrms.blob.core.windows.net/mrms/CONUS/MultiSensor_QPE_24H_Pass2_00.00/20241121/MRMS_MultiSensor_QPE_24H_Pass2_00.00_20241121-010000.grib2.gz",
+                    "type": "application/wmo-GRIB2",
+                    "title": "Original GRIB2 file",
+                    "proj:shape": [
+                        7000,
+                        3500
+                    ],
+                    "raster:bands": [
+                        {
+                            "nodata": -3,
+                            "statistics": {
+                                "maximum": 201.0,
+                                "minimum": 0.0
+                            },
+                            "classification:classes": [
+                                {
+                                    "name": "no-coverage",
+                                    "value": -3,
+                                    "nodata": true,
+                                    "description": "No coverage (no-data)"
+                                }
+                            ],
+                            "unit": "mm",
+                            "data_type": "float64",
+                            "spatial_resolution": 1000
+                        }
+                    ],
+                    "proj:transform": [
+                        0.009999999714244895,
+                        0.0,
+                        -129.99999999985712,
+                        0.0,
+                        -0.009999999714204058,
+                        54.9999999998571
+                    ],
+                    "roles": [
+                        "data"
+                    ]
+                },
+                "tilejson": {
+                    "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/tilejson.json?collection=noaa-mrms-qpe-24h-pass2&item=CONUS_MRMS_MultiSensor_QPE_24H_Pass2_00.00_20241121-010000&assets=cog&colormap_name=qpe&rescale=0%2C120&format=png",
+                    "type": "application/json",
+                    "title": "TileJSON with default rendering",
+                    "roles": [
+                        "tiles"
+                    ]
+                },
+                "rendered_preview": {
+                    "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/preview.png?collection=noaa-mrms-qpe-24h-pass2&item=CONUS_MRMS_MultiSensor_QPE_24H_Pass2_00.00_20241121-010000&assets=cog&colormap_name=qpe&rescale=0%2C120&format=png",
+                    "type": "image/png",
+                    "title": "Rendered preview",
+                    "rel": "preview",
+                    "roles": [
+                        "overview"
+                    ]
+                }
+            },
+            "collection": "noaa-mrms-qpe-24h-pass2"
+        }
+    ]
+}
