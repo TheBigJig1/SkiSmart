@@ -42,6 +42,27 @@ var CreateUsers = `CREATE TABLE Users (
     Zipcode VARCHAR(20)
 );`
 
+// SQL command to create UserBookmarkedResorts table
+var CreateUserBookmarkedResorts = `CREATE TABLE UserBookmarkedResorts (
+	UserID_FK INT NOT NULL,
+	ResortID_FK INT NOT NULL,
+	PRIMARY KEY (UserID_FK, ResortID_FK),
+	FOREIGN KEY (UserID_FK) REFERENCES Users(ID),
+	FOREIGN KEY (ResortID_FK) REFERENCES Resorts(ID),
+	INDEX idx_ResortID (ResortID_FK)
+);`
+
+// SQL command to create UserVisitedResorts table
+var CreateUserVisitedResorts = `CREATE TABLE UserVisitedResorts (
+	ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	UserID_FK INT NOT NULL FOREIGN KEY REFERENCES Users(ID),
+	ResortID_FK INT NOT NULL FOREIGN KEY REFERENCES Resorts(ID),
+	VisitedDate DATE NOT NULL
+	INDEX idx_ResortID (ResortID_FK)
+	INDEX idx_VisitedID (VisitedDate)
+	INDEX idx_UserID (UserID_FK)
+);`
+
 // SQL command for insert user value into table
 var InsertUsers = `INSERT INTO Users 
 	VALUES 
@@ -249,3 +270,5 @@ func UserLogout(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("User logged out successfully: %v\n", user)
 }
+
+//
