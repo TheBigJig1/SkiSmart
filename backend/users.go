@@ -19,6 +19,7 @@ import (
 
 // Create user struct
 type User struct {
+	ID       int    `json:"id"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
 	First    string `json:"first"`
@@ -33,7 +34,8 @@ type UserClaims struct {
 
 // SQL command to create Users table
 var CreateUsers = `CREATE TABLE Users (
-    Email VARCHAR(255) NOT NULL PRIMARY KEY,
+	ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    Email VARCHAR(255) NOT NULL,
     Password VARCHAR(255) NOT NULL,
     First VARCHAR(100) NOT NULL,
     Last VARCHAR(100),
@@ -144,8 +146,8 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	email := r.FormValue("email")
-	passwd := r.FormValue("password")
+	loginEmail := r.FormValue("email")
+	loginPassword := r.FormValue("password")
 
 	// Create prepared statement stmt
 	stmt, err := db.Prepare("SELECT * FROM [dbo].[Users] WHERE Email = @Email")
@@ -157,14 +159,14 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	defer stmt.Close()
 
 	// Execute prepared statement
-	row := stmt.QueryRow(sql.Named("Email", email))
+	row := stmt.QueryRow(sql.Named("Email", loginEmail))
 
 	u := User{}
-	err = row.Scan(&u.Email, &u.Password, &u.First, &u.Last, &u.Zipcode) // Returns good or not good
+	err = row.Scan(&u.ID, &u.Email, &u.Password, &u.First, &u.Last, &u.Zipcode) // Returns good or not good
 	if err != nil {
 		if err == sql.ErrNoRows {
 			w.WriteHeader(http.StatusUnauthorized)
-			fmt.Println("Email does not exist: ", email)
+			fmt.Println("Email does not exist: ", loginEmail)
 			return
 		} else {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -174,10 +176,10 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Compare hashed password
-	err = bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(passwd))
+	err = bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(loginPassword))
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
-		fmt.Println("Invalid password for user: ", email)
+		fmt.Println("Invalid password for user: ", loginEmail)
 		return
 	}
 
