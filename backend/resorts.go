@@ -105,7 +105,7 @@ func ResortPreviewList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Server acknowledges success
-	log.Println("Resorts returned successfully")
+	log.Println("Resort List returned successfully")
 	w.WriteHeader(http.StatusOK) // 200 OK
 	_ = json.NewEncoder(w).Encode(&resorts)
 }
@@ -119,7 +119,7 @@ func ResortGet(w http.ResponseWriter, r *http.Request) {
 	name := r.URL.Query().Get("name")
 
 	// Create prepared statement stmt for query parameters
-	stmt, err := db.Prepare("SELECT * FROM [dbo].[Resorts] WHERE Name = '@Name'")
+	stmt, err := db.Prepare("SELECT * FROM [dbo].[Resorts] WHERE Name = @Name")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println("Error preparing statement: ", err)
@@ -129,6 +129,8 @@ func ResortGet(w http.ResponseWriter, r *http.Request) {
 
 	// Execute prepared statement
 	row := stmt.QueryRow(sql.Named("Name", name))
+
+	fmt.Printf("SQL query: %v\n", row)
 
 	// Create resort struct
 	tr := Resort{}

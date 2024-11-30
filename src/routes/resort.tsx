@@ -3,13 +3,13 @@ import {useEffect, useState} from 'react';
 import ResortCard from "../components/resortCard"
 
 interface ResortObj {
-    id:     number;
-    name:   string;
-    address: string;
-    zip:    string;
-    lat:    number;
-    long:   number;
-    image:  string;
+    ID:         number;
+    Name:       string;
+    Address:    string;
+    Zipcode:    string;
+    Lat:        number;
+    Long:       number;
+    ImageLink:  string;
 }
 
 function Resort() {
@@ -46,7 +46,7 @@ function Resort() {
                 setResorts(resorts);
 
                 // Log reviews
-                console.log('Reviews fetched successfully');
+                console.log('Resort list fetched successfully');
                 console.log(resorts);
                 return;
             }
@@ -69,12 +69,14 @@ function Resort() {
                 <button className="searchButton">Search</button>
             </div>
             <div className="resortContentContainer">
-                <ResortCard resortName="Timberline" image="https://elkinsrandolphwv.com/wp-content/uploads/2020/10/Timberline-1568x1045.jpg" snowfall="3 in." address="254 Four Seasons Dr, Davis, WV 26260" lat="39.0430555556" long="-79.3988888889" />
-                <ResortCard resortName="The Wisp" image="https://d15zjc2r4e8kr7.cloudfront.net/8517/blog/IMG_2822.jpg" snowfall="1.4 in." address="296 Marsh Hill Rd, McHenry, MD 21541" lat="39.558056" long="-79.363056"/>
-
+                {resorts && resorts.map((resort, resortIndex) => (
+                    <ResortCard key={resortIndex} resortName={resort.Name} imageLink={resort.ImageLink} address={resort.Address} snowfall="3" />
+                ))}
+                
                 <div>
-                    <button className="moreResorts" 
-                    onClick={() => {setLimit(limit + 3) }}>More Resorts</button>
+                    <button className="moreResorts" onClick={() => { setLimit(limit + 3) }}>
+                        More Resorts
+                    </button>
                 </div>
             </div>
         </div>
