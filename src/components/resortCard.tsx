@@ -1,6 +1,6 @@
 import "@/styles/components/resortCard.css"
 
-function ResortCard(props: {resortName: string; snowfall: string; address: string; lat: string; long: string;} ) {
+function ResortCard(props: {resortName: string; image: string; snowfall: string; address: string; lat: string; long: string;} ) {
 
     function setStorage() {
         localStorage.setItem("resortName", props.resortName);
@@ -8,13 +8,14 @@ function ResortCard(props: {resortName: string; snowfall: string; address: strin
         localStorage.setItem("address", props.address);
         localStorage.setItem("lat", props.lat);
         localStorage.setItem("long", props.long);
+        localStorage.setItem("image", props.image);
     }
 
 
     return <div className="cardContainer">
         <h1 className="resortName">{props.resortName}</h1>
         <div className="resortImg">
-            <img src={`src/assets/${props.resortName.replace(' ', '')}.jpg`}></img>
+            <img src={props.image}></img>
         </div>
         <div className="resortInfo">
             <a href="/resortInfo">

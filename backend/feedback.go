@@ -116,7 +116,6 @@ func FeedbackList(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-
 	defer rows.Close()
 
 	// Create slice of feedback objects
@@ -128,14 +127,11 @@ func FeedbackList(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Error scanning row: ", err)
 			return
 		}
-		// if f.Rating == 5 {
-		// 	feedbacks = append(feedbacks, f)
-		// }
-
 		feedbacks = append(feedbacks, f)
 	}
 
 	// Server acknowledges success
 	log.Println("Feedbacks returned successfully")
+	w.WriteHeader(http.StatusOK) // 200 OK
 	_ = json.NewEncoder(w).Encode(feedbacks)
 }

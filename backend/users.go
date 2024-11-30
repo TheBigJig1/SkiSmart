@@ -71,11 +71,15 @@ var InsertUsers = `INSERT INTO Users
 		('test1g@yahoo.com', '` + encryptPW("test1test") + `', 'test1first', 'test1last', '89273'),
 		('test2g@hotmail.com', '` + encryptPW("test2test") + `', 'test2first', 'test2last', '51823-2030')`
 
-// SQL command to wipe Users table
+// SQL command to wipe Users table + UserBookmarkedResorts + UserVisitedResorts
 var WipeUsers = `TRUNCATE TABLE [dbo].[Users];`
+var WipeUserBookmarkedResorts = `TRUNCATE TABLE [dbo].[UserBookmarkedResorts];`
+var WipeUserVisitedResorts = `TRUNCATE TABLE [dbo].[UserVisitedResorts];`
 
-// SQL command to remove Resorts table
+// SQL command to remove Resorts table  + UserBookmarkedResorts + UserVisitedResorts
 var DropUsers = `DROP TABLE if exists Users;`
+var DropUserBookmarkedResorts = `DROP TABLE if exists UserBookmarkedResorts;`
+var DropUserVisitedResorts = `DROP TABLE if exists UserVisitedResorts;`
 
 // JWT secret key
 var jwtKey = []byte("SBk@1c$km3@nrdt")
