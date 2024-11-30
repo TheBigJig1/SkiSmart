@@ -55,8 +55,6 @@ function ResortInfo() {
         lng: Number(localStorage.getItem("long")) // Example longitude
     };
 
-
-
     return (
         <div className="indvContainer">
             <div className="indvBackground">

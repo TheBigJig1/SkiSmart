@@ -19,9 +19,10 @@ function Feedback() {
     const [reviews, setReviews] = useState<FeedbackReview[]>([]);
     
     useEffect(() => {
-
         // List reviews
         listReviews(limit);
+
+        // TODO instead of loading a larger feedback array each time limit is changed, append the offset + the next x feedbacks to the existing array
 
         // Retrieve user data from localStorage
         const token = localStorage.getItem('token') || ''

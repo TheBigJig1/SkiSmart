@@ -134,12 +134,27 @@
     color: black;
     transition: margin-top 0.5s ease;
 }
-  
 
 .resortInfo {
     display: flex;
     flex-direction: row;
     gap: 5rem;
+}
+
+.moreResorts {
+    padding: 10px 20px;
+    margin-top: 4vw;
+    margin-bottom: 2vw;
+
+    font-size: 16px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease; 
+}
+
+.moreResorts:hover {
+    transform: scale(1.1); 
 }
 
 @media (prefers-color-scheme: dark) {
@@ -174,5 +189,11 @@
     .resortContentContainer {
         color: #ededeb;
     }
+
+    .moreResorts {
+        margin-top: 2vh;
+        border: 1px solid #ededeb;
+    }
+
 
 }

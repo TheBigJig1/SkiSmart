@@ -52,7 +52,7 @@ var WipeResorts = `TRUNCATE TABLE [dbo].[Resorts];`
 var DropResorts = `DROP TABLE if exists Resorts`
 
 // Function to grab Resorts from DB and display on webpage
-func ResortList(w http.ResponseWriter, r *http.Request) {
+func ResortPreviewList(w http.ResponseWriter, r *http.Request) {
 	// Server acknowledges request
 	fmt.Println("recieved list request")
 
@@ -96,16 +96,59 @@ func ResortList(w http.ResponseWriter, r *http.Request) {
 
 	// Iterate through rows and append to slice
 	for rows.Next() {
-		r := Resort{}
-		if err = rows.Scan(&r.Name, &r.Address, &r.Zipcode, &r.Lat, &r.Long, &r.ImageLink); err != nil {
+		rl := Resort{}
+		if err = rows.Scan(&rl.Name, &rl.Address, &rl.Zipcode, &rl.ImageLink); err != nil {
 			fmt.Println("Error scanning row: ", err)
 			return
 		}
-		resorts = append(resorts, r)
+		resorts = append(resorts, rl)
 	}
 
 	// Server acknowledges success
 	log.Println("Resorts returned successfully")
 	w.WriteHeader(http.StatusOK) // 200 OK
 	_ = json.NewEncoder(w).Encode(&resorts)
+}
+
+// Function to get get a single resort from the DB
+func ResortGet(w http.ResponseWriter, r *http.Request) {
+	// Server acknowledges request
+	fmt.Println("recieved get request")
+
+	// Get name parameter
+	name := r.URL.Query().Get("name")
+
+	// Create prepared statement stmt for query parameters
+	stmt, err := db.Prepare("SELECT * FROM [dbo].[Resorts] WHERE Name = '@Name'")
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error preparing statement: ", err)
+		return
+	}
+	defer stmt.Close()
+
+	// Execute prepared statement
+	row := stmt.QueryRow(sql.Named("Name", name))
+
+	// Create resort struct
+	tr := Resort{}
+
+	// Scan row into resort struct
+	err = row.Scan(&tr.Name, &tr.Address, &tr.Zipcode, &tr.Lat, &tr.Long, &tr.ImageLink)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Println("Resort not found")
+			return
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Println("Error scanning row: ", err)
+			return
+		}
+	}
+
+	// Server acknowledges success
+	log.Println("Resort returned successfully")
+	w.WriteHeader(http.StatusOK) // 200 OK
+	_ = json.NewEncoder(w).Encode(&tr)
 }

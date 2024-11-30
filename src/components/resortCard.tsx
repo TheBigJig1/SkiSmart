@@ -11,7 +11,6 @@ function ResortCard(props: {resortName: string; image: string; snowfall: string;
         localStorage.setItem("image", props.image);
     }
 
-
     return <div className="cardContainer">
         <h1 className="resortName">{props.resortName}</h1>
         <div className="resortImg">
