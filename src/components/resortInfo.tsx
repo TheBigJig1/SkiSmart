@@ -2,52 +2,25 @@ import "@/styles/components/resortInfo.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-/*interface ResortInfoProps {
-    name: string;
-    backgroundImage: string;
+interface ResortInfoProps {
+    name:   string;
     address: string;
-    coordinates: {
-        lat: number;
-        lng: number;
-    };
-    weather: {
-        temperature: number;
-        windSpeed: number;
-        humidity: number;
-        snowDepth: number;
-        visibility: number;
-        sunrise: string;
-        sunset: string;
-        forecast: string;
-    };
+    zip:    string;
+    lat:    number;
+    long:   number;
+    image:  string;
 }
 
-const ResortInfo: React.FC<ResortInfoProps> = ({
-    name,
-    backgroundImage,
-    address,
-    coordinates,
-    weather,
-}) => {
-    return (
-        <div style={{ backgroundImage: `url(${backgroundImage})` }}>
-            <h1>{name}</h1>
-            <p>{address}</p>
-            <p>Coordinates: {coordinates.lat}, {coordinates.lng}</p>
-            <div>
-                <h2>Weather Information</h2>
-                <p>Temperature: {weather.temperature}°C</p>
-                <p>Wind Speed: {weather.windSpeed} km/h</p>
-                <p>Humidity: {weather.humidity}%</p>
-                <p>Snow Depth: {weather.snowDepth} cm</p>
-                <p>Visibility: {weather.visibility} km</p>
-                <p>Sunrise: {weather.sunrise}</p>
-                <p>Sunset: {weather.sunset}</p>
-                <p>Forecast: {weather.forecast}</p>
-            </div>
-        </div>
-    );
-};*/
+interface weatherInfoProps {
+    temperature:    number;
+    snowfall:       number;
+    snowDepth:      number;
+    cloudCover:     string;
+    windSpeed:      number;
+    sunTime:        string;
+    visibility:     number;
+    weatherAdvisories: string;
+}
 
 function ResortInfo() {
     const resortCoordinates = {
