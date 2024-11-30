@@ -57,9 +57,9 @@ var CreateUserVisitedResorts = `CREATE TABLE UserVisitedResorts (
 	ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	UserID_FK INT NOT NULL FOREIGN KEY REFERENCES Users(ID),
 	ResortID_FK INT NOT NULL FOREIGN KEY REFERENCES Resorts(ID),
-	VisitedDate DATE NOT NULL
-	INDEX idx_ResortID (ResortID_FK)
-	INDEX idx_VisitedID (VisitedDate)
+	VisitedDate DATE NOT NULL,
+	INDEX idx_ResortID (ResortID_FK),
+	INDEX idx_VisitedID (VisitedDate),
 	INDEX idx_UserID (UserID_FK)
 );`
 

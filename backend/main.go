@@ -83,6 +83,18 @@ func main() {
 		}
 		fmt.Println("Users database created successfully.")
 
+		_, err = db.ExecContext(ctx, CreateUserBookmarkedResorts)
+		if err != nil {
+			log.Fatalf("Failed to create UserBookmarkedResorts database: %v", err)
+		}
+		fmt.Println("UserBookmarkedResorts database created successfully.")
+
+		_, err = db.ExecContext(ctx, CreateUserVisitedResorts)
+		if err != nil {
+			log.Fatalf("Failed to create UserVisitedResorts database: %v", err)
+		}
+		fmt.Println("UserVisitedResorts database created successfully.")
+
 		_, err = db.ExecContext(ctx, CreateResorts)
 		if err != nil {
 			log.Fatalf("Failed to create Resorts database: %v", err)
