@@ -97,7 +97,7 @@ func ResortPreviewList(w http.ResponseWriter, r *http.Request) {
 	// Iterate through rows and append to slice
 	for rows.Next() {
 		rl := Resort{}
-		if err = rows.Scan(&rl.Name, &rl.Address, &rl.Zipcode, &rl.ImageLink); err != nil {
+		if err = rows.Scan(&rl.ID, &rl.Name, &rl.Address, &rl.Zipcode, &rl.Lat, &rl.Long, &rl.ImageLink); err != nil {
 			fmt.Println("Error scanning row: ", err)
 			return
 		}
@@ -134,7 +134,7 @@ func ResortGet(w http.ResponseWriter, r *http.Request) {
 	tr := Resort{}
 
 	// Scan row into resort struct
-	err = row.Scan(&tr.Name, &tr.Address, &tr.Zipcode, &tr.Lat, &tr.Long, &tr.ImageLink)
+	err = row.Scan(&tr.ID, &tr.Name, &tr.Address, &tr.Zipcode, &tr.Lat, &tr.Long, &tr.ImageLink)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			w.WriteHeader(http.StatusBadRequest)
