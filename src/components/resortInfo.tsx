@@ -2,13 +2,14 @@ import "@/styles/components/resortInfo.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-interface ResortInfoProps {
-    name:   string;
-    address: string;
-    zip:    string;
-    lat:    number;
-    long:   number;
-    image:  string;
+interface ResortObj {
+    ID:         number;
+    Name:       string;
+    Address:    string;
+    Zipcode:    string;
+    Lat:        number;
+    Long:       number;
+    ImageLink:  string;
 }
 
 interface weatherInfoProps {

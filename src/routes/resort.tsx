@@ -70,7 +70,7 @@ function Resort() {
             </div>
             <div className="resortContentContainer">
                 {resorts && resorts.map((resort, resortIndex) => (
-                    <ResortCard key={resortIndex} resortName={resort.Name} imageLink={resort.ImageLink} address={resort.Address} snowfall="3" />
+                    <ResortCard key={resortIndex} resortName={resort.Name} imageLink={resort.ImageLink} address={resort.Address} zipcode={resort.Zipcode} snowfall="3" />
                 ))}
                 
                 <div>
