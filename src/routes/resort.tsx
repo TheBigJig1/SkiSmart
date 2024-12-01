@@ -2,7 +2,7 @@ import "@/styles/routes/resort.css"
 import {useEffect, useState} from 'react';
 import ResortCard from "../components/resortCard"
 
-interface ResortObj {
+export interface ResortObj {
     ID:         number;
     Name:       string;
     Address:    string;
@@ -70,7 +70,7 @@ function Resort() {
             </div>
             <div className="resortContentContainer">
                 {resorts && resorts.map((resort, resortIndex) => (
-                    <ResortCard key={resortIndex} resortName={resort.Name} imageLink={resort.ImageLink} address={resort.Address} zipcode={resort.Zipcode} snowfall="3" />
+                    <ResortCard key={resortIndex}{...resort} />
                 ))}
                 
                 <div>
