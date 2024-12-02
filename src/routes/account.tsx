@@ -58,7 +58,7 @@ function Account() {
                 <div className="accountPersonal">
                     <div className="accountResorts">
                         <ol>
-                            <h3>Your Resorts:</h3>
+                            <h3>Your Favorites:</h3>
                             <li>Wisp</li>
                             <li>Timberline</li>
                             <li>Random Mountain</li>
