@@ -26,6 +26,7 @@
 
     padding-top: 5vh;
     margin-bottom: 10vh;
+
 }
 
 .indvBackground::after {
@@ -79,7 +80,8 @@
 
 .pageInfo {
     grid-area: pageInfo;
-    margin: 2vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
     padding: 2vh;
 
     display: flex;
@@ -89,6 +91,24 @@
     text-align: center;
 
     height: auto;
+}
+
+.pageInfo h1 {
+    font-size: 3em;
+    font-family: "Anonymous Pro", monospace;
+    margin-bottom: 2vh;
+}
+
+.favoriteButton {
+    cursor: pointer;
+    transition: transform 0.3s ease; 
+    border-color: #ededeb;
+    border-radius: 10px;
+    border-width: 2px;
+}
+
+.favoriteButton:hover {
+    transform: scale(1.1);
 }
 
 .pageInfo img {

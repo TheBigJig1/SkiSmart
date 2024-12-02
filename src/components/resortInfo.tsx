@@ -1,28 +1,7 @@
 import "@/styles/components/resortInfo.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { useEffect, useState } from "react";
+import { ResortObj, WeatherObj } from "../routes/resort"
 import "leaflet/dist/leaflet.css";
-
-interface ResortObj {
-    ID:         number;
-    Name:       string;
-    Address:    string;
-    Zipcode:    string;
-    Lat:        number;
-    Long:       number;
-    ImageLink:  string;
-}
-
-interface weatherInfoProps {
-    temperature:    number;
-    snowfall:       number;
-    snowDepth:      number;
-    cloudCover:     string;
-    windSpeed:      number;
-    sunTime:        string;
-    visibility:     number;
-    weatherAdvisories: string;
-}
 
 function ResortInfo() {
     
@@ -37,10 +16,26 @@ function ResortInfo() {
         Long:       0,
         ImageLink:  ""
     };
-    
+
     if (thisResortStr) {
         thisResort = JSON.parse(thisResortStr);
     }
+
+    let thisWeather: WeatherObj = {
+        temperature:    0,
+        snowfall:       2,
+        snowDepth:      0,
+        cloudCover:     "",
+        windSpeed:      0,
+        sunTime:        "",
+        visibility:     0,
+        weatherAdvisories: "string"
+    };
+    
+
+    const handleBookmark = () => {
+        // Implement bookmark functionality here
+      };
 
     return (
         <div className="indvContainer">
@@ -50,7 +45,7 @@ function ResortInfo() {
             </div>
             <div className="indvPageContainer">
                 <div className="pageInfo">
-                    <h1>{thisResort.Name}</h1>
+                    <h1>{thisResort.Name} <button className="favoriteButton" onClick={handleBookmark}>★</button> </h1>
                     <img src={thisResort.ImageLink} alt="Resort" />
                     <h3>Address: {thisResort.Address}, {thisResort.Zipcode}</h3> 
                     <h3>Coordinates: {thisResort.Lat}, {thisResort.Long}</h3>
@@ -76,14 +71,14 @@ function ResortInfo() {
                 <div className="skiData">
                     <h1 className="skiIntro">Weather Data</h1>
                     <div className="skiConditions">
-                        <h3 className="temperature">Temperature: 0°C</h3>
-                        <h3 className="snowfallRecent">Forecast: Clear</h3>
-                        <h3 className="snowDepth">Snow Depth: 0 cm</h3>
-                        <h3 className="cloudCover">Sun Level: bright</h3>
-                        <h3 className="windSpeed">Wind Speed: 0 km/h</h3>
-                        <h3 className="sunTime">Sunrise: 00:00</h3>
-                        <h3 className="visibility">Visibility: 0 km</h3>
-                        <h3 className="weatherAdvisories">Advisories: TORNADO</h3>
+                        <h3 className="temperature">Temperature: {thisWeather.temperature}</h3>
+                        <h3 className="snowfallRecent">Recent Snowfall: {thisWeather.snowfall}</h3>
+                        <h3 className="snowDepth">Snow Depth:{thisWeather.snowDepth}</h3>
+                        <h3 className="cloudCover">Cloud Cover: {thisWeather.cloudCover}</h3>
+                        <h3 className="windSpeed">Wind Speed: {thisWeather.windSpeed}</h3>
+                        <h3 className="sunTime">Sun Rise/Set: {thisWeather.sunTime}</h3>
+                        <h3 className="visibility">Visibility: {thisWeather.visibility}</h3>
+                        <h3 className="weatherAdvisories">Advisories: {thisWeather.weatherAdvisories}</h3>
                     </div>
                 </div>
             </div>

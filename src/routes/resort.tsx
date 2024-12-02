@@ -12,6 +12,17 @@ export interface ResortObj {
     ImageLink:  string;
 }
 
+export interface WeatherObj {
+    temperature:    number;
+    snowfall:       number;
+    snowDepth:      number;
+    cloudCover:     string;
+    windSpeed:      number;
+    sunTime:        string;
+    visibility:     number;
+    weatherAdvisories: string;
+}
+
 function Resort() {
 
     const [resorts, setResorts] = useState<ResortObj[]>([]);

@@ -1,9 +1,9 @@
 import "@/styles/components/resortCard.css"
-import { ResortObj } from "../routes/resort"
+import { ResortObj, WeatherObj } from "../routes/resort"
 // import { useEffect, useState } from "react";
 
 
-function ResortCard(resort: ResortObj) {
+function ResortCard(resort: ResortObj, weather: WeatherObj) {
 
     function setStorage() {
         localStorage.setItem("curResort", JSON.stringify(resort));
@@ -19,7 +19,7 @@ function ResortCard(resort: ResortObj) {
                 <button className="visitPageButton" onClick={setStorage}>Visit Page</button>
             </a>
             <div className="snowfall">
-                <h2>{"props.snowfall"}</h2>
+                <h2>{weather.snowfall}</h2>
             </div>
             <div className="address">
                 <h2>{resort.Address}</h2>
