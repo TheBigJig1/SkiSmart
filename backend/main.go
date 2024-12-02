@@ -165,11 +165,35 @@ func main() {
 
 	// Flag function to wipe resort data
 	if *wiperesortdb {
+		_, err = db.ExecContext(ctx, DropUserBookmarkedResorts)
+		if err != nil {
+			log.Fatalf("Failed to find UserBookmarkedResorts database: %v", err)
+		}
+		fmt.Println("Droped UserBookmarkedResorts database successfully.")
+
+		_, err = db.ExecContext(ctx, DropUserVisitedResorts)
+		if err != nil {
+			log.Fatalf("Failed to find UserVisitedResorts database: %v", err)
+		}
+		fmt.Println("Droped UserVisitedResorts database successfully.")
+
 		_, err = db.ExecContext(ctx, WipeResorts)
 		if err != nil {
 			log.Fatalf("Failed to find Resorts database: %v", err)
 		}
 		fmt.Println("Wiped Resorts database successfully.")
+
+		_, err = db.ExecContext(ctx, CreateUserBookmarkedResorts)
+		if err != nil {
+			log.Printf("Failed to create UserBookmarkedResorts database: %v", err)
+		}
+		fmt.Println("UserBookmarkedResorts database created successfully.")
+
+		_, err = db.ExecContext(ctx, CreateUserVisitedResorts)
+		if err != nil {
+			log.Printf("Failed to create UserVisitedResorts database: %v", err)
+		}
+		fmt.Println("UserVisitedResorts database created successfully.")
 	}
 
 	// Flag function to wipe feedback data
@@ -178,7 +202,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("Failed to find Feedback database: %v", err)
 		}
-		fmt.Println("Wiped Feedback database successfully.")
+		fmt.Println("Drop Feedback database successfully.")
 	}
 
 	// Start web server - connects backend to npm app / terminal
