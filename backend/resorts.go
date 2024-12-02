@@ -66,9 +66,19 @@ func ResortPreviewList(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+	fmt.Print(" Limit: ", limitInt)
+
+	// Get user Zip code
+	userZip := values.Get("zip")
+	fmt.Printf(" User Zip: %v\n", userZip)
+	userZipInt, err := strconv.Atoi(userZip)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 	// Create prepared statement stmt for query parameters
-	stmt, err := db.Prepare("SELECT * FROM [dbo].[Resorts] ORDER BY Zipcode OFFSET 0 ROWS FETCH NEXT @Limit ROWS ONLY")
+	stmt, err := db.Prepare("SELECT * FROM resorts ORDER BY ABS(zipcode - @UserZip) OFFSET 0 ROWS FETCH NEXT @Limit ROWS ONLY")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println("Error preparing statement: ", err)
@@ -77,7 +87,7 @@ func ResortPreviewList(w http.ResponseWriter, r *http.Request) {
 	defer stmt.Close()
 
 	// Query the database for all feedback
-	rows, err := stmt.Query(sql.Named("Limit", limitInt))
+	rows, err := stmt.Query(sql.Named("UserZip", userZipInt), sql.Named("Limit", limitInt))
 	if err != nil {
 		if err == sql.ErrNoRows {
 			w.WriteHeader(http.StatusBadRequest)

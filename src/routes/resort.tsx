@@ -1,6 +1,7 @@
 import "@/styles/routes/resort.css"
 import {useEffect, useState} from 'react';
 import ResortCard from "../components/resortCard"
+import { jwtDecode } from "jwt-decode";
 
 export interface ResortObj {
     ID:         number;
@@ -27,8 +28,18 @@ function Resort() {
 
     const [resorts, setResorts] = useState<ResortObj[]>([]);
     const [limit, setLimit] = useState(3);
+    const [userZip, setZip] = useState('');
 
     useEffect(() => {
+
+        const token = localStorage.getItem('token') || ''
+        const decoded = jwtDecode(token) as { user: { email: string; first: string; last: string; zipcode: string } };
+        const user = decoded.user;
+        console.log(user);
+        if (user && user.zipcode) {
+            setZip(user.zipcode);
+        }
+        
         // List reviews
         listResorts(limit);
 
@@ -42,7 +53,7 @@ function Resort() {
             // Fetch reviews from server
 
             // Endpoint is parameterized
-            const response = await fetch(`http://localhost:8080/resorts/list?limit=${limit}`, {
+            const response = await fetch(`http://localhost:8080/resorts/list?zip=${userZip}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
