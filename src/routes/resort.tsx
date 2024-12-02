@@ -28,7 +28,7 @@ function Resort() {
 
     const [resorts, setResorts] = useState<ResortObj[]>([]);
     const [limit, setLimit] = useState(3);
-    const [userZip, setZip] = useState('');
+    const [userZip, setZip] = useState('26505');
 
     useEffect(() => {
 
