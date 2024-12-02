@@ -6,7 +6,7 @@ import { ResortObj } from "../routes/resort"
 function ResortCard(resort: ResortObj) {
 
     function setStorage() {
-        localStorage.setItem("curResort", "timberline");
+        localStorage.setItem("curResort", JSON.stringify(resort));
     }
 
     return <div className="cardContainer">

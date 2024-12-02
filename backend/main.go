@@ -144,23 +144,35 @@ func main() {
 
 	// Flag function to wipe user data
 	if *wipeuserdb {
-		_, err = db.ExecContext(ctx, WipeUserBookmarkedResorts)
+		_, err = db.ExecContext(ctx, DropUserBookmarkedResorts)
 		if err != nil {
 			log.Fatalf("Failed to find UserBookmarkedResorts database: %v", err)
 		}
-		fmt.Println("Wiped UserBookmarkedResorts database successfully.")
+		fmt.Println("Droped UserBookmarkedResorts database successfully.")
 
-		_, err = db.ExecContext(ctx, WipeUserVisitedResorts)
+		_, err = db.ExecContext(ctx, DropUserVisitedResorts)
 		if err != nil {
 			log.Fatalf("Failed to find UserVisitedResorts database: %v", err)
 		}
-		fmt.Println("Wiped UserVisitedResorts database successfully.")
+		fmt.Println("Droped UserVisitedResorts database successfully.")
 
 		_, err = db.ExecContext(ctx, WipeUsers)
 		if err != nil {
 			log.Fatalf("Failed to find User database: %v", err)
 		}
 		fmt.Println("Wiped Users database successfully.")
+
+		_, err = db.ExecContext(ctx, CreateUserBookmarkedResorts)
+		if err != nil {
+			log.Printf("Failed to create UserBookmarkedResorts database: %v", err)
+		}
+		fmt.Println("UserBookmarkedResorts database created successfully.")
+
+		_, err = db.ExecContext(ctx, CreateUserVisitedResorts)
+		if err != nil {
+			log.Printf("Failed to create UserVisitedResorts database: %v", err)
+		}
+		fmt.Println("UserVisitedResorts database created successfully.")
 	}
 
 	// Flag function to wipe resort data
