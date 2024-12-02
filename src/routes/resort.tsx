@@ -41,9 +41,7 @@ function Resort() {
             if (user && user.zipcode) {
                 setZip(user.zipcode);
             } 
-        } else {
-            setZip('26505');
-        }
+        } 
         
         // List reviews
         listResorts(limit);

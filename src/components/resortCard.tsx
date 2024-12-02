@@ -22,7 +22,7 @@ function ResortCard(resort: ResortObj, weather: WeatherObj) {
                 <h2>{weather.snowfall}</h2>
             </div>
             <div className="address">
-                <h2>{resort.Address}</h2>
+                <h2>{resort.Address}, {resort.Zipcode}</h2>
             </div>
         </div>
     </div>
