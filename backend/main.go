@@ -172,6 +172,7 @@ func main() {
 		fmt.Println("Wiped Resorts database successfully.")
 	}
 
+	// Flag function to wipe feedback data
 	if *wipefeedbackdb {
 		_, err = db.ExecContext(ctx, WipeFeedback)
 		if err != nil {

@@ -37,13 +37,13 @@ var CreateResorts = `CREATE TABLE Resorts (
 // SQL command for insert resort value into table
 var InsertResorts = `INSERT INTO Resorts 
 	VALUES 
-		('The Wisp', '296 Marsh Hill Rd, McHenry, MD', '21541', 39.0430555556, -79.3988888889, 'https://d15zjc2r4e8kr7.cloudfront.net/8517/blog/IMG_2822.jpg'),
-		('Seven Springs', '777 Waterwheel Dr, Champion, PA', '15622',40.022939, -79.292850, 'https://scene7.vailresorts.com/is/image/vailresorts/20221004_SS_Lewis_1:Featured-Content-AND-Sliding-Cards-AND-Container-Long-Amount?resMode=sharp2&w=855&h=480&wid=392&fit=constrain,1&dpr=on,2.625'),
-		('Timberline', '254 Four Seasons Dr, Davis, WV', '26260', 39.558056, -79.363056, 'https://elkinsrandolphwv.com/wp-content/uploads/2020/10/Timberline-1568x1045.jpg'),
-		('Snowshoe', '10 Snowshoe Dr, Snowshoe, WV', '26209', 38.413056, -79.993611, 'https://i0.wp.com/mountaintopcondos.com/wp-content/uploads/2024/09/image-4-scaled-1.jpg?fit=2560%2C1920&ssl=1'),
-		('Vail', '390 Interlocken Cres, Broomfield', '80021', 39.652802, -106.340538, 'https://www.travelandleisure.com/thmb/YFdvTj2kKw5qIWLMVhSbFhcs6qA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/skiing-vail-mountain-colorado-MMVAIL1221-1543ad9d836f403989991d357e2467de.jpg'),
-		('Breckenridge', '1599 Ski Hill Rd, Breckenridge, CO', '80424', 39.49944, -106.04333, 'https://scene7.vailresorts.com/is/image/vailresorts/20200609_BR_VailInternal_001:Featured-Stories?resMode=sharp2&w=526&h=350&wid=382&fit=constrain,1&dpr=on,2.625'),
-		('Keystone', '100 Dercum Square, Keystone, CO', '80435', 39.60500, -105.95417, 'https://skibookings.com/wp-content/uploads/RR-Winter-Night.jpg')`
+		('The Wisp', '296 Marsh Hill Rd, McHenry, MD', '21541', 39.556649, -79.363863, 'https://d15zjc2r4e8kr7.cloudfront.net/8517/blog/IMG_2822.jpg'),
+		('Seven Springs', '777 Waterwheel Dr, Champion, PA', '15622', 40.022944, -79.298111, 'https://scene7.vailresorts.com/is/image/vailresorts/20221004_SS_Lewis_1:Featured-Content-AND-Sliding-Cards-AND-Container-Long-Amount?resMode=sharp2&w=855&h=480&wid=392&fit=constrain,1&dpr=on,2.625'),
+		('Timberline', '254 Four Seasons Dr, Davis, WV', '26260', 39.041790, -79.399686, 'https://elkinsrandolphwv.com/wp-content/uploads/2020/10/Timberline-1568x1045.jpg'),
+		('Snowshoe', '10 Snowshoe Dr, Snowshoe, WV', '26209', 38.402509, -79.993196, 'https://i0.wp.com/mountaintopcondos.com/wp-content/uploads/2024/09/image-4-scaled-1.jpg?fit=2560%2C1920&ssl=1'),
+		('Vail', '390 Interlocken Cres, Broomfield', '80021', 39.605487, -106.355284, 'https://www.travelandleisure.com/thmb/YFdvTj2kKw5qIWLMVhSbFhcs6qA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/skiing-vail-mountain-colorado-MMVAIL1221-1543ad9d836f403989991d357e2467de.jpg'),
+		('Breckenridge', '1599 Ski Hill Rd, Breckenridge, CO', '80424', 39.478028, -106.075305, 'https://scene7.vailresorts.com/is/image/vailresorts/20200609_BR_VailInternal_001:Featured-Stories?resMode=sharp2&w=526&h=350&wid=382&fit=constrain,1&dpr=on,2.625'),
+		('Keystone', '100 Dercum Square, Keystone, CO', '80435', 39.557807, -105.909964, 'https://skibookings.com/wp-content/uploads/RR-Winter-Night.jpg')`
 
 // SQL command to wipe Resorts table
 var WipeResorts = `TRUNCATE TABLE [dbo].[Resorts];`
