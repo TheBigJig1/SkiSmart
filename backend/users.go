@@ -67,7 +67,7 @@ var CreateUserVisitedResorts = `CREATE TABLE UserVisitedResorts (
 var InsertUsers = `INSERT INTO Users 
 	VALUES 
 		('jaxon.fielding@gmail.com', '` + encryptPW("complexPW") + `', 'Jaxon', 'Fielding', '26505'),
-		('landonurcho17@gmail.com', '` + encryptPW("landtest") + `', 'Landon', 'Urcho', '15243'),
+		('landonurcho71@gmail.com', '` + encryptPW("landtest") + `', 'Landon', 'Urcho', '15243'),
 		('test1g@yahoo.com', '` + encryptPW("test1test") + `', 'test1first', 'test1last', '89273'),
 		('test2g@hotmail.com', '` + encryptPW("test2test") + `', 'test2first', 'test2last', '51823-2030')`
 

@@ -33,11 +33,16 @@ function Resort() {
     useEffect(() => {
 
         const token = localStorage.getItem('token') || ''
-        const decoded = jwtDecode(token) as { user: { email: string; first: string; last: string; zipcode: string } };
-        const user = decoded.user;
-        console.log(user);
-        if (user && user.zipcode) {
-            setZip(user.zipcode);
+            
+        if(token) {
+            const decoded = jwtDecode(token) as { user: { email: string; first: string; last: string; zipcode: string } };
+            const user = decoded.user;
+
+            if (user && user.zipcode) {
+                setZip(user.zipcode);
+            } 
+        } else {
+            setZip('26505');
         }
         
         // List reviews

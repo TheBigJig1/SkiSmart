@@ -70,11 +70,17 @@ func ResortPreviewList(w http.ResponseWriter, r *http.Request) {
 
 	// Get user Zip code
 	userZip := values.Get("zip")
-	fmt.Printf(" User Zip: %v\n", userZip)
-	userZipInt, err := strconv.Atoi(userZip)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		return
+	userZipInt := 0
+
+	if userZip == "" {
+		userZipInt = 26505
+	} else {
+		userZipInt, err = strconv.Atoi(userZip)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Println("Error converting zip code to int: ", err)
+			return
+		}
 	}
 
 	// Create prepared statement stmt for query parameters
