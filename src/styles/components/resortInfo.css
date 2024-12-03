@@ -1,9 +1,14 @@
 .indvContainer {
     display: grid;
+    color: #ededeb;
     width: 100%;
     grid-template-areas:
         "indvBackground"
         "indvPageContainer";
+
+    a {
+        color: #ededeb;
+    }
 }
 
 .indvBackground {
@@ -83,6 +88,9 @@
     margin-top: 2vh;
     margin-bottom: 2vh;
     padding: 2vh;
+    h3 {
+        margin: 2vh;
+    }
 
     display: flex;
     flex-direction: column;
@@ -93,15 +101,31 @@
     height: auto;
 }
 
-.pageInfo h1 {
-    font-size: 3em;
-    font-family: "Anonymous Pro", monospace;
+.titleContainer {
+    margin: 1vh;
     margin-bottom: 2vh;
+
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    font-family: "Anonymous Pro", monospace;
+}
+
+.titleContainer h1 {
+    margin-right: 10px; 
 }
 
 .favoriteButton {
     cursor: pointer;
     transition: transform 0.3s ease; 
+    
+    padding-top: 0%;
+    padding-bottom: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+
+    font-size: 2em;
+
     border-color: #ededeb;
     border-radius: 10px;
     border-width: 2px;
@@ -196,8 +220,6 @@
     justify-self:center;
     grid-area: visibility;
 }
-
-
 
 .weatherAdvisories {
     justify-self:center;

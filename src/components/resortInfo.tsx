@@ -14,6 +14,8 @@ function ResortInfo() {
         Zipcode:    "",
         Lat:        0,
         Long:       0,
+        HomeLink:   "",
+        CameraLink: "",
         ImageLink:  ""
     };
 
@@ -34,7 +36,7 @@ function ResortInfo() {
 
     const handleBookmark = () => {
         // Implement bookmark functionality here
-      };
+    };
 
     return (
         <div className="indvContainer">
@@ -44,10 +46,14 @@ function ResortInfo() {
             </div>
             <div className="indvPageContainer">
                 <div className="pageInfo">
-                    <h1>{thisResort.Name} <button className="favoriteButton" onClick={handleBookmark}>★</button> </h1>
+                    <div className="titleContainer">
+                        <h1>{thisResort.Name}</h1>
+                        <button className="favoriteButton" onClick={handleBookmark}>★</button>
+                    </div>
                     <img src={thisResort.ImageLink} alt="Resort" />
                     <h3>Address: {thisResort.Address}, {thisResort.Zipcode}</h3> 
                     <h3>Coordinates: {thisResort.Lat}, {thisResort.Long}</h3>
+                    <h3><a href={thisResort.HomeLink} target="_blank" rel="noopener noreferrer">Click here to visit resort home</a></h3>
                 </div>
                 <div className="leaflet">
                     <h1>Interactive Mountain Map</h1>
@@ -66,6 +72,7 @@ function ResortInfo() {
                             </Popup>
                         </Marker>
                     </MapContainer>
+                    <h3><a href={thisResort.CameraLink} target="_blank" rel="noopener noreferrer">Click here to see resort Cameras</a></h3>
                 </div>
                 <div className="skiData">
                     <h1 className="skiIntro">Weather Data</h1>
