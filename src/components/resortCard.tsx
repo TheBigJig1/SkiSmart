@@ -8,10 +8,6 @@ function ResortCard(resort: ResortObj ) {
     async function retrieveData() {
         
         localStorage.setItem("curResort", JSON.stringify(resort));
-        localStorage.setItem("resortName", resort.Name);
-        localStorage.setItem("address", resort.Address);
-        localStorage.setItem("lat", resort.Lat.toString());
-        localStorage.setItem("long", resort.Long.toString());
 
         const params = {
 	        "latitude": resort.Lat,

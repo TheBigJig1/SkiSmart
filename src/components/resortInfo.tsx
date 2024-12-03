@@ -53,7 +53,7 @@ function ResortInfo() {
                     <img src={thisResort.ImageLink} alt="Resort" />
                     <h3>Address: {thisResort.Address}, {thisResort.Zipcode}</h3> 
                     <h3>Coordinates: {thisResort.Lat}, {thisResort.Long}</h3>
-                    <h3><a href={thisResort.HomeLink} target="_blank" rel="noopener noreferrer">Click here to visit resort home</a></h3>
+                    <h3><a href={thisResort.HomeLink} target="_blank" rel="noopener noreferrer">Click here to visit {thisResort.Name} home</a></h3>
                 </div>
                 <div className="leaflet">
                     <h1>Interactive Mountain Map</h1>
@@ -72,7 +72,7 @@ function ResortInfo() {
                             </Popup>
                         </Marker>
                     </MapContainer>
-                    <h3><a href={thisResort.CameraLink} target="_blank" rel="noopener noreferrer">Click here to see resort Cameras</a></h3>
+                    <h3><a href={thisResort.CameraLink} target="_blank" rel="noopener noreferrer">Click here to view {thisResort.Name} Cameras</a></h3>
                 </div>
                 <div className="skiData">
                     <h1 className="skiIntro">Weather Data</h1>
