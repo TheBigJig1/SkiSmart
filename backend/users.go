@@ -5,8 +5,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"time"
@@ -275,4 +277,89 @@ func UserLogout(w http.ResponseWriter, r *http.Request) {
 	log.Printf("User logged out successfully: %v\n", user)
 }
 
-//
+// I need to send the user ID and resort ID to the backend
+
+// Function to create a new user Bookmark in the UserBookmarkedResorts table
+func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
+
+	// Acknowledge request
+	fmt.Printf("recieved Bookmark request")
+	if err := r.ParseForm(); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Println("Error parsing form: ", err)
+		return
+	}
+
+	// Check if user is logged in
+	// Think I can handle it here by allowing the front end to send null token
+	bearer := r.Header.Get("Authorization")
+	if !strings.HasPrefix(bearer, "Bearer ") {
+		w.WriteHeader(http.StatusUnauthorized)
+		fmt.Println("Invalid token")
+		return
+	}
+
+	// Parse form
+	// Get token from form
+	t := strings.TrimPrefix(bearer, "Bearer ")
+	if t == "" {
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		fmt.Println("Empty token")
+		return
+	}
+
+	token, err := jwt.Parse(t, func(token *jwt.Token) (interface{}, error) {
+		return jwtKey, nil
+	})
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Invalid token or Error Parsing: ", err)
+		return
+	}
+
+	// Create user object from token
+	u := token.Claims.(jwt.MapClaims)["user"]
+	b, _ := json.MarshalIndent(u, "", "  ")
+
+	user := User{}
+	_ = json.Unmarshal(b, &user) // Eat error
+
+	// Get resort ID from curResortID
+	body, _ := io.ReadAll(r.Body)
+	resortIDstr := string(body)
+	resortID, err := strconv.Atoi(resortIDstr)
+
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Println("Error parsing resort ID: ", err)
+		return
+	}
+
+	// Check if user has already bookmarked this resort
+
+	// if yes, remove bookmark from table
+
+	// if no, add bookmark to table
+
+	// Return success or failure
+}
+
+// Function to retrieve all bookmarks for a user
+func GetBookmarks(w http.ResponseWriter, r *http.Request) {
+	// Acknowledge request
+	fmt.Printf("recieved GetBookmarks request")
+	if err := r.ParseForm(); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Println("Error parsing form: ", err)
+		return
+	}
+
+	// Do not need to check if user is logged in
+
+	// Parse form
+	// Get user ID from JWT token
+
+	// Query UserBookmarkedResorts table for all bookmarks for this user
+
+	// Return these bookmarks as a list of Resort objects
+}

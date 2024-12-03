@@ -2,10 +2,8 @@ import "@/styles/components/resortCard.css"
 import { ResortObj } from "../routes/resort";
 
 function ResortCard(resort: ResortObj ) {
-
     
     async function setResort() {
-        
         localStorage.setItem("curResort", JSON.stringify(resort));
     }
 

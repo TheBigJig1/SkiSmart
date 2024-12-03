@@ -35,12 +35,37 @@ function ResortInfo() {
         weatherAdvisories:  ""
     });
 
-    const handleBookmark = () => {
-        // TODO Implement bookmark functionality here
+    const toggleBookmark = async () => {
+        const token = localStorage.getItem('token') || ''
+        const resortID = thisResort.ID;
+
+        // Send a POST request to the server with the token and resort ID
+        try{
+            // Offering server chance to revoke token
+            const response = await fetch('http://localhost:8080/users/togglebookmark', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({ resortID }),
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                console.log('Bookmark toggled');
+                // TODO Find way to indicate to the user whether or not the resort is bookmarked
+            } else {
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            // catch  error
+            console.error('An error occurred', error);
+            alert('An error occurred while bookmarking. Please try again.');
+        }
     };
 
     useEffect(() => {
-
         const params = {
 	        "latitude": thisResort.Lat,
 	        "longitude": thisResort.Long,
@@ -113,7 +138,7 @@ function ResortInfo() {
                 <div className="pageInfo">
                     <div className="titleContainer">
                         <h1>{thisResort.Name}</h1>
-                        <button className="favoriteButton" onClick={handleBookmark}>★</button>
+                        <button className="favoriteButton" onClick={toggleBookmark}>★</button>
                     </div>
                     <img src={thisResort.ImageLink} alt="Resort" />
                     <h3>Address: {thisResort.Address}, {thisResort.Zipcode}</h3> 

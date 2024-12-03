@@ -226,6 +226,7 @@ func main() {
 	mux.HandleFunc("/feedback/list", FeedbackList)
 	mux.HandleFunc("/resorts/list", ResortPreviewList)
 	mux.HandleFunc("/resorts/get", ResortGet)
+	mux.HandleFunc("/users/togglebookmark", ToggleUserBookmark)
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173"}, // Frontend origin
