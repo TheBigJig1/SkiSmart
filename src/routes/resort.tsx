@@ -10,6 +10,8 @@ export interface ResortObj {
     Zipcode:    string;
     Lat:        number;
     Long:       number;
+    HomeLink:   string;
+    CameraLink: string;
     ImageLink:  string;
 }
 

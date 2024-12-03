@@ -56,12 +56,6 @@ func main() {
 
 	// Drop all databases flag
 	if *dropdb {
-		_, err = db.ExecContext(ctx, DropUsers)
-		if err != nil {
-			log.Fatalf("Failed to drop Users database: %v", err)
-		}
-		fmt.Println("Users Database deleted successfully.")
-
 		_, err = db.ExecContext(ctx, DropUserBookmarkedResorts)
 		if err != nil {
 			log.Fatalf("Failed to drop UserBookmarkedResorts database: %v", err)
@@ -74,17 +68,23 @@ func main() {
 		}
 		fmt.Println("UserVisitedResorts Database deleted successfully.")
 
+		_, err = db.ExecContext(ctx, DropUsers)
+		if err != nil {
+			log.Fatalf("Failed to drop Users database: %v", err)
+		}
+		fmt.Println("Users Database deleted successfully.")
+
 		_, err = db.ExecContext(ctx, DropResorts)
 		if err != nil {
 			log.Fatalf("Failed to drop Resorts database: %v", err)
 		}
 		fmt.Println("Resorts database deleted successfully.")
 
-		_, err = db.ExecContext(ctx, DropFeedback)
-		if err != nil {
-			log.Fatalf("Failed to drop Feedback database: %v", err)
-		}
-		fmt.Println("Feedback database deleted successfully.")
+		// _, err = db.ExecContext(ctx, DropFeedback)
+		// if err != nil {
+		// 	log.Fatalf("Failed to drop Feedback database: %v", err)
+		// }
+		// fmt.Println("Feedback database deleted successfully.")
 	}
 
 	// Create whole database flag
