@@ -19,7 +19,12 @@ function ResortCard(resort: ResortObj ) {
 	        "forecast_hours": 12
         };
         const url = "https://api.open-meteo.com/v1/forecast";
+
+        console.log("sending response")
         const responses = await fetchWeatherApi(url, params);
+
+        
+        console.log(responses);
 
         // Helper function to form time ranges
         const range = (start: number, stop: number, step: number) =>
