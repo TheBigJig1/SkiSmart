@@ -51,7 +51,6 @@ function ResortInfo() {
 	        "forecast_hours": 12
         };
         const url = "https://api.open-meteo.com/v1/forecast";
-        console.log("sending response")
 
         const fetchData = async () => {
             const responses = await fetchWeatherApi(url, params);

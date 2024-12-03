@@ -29,57 +29,60 @@ function Resort() {
 
     const [resorts, setResorts] = useState<ResortObj[]>([]);
     const [limit, setLimit] = useState(5);
-    const [userZip, setZip] = useState('26505');
+    const [userZip, setZip] = useState('');
 
     useEffect(() => {
         const token = localStorage.getItem('token') || '';
-        if(token) {
-            const decoded = jwtDecode(token) as { user: { email: string; first: string; last: string; zipcode: string } };
-            const user = decoded.user;
-            if (user && user.zipcode) {
-                setZip(user.zipcode);
-            }
-        } 
-    }, []); // Run once on mount
+        if (token) {
+          const decoded = jwtDecode(token) as {
+            user: { email: string; first: string; last: string; zipcode: string };
+          };
+          const user = decoded.user;
+          if (user && user.zipcode) {
+            setZip(user.zipcode);
+            console.log('Token call zip: ', user.zipcode);
+          } 
+        } else {
+            setZip('26505');
+          }
+    }, []);
 
     useEffect(() => {
-        if (userZip) {
-            const fetchResorts = async () => {
-                await listResorts(limit);
-            };
-            fetchResorts();
-        }
-    }, [userZip, limit]);
-
-
-    const listResorts = async (limit: number) => {
-        try {
-            // Fetch reviews from server
-
-            // Endpoint is parameterized
-            const response = await fetch(`http://localhost:8080/resorts/list?zip=${userZip}&limit=${limit}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
+        if (!userZip) return;
+    
+        const listResorts = async (limit: number) => {   
+            try {
+                // Fetch reviews from server
+    
+                // Endpoint is parameterized
+                const response = await fetch(`http://localhost:8080/resorts/list?zip=${userZip}&limit=${limit}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+    
+                if(response.ok) {
+                    // Handle successful response
+                    const resorts = await response.json();
+    
+                    // Update reviews state variable
+                    setResorts(resorts);
+    
+                    // Log reviews
+                    console.log('Resort list fetched successfully');
+                    console.log(resorts);
+                    return;
                 }
-            });
-
-            if(response.ok) {
-                // Handle successful response
-                const resorts = await response.json();
-
-                // Update reviews state variable
-                setResorts(resorts);
-
-                // Log reviews
-                console.log('Resort list fetched successfully');
-                console.log(resorts);
-                return;
+            } catch (error) {
+                console.error('Error:', error);
             }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
+        };
+    
+        listResorts(limit);
+
+      }, [userZip, limit]);
+
     
     return (
         <div className="resortContainer">
