@@ -8,6 +8,10 @@ function ResortCard(resort: ResortObj ) {
     async function retrieveData() {
         
         localStorage.setItem("curResort", JSON.stringify(resort));
+        localStorage.setItem("resortName", resort.Name);
+        localStorage.setItem("address", resort.Address);
+        localStorage.setItem("lat", resort.Lat.toString());
+        localStorage.setItem("long", resort.Long.toString());
 
         const params = {
 	        "latitude": resort.Lat,
@@ -36,7 +40,6 @@ function ResortCard(resort: ResortObj ) {
         // Attributes for timezone and location
         const utcOffsetSeconds = response.utcOffsetSeconds();;
 
-        const current = response.current()!;
         const hourly = response.hourly()!;
 
         // Note: The order of weather variables in the URL query and the indices below need to match!
