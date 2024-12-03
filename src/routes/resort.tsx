@@ -28,28 +28,30 @@ export interface WeatherObj {
 function Resort() {
 
     const [resorts, setResorts] = useState<ResortObj[]>([]);
-    const [limit, setLimit] = useState(3);
-    const [userZip, setZip] = useState('26505');
+    const [limit, setLimit] = useState(5);
+    const [userZip, setZip] = useState('');
 
     useEffect(() => {
-
-        const token = localStorage.getItem('token') || ''
-            
+        const token = localStorage.getItem('token') || '';
         if(token) {
             const decoded = jwtDecode(token) as { user: { email: string; first: string; last: string; zipcode: string } };
             const user = decoded.user;
-
             if (user && user.zipcode) {
                 setZip(user.zipcode);
-            } 
+            } else {
+                setZip('26505');
+            }
         } 
-        
-        // List reviews
-        listResorts(limit);
+    }, []); // Run once on mount
 
-        // TODO instead of loading a larger resort array each time limit is changed, append the offset + the next x resorts to the existing array
-
-    }, [limit]); // Add limit as a dependency to re-fetch reviews when limit changes
+    useEffect(() => {
+        if (userZip) {
+            const fetchResorts = async () => {
+                await listResorts(limit);
+            };
+            fetchResorts();
+        }
+    }, [userZip, limit]);
 
 
     const listResorts = async (limit: number) => {
@@ -100,7 +102,7 @@ function Resort() {
                 ))}
                 
                 <div>
-                    <button className="moreResorts" onClick={() => { setLimit(limit + 3) }}>
+                    <button className="moreResorts" onClick={() => { setLimit(limit + 5) }}>
                         More Resorts
                     </button>
                 </div>
