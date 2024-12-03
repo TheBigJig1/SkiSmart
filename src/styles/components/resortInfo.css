@@ -164,9 +164,8 @@
     display: grid;
     grid-template-areas:
         "temperature windSpeed"
-        "snowfallRecent sunTime"
-        "snowDepth visibility"
-        "cloudCover weatherAdvisories";
+        "snowfallRecent precipitationProb"
+        "snowDepth visibility";
 }
 
 .temperature {
@@ -183,10 +182,9 @@
     justify-self:center;
     grid-area: snowfallRecent;
 }
-
-.sunTime {
+.precipitationProb {
     justify-self:center;
-    grid-area: sunTime;
+    grid-area: precipitationProb;
 }
 
 .snowDepth {
@@ -199,10 +197,7 @@
     grid-area: visibility;
 }
 
-.cloudCover {
-    justify-self:center;
-    grid-area: cloudCover;
-}
+
 
 .weatherAdvisories {
     justify-self:center;

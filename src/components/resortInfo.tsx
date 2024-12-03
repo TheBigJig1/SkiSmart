@@ -9,11 +9,11 @@ function ResortInfo() {
     
     let thisResort: ResortObj = {
         ID:         0,
-        Name:       "",
-        Address:    "",
+        Name:       localStorage.getItem("resortName")!,
+        Address:    localStorage.getItem("address")!,
         Zipcode:    "",
-        Lat:        0,
-        Long:       0,
+        Lat:        Number(localStorage.getItem("lat")),
+        Long:       Number(localStorage.getItem("long")),
         ImageLink:  ""
     };
 
@@ -22,13 +22,12 @@ function ResortInfo() {
     }
 
     let thisWeather: WeatherObj = {
-        temperature:    0,
-        snowfall:       2,
-        snowDepth:      0,
-        cloudCover:     "",
-        windSpeed:      0,
-        sunTime:        "",
-        visibility:     0,
+        temperature:    Number(localStorage.getItem("temperature")),
+        snowfall:       Number(localStorage.getItem("snowfall")),
+        snowDepth:      Number(localStorage.getItem("snowDepth")),
+        precipitationProb:     Number(localStorage.getItem("precipitationProb")),
+        windSpeed:      Number(localStorage.getItem("windSpeed")),
+        visibility:     Number(localStorage.getItem("visibility")),
         weatherAdvisories: "string"
     };
     
@@ -72,13 +71,11 @@ function ResortInfo() {
                     <h1 className="skiIntro">Weather Data</h1>
                     <div className="skiConditions">
                         <h3 className="temperature">Temperature: {thisWeather.temperature}</h3>
-                        <h3 className="snowfallRecent">Recent Snowfall: {thisWeather.snowfall}</h3>
-                        <h3 className="snowDepth">Snow Depth:{thisWeather.snowDepth}</h3>
-                        <h3 className="cloudCover">Cloud Cover: {thisWeather.cloudCover}</h3>
-                        <h3 className="windSpeed">Wind Speed: {thisWeather.windSpeed}</h3>
-                        <h3 className="sunTime">Sun Rise/Set: {thisWeather.sunTime}</h3>
-                        <h3 className="visibility">Visibility: {thisWeather.visibility}</h3>
-                        <h3 className="weatherAdvisories">Advisories: {thisWeather.weatherAdvisories}</h3>
+                        <h3 className="snowfallRecent">Recent Snowfall: {thisWeather.snowfall} in</h3>
+                        <h3 className="snowDepth">Snow Depth: {thisWeather.snowDepth} in</h3>
+                        <h3 className="windSpeed">Wind Speed: {thisWeather.windSpeed} mph</h3>
+                        <h3 className="visibility">Visibility: {thisWeather.visibility} ft</h3>
+                        <h3 className="precipitationProb">Precipitation Probability: {thisWeather.precipitationProb}%</h3>
                     </div>
                 </div>
             </div>

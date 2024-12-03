@@ -17,9 +17,8 @@ export interface WeatherObj {
     temperature:    number;
     snowfall:       number;
     snowDepth:      number;
-    cloudCover:     string;
+    precipitationProb:     number;
     windSpeed:      number;
-    sunTime:        string;
     visibility:     number;
     weatherAdvisories: string;
 }
@@ -95,7 +94,7 @@ function Resort() {
             </div>
             <div className="resortContentContainer">
                 {resorts && resorts.map((resort, resortIndex) => (
-                    <ResortCard key={resortIndex}{...resort} />
+                    <ResortCard resortName={resort.Name} lat={resort.Lat} long={resort.Long} address={resort.Address} key={resortIndex}{...resort} />
                 ))}
                 
                 <div>
