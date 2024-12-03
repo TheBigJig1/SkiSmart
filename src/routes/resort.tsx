@@ -29,7 +29,7 @@ function Resort() {
 
     const [resorts, setResorts] = useState<ResortObj[]>([]);
     const [limit, setLimit] = useState(5);
-    const [userZip, setZip] = useState('');
+    const [userZip, setZip] = useState('26505');
 
     useEffect(() => {
         const token = localStorage.getItem('token') || '';
@@ -38,8 +38,6 @@ function Resort() {
             const user = decoded.user;
             if (user && user.zipcode) {
                 setZip(user.zipcode);
-            } else {
-                setZip('26505');
             }
         } 
     }, []); // Run once on mount

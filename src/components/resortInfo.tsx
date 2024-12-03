@@ -1,7 +1,9 @@
 import "@/styles/components/resortInfo.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { ResortObj, WeatherObj } from "../routes/resort"
+import { fetchWeatherApi } from 'openmeteo';
 import "leaflet/dist/leaflet.css";
+import { useEffect, useState } from "react";
 
 function ResortInfo() {
     
@@ -22,21 +24,85 @@ function ResortInfo() {
     if (thisResortStr) {
         thisResort = JSON.parse(thisResortStr);
     }
-
-    let thisWeather: WeatherObj = {
-        temperature:        Number(localStorage.getItem("temperature")),
-        snowfall:           Number(localStorage.getItem("snowfall")),
-        snowDepth:          Number(localStorage.getItem("snowDepth")),
-        precipitationProb:  Number(localStorage.getItem("precipitationProb")),
-        windSpeed:          Number(localStorage.getItem("windSpeed")),
-        visibility:         Number(localStorage.getItem("visibility")),
-        weatherAdvisories: "string"
-    };
     
+    const [thisWeather, setThisWeather] = useState<WeatherObj>({
+        temperature:        0,
+        snowfall:           0,
+        snowDepth:          0,
+        precipitationProb:  0,
+        windSpeed:          0,
+        visibility:         0,
+        weatherAdvisories:  ""
+    });
 
     const handleBookmark = () => {
-        // Implement bookmark functionality here
+        // TODO Implement bookmark functionality here
     };
+
+    useEffect(() => {
+
+        const params = {
+	        "latitude": thisResort.Lat,
+	        "longitude": thisResort.Long,
+	        "hourly": ["temperature_2m", "precipitation_probability", "snowfall", "snow_depth", "visibility", "wind_speed_10m"],
+            "temperature_unit": "fahrenheit",
+	        "wind_speed_unit": "mph",
+	        "precipitation_unit": "inch",
+	        "forecast_hours": 12
+        };
+        const url = "https://api.open-meteo.com/v1/forecast";
+        console.log("sending response")
+
+        const fetchData = async () => {
+            const responses = await fetchWeatherApi(url, params);
+            console.log(responses);
+
+        // Helper function to form time ranges
+        const range = (start: number, stop: number, step: number) =>
+	        Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
+
+        // Process first location. Add a for-loop for multiple locations or weather models
+        const response = responses[0];
+
+        // Attributes for timezone and location
+        const utcOffsetSeconds = response.utcOffsetSeconds();;
+
+        const hourly = response.hourly()!;
+
+        // Note: The order of weather variables in the URL query and the indices below need to match!
+        const weatherData = {
+
+	        hourly: {
+		        time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
+			        (t) => new Date((t + utcOffsetSeconds) * 1000)
+		        ),
+		        temperature2m: hourly.variables(0)!.valuesArray()!,
+		        precipitationProbability: hourly.variables(1)!.valuesArray()!,
+		        snowfall: hourly.variables(2)!.valuesArray()!,
+		        snowDepth: hourly.variables(3)!.valuesArray()!,
+		        visibility: hourly.variables(4)!.valuesArray()!,
+		        windSpeed10m: hourly.variables(5)!.valuesArray()!,
+		        sunshineDuration: hourly.variables(6)!.valuesArray()!,
+	        },
+
+        };
+
+        setThisWeather({
+            temperature: parseFloat(weatherData.hourly.temperature2m[0].toFixed(2)),
+            precipitationProb: parseFloat(weatherData.hourly.precipitationProbability[0].toFixed(2)),
+            snowfall: parseFloat(weatherData.hourly.snowfall[0].toFixed(2)),
+            snowDepth: parseFloat(weatherData.hourly.snowDepth[0].toFixed(2)),
+            visibility: parseFloat(weatherData.hourly.visibility[0].toFixed(2)),
+            windSpeed: parseFloat(weatherData.hourly.windSpeed10m[0].toFixed(2)),
+            weatherAdvisories: ""
+        });
+       
+        localStorage.setItem("curWeather", JSON.stringify(thisWeather));
+    };
+
+        fetchData();
+    
+    }, []);
 
     return (
         <div className="indvContainer">
