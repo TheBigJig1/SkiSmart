@@ -8,7 +8,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"strconv"
 	"strings"
 
 	"time"
@@ -283,7 +282,7 @@ func UserLogout(w http.ResponseWriter, r *http.Request) {
 func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 
 	// Acknowledge request
-	fmt.Printf("recieved Bookmark request")
+	fmt.Println("recieved Bookmark request")
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Println("Error parsing form: ", err)
@@ -323,25 +322,54 @@ func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 
 	user := User{}
 	_ = json.Unmarshal(b, &user) // Eat error
+	uid := user.ID
 
 	// Get resort ID from curResortID
-	body, _ := io.ReadAll(r.Body)
-	resortIDstr := string(body)
-	resortID, err := strconv.Atoi(resortIDstr)
-
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Println("Error parsing resort ID: ", err)
 		return
 	}
 
+	var requestBody struct {
+		ResortID int `json:"resortID"`
+	}
+	if err := json.Unmarshal(body, &requestBody); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Println("Error unmarshalling request body: ", err)
+		return
+	}
+
+	rid := requestBody.ResortID
+
+	fmt.Printf("USER: %d, RESORT: %d\n", uid, rid)
+
 	// Check if user has already bookmarked this resort
+	var exists bool
+	query := `SELECT 1 FROM UserBookmarkedResorts WHERE UserID_FK = @p1 AND ResortID_FK = @p2`
+	_ = db.QueryRow(query, sql.Named("p1", uid), sql.Named("p2", rid)).Scan(&exists)
 
 	// if yes, remove bookmark from table
+	if exists {
+		_, err = db.Exec(`DELETE FROM UserBookmarkedResorts WHERE UserID_FK = @p1 AND ResortID_FK = @p2`, sql.Named("p1", uid), sql.Named("p2", rid))
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Println("Error deleting bookmark: ", err)
+			return
+		}
+	} else { // if no, add bookmark to table
+		_, err = db.Exec(`INSERT INTO UserBookmarkedResorts (UserID_FK, ResortID_FK) VALUES (@p1, @p2)`, sql.Named("p1", uid), sql.Named("p2", rid))
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Println("Error adding bookmark: ", err)
+			return
+		}
+	}
 
-	// if no, add bookmark to table
-
-	// Return success or failure
+	// Acknowledge success
+	w.WriteHeader(http.StatusOK)
+	fmt.Println("Bookmark toggled successfully")
 }
 
 // Function to retrieve all bookmarks for a user
