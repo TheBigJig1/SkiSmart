@@ -94,7 +94,7 @@ function Resort() {
             </div>
             <div className="resortContentContainer">
                 {resorts && resorts.map((resort, resortIndex) => (
-                    <ResortCard resortName={resort.Name} lat={resort.Lat} long={resort.Long} address={resort.Address} key={resortIndex}{...resort} />
+                    <ResortCard key={resortIndex}{...resort} />
                 ))}
                 
                 <div>

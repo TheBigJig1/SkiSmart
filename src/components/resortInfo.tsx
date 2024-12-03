@@ -9,11 +9,11 @@ function ResortInfo() {
     
     let thisResort: ResortObj = {
         ID:         0,
-        Name:       localStorage.getItem("resortName")!,
-        Address:    localStorage.getItem("address")!,
+        Name:       "",
+        Address:    "",
         Zipcode:    "",
-        Lat:        Number(localStorage.getItem("lat")),
-        Long:       Number(localStorage.getItem("long")),
+        Lat:        0,
+        Long:       0,
         ImageLink:  ""
     };
 
@@ -22,12 +22,12 @@ function ResortInfo() {
     }
 
     let thisWeather: WeatherObj = {
-        temperature:    Number(localStorage.getItem("temperature")),
-        snowfall:       Number(localStorage.getItem("snowfall")),
-        snowDepth:      Number(localStorage.getItem("snowDepth")),
-        precipitationProb:     Number(localStorage.getItem("precipitationProb")),
-        windSpeed:      Number(localStorage.getItem("windSpeed")),
-        visibility:     Number(localStorage.getItem("visibility")),
+        temperature:        Number(localStorage.getItem("temperature")),
+        snowfall:           Number(localStorage.getItem("snowfall")),
+        snowDepth:          Number(localStorage.getItem("snowDepth")),
+        precipitationProb:  Number(localStorage.getItem("precipitationProb")),
+        windSpeed:          Number(localStorage.getItem("windSpeed")),
+        visibility:         Number(localStorage.getItem("visibility")),
         weatherAdvisories: "string"
     };
     

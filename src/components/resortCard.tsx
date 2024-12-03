@@ -1,18 +1,17 @@
 import "@/styles/components/resortCard.css"
 import { fetchWeatherApi } from 'openmeteo';
-function ResortCard(props: {resortName: string; address: string; lat: number; long: number;} ) {
+import { ResortObj } from "../routes/resort";
+
+function ResortCard(resort: ResortObj ) {
 
     
     async function retrieveData() {
         
-        localStorage.setItem("resortName", props.resortName);
-        localStorage.setItem("address", props.address);
-        localStorage.setItem("lat", props.lat.toString());
-        localStorage.setItem("long", props.long.toString());
-        
+        localStorage.setItem("curResort", JSON.stringify(resort));
+
         const params = {
-	        "latitude": localStorage.getItem("lat"),
-	        "longitude": localStorage.getItem("long"),
+	        "latitude": resort.Lat,
+	        "longitude": resort.Long,
 	        "hourly": ["temperature_2m", "precipitation_probability", "snowfall", "snow_depth", "visibility", "wind_speed_10m"],
             "temperature_unit": "fahrenheit",
 	        "wind_speed_unit": "mph",
@@ -53,7 +52,6 @@ function ResortCard(props: {resortName: string; address: string; lat: number; lo
 
         };
 
-
         localStorage.setItem("temperature", parseFloat(weatherData.hourly.temperature2m[0].toFixed(2)).toString());
         localStorage.setItem("precipitationProb", parseFloat(weatherData.hourly.precipitationProbability[0].toFixed(2)).toString());
         localStorage.setItem("snowfall", parseFloat(weatherData.hourly.snowfall[0].toFixed(2)).toString());
@@ -63,17 +61,16 @@ function ResortCard(props: {resortName: string; address: string; lat: number; lo
     }
 
     return <div className="cardContainer">
-        <h1 className="resortName">{props.resortName}</h1>
+        <h1 className="resortName">{resort.Name}</h1>
         <div className="resortImg">
-            <img src={`src/assets/${props.resortName.replace(' ', '')}.jpg`}></img>
+            <img src={resort.ImageLink}></img>
         </div>
         <div className="resortInfo">
             <a href="/resortInfo">
                 <button className="visitPageButton" onClick={retrieveData}>Visit Page</button>
             </a>
-            
             <div className="address">
-                <h2>{props.address}</h2>
+                <h2>{resort.Address}, {resort.Zipcode}</h2>
             </div>
         </div>
     </div>
