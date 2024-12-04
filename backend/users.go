@@ -358,6 +358,7 @@ func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Error deleting bookmark: ", err)
 			return
 		}
+		fmt.Println("Bookmark removed successfully")
 	} else { // if no, add bookmark to table
 		_, err = db.Exec(`INSERT INTO UserBookmarkedResorts (UserID_FK, ResortID_FK) VALUES (@p1, @p2)`, sql.Named("p1", uid), sql.Named("p2", rid))
 		if err != nil {
@@ -365,11 +366,11 @@ func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Error adding bookmark: ", err)
 			return
 		}
+		fmt.Println("Bookmark added successfully")
 	}
 
 	// Acknowledge success
 	w.WriteHeader(http.StatusOK)
-	fmt.Println("Bookmark toggled successfully")
 }
 
 // Function to retrieve all bookmarks for a user
