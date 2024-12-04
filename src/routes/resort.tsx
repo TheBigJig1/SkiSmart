@@ -52,7 +52,7 @@ function Resort() {
     
         const listResorts = async (limit: number) => {   
             try {
-                // Fetch reviews from server
+                // Fetch resorts from server
     
                 // Endpoint is parameterized
                 const response = await fetch(`http://localhost:8080/resorts/list?zip=${userZip}&limit=${limit}`, {

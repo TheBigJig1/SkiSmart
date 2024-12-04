@@ -1,14 +1,17 @@
 import '@/styles/routes/account.css';
 import { useState, useEffect } from 'react';
+import { ResortObj } from "../routes/resort"
+import ResortCard from "../components/resortCard"
+
 import { jwtDecode }  from 'jwt-decode';
 
 function Account() {
 
     const [name, setName] = useState('Guest');
+    const [resorts, setResorts] = useState<ResortObj[]>([]);
 
     useEffect(() => {
         // Retrieve user data from localStorage
-
         const token = localStorage.getItem('token') || ''
         const decoded = jwtDecode(token) as { user: { email: string; first: string; last: string; zipcode: string } };
         const user = decoded.user;
@@ -16,7 +19,41 @@ function Account() {
         if (user && user.first) {
             setName(user.first);
         }
-    }, []);
+
+        // Load user bookmarks
+        const loadBookmarks = async () => {   
+            try {
+                // Fetch reviews from server
+    
+                // Endpoint is parameterized
+                const response = await fetch(`http://localhost:8080//users/loadbookmarks`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+    
+                if(response.ok) {
+                    // Handle successful response
+                    const resorts = await response.json();
+    
+                    // Update reviews state variable
+                    setResorts(resorts);
+    
+                    // Log reviews
+                    console.log('bookmark list fetched successfully');
+                    console.log(resorts);
+                    return;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        loadBookmarks();
+
+    }, []); // Effect run once
 
     const logoutHandler = async () => {
         const token = localStorage.getItem('token') || ''
@@ -57,13 +94,13 @@ function Account() {
             <div className="accountContentContainer">
                 <div className="accountPersonal">
                     <div className="accountResorts">
-                        <ol>
-                            <h3>Your Favorites:</h3>
-                            <li>Wisp</li>
-                            <li>Timberline</li>
-                            <li>Random Mountain</li>
-                        </ol>
-                    </div>
+                        <h3>Your Bookmarked Resorts</h3>
+                        {resorts && resorts.map((resort, resortIndex) => (
+                            <ResortCard key={resortIndex}{...resort} />
+                        ))}
+                    <div>
+                </div>
+            </div>
                     <div className="accountInfo">
                         <ul>
                             <h3>Your Info:</h3>

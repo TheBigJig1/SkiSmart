@@ -376,7 +376,8 @@ func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 // Function to retrieve all bookmarks for a user
 func GetBookmarks(w http.ResponseWriter, r *http.Request) {
 	// Acknowledge request
-	fmt.Printf("recieved GetBookmarks request")
+	fmt.Println("recieved GetBookmarks request")
+
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Println("Error parsing form: ", err)
@@ -453,7 +454,7 @@ func GetBookmarks(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Server acknowledges success
-	log.Println("Resort List returned successfully")
+	log.Println("Bookmark List returned successfully")
 	w.WriteHeader(http.StatusOK) // 200 OK
 	_ = json.NewEncoder(w).Encode(&resorts)
 
