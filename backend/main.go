@@ -244,6 +244,8 @@ func main() {
 	}
 
 	log.Println("Listening...")
-	server.ListenAndServe() // Run the http server
+	if err = server.ListenAndServe(); err != nil {
+		fmt.Println(err)
+	}
 
 }
