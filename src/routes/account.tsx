@@ -94,13 +94,11 @@ function Account() {
             <div className="accountContentContainer">
                 <div className="accountPersonal">
                     <div className="accountResorts">
-                        <h3>Your Bookmarked Resorts</h3>
+                        {/* <h2>Your Bookmarks:</h2><br></br> */}
                         {resorts && resorts.map((resort, resortIndex) => (
                             <ResortCard key={resortIndex}{...resort} />
                         ))}
-                    <div>
-                </div>
-            </div>
+                    </div>
                     <div className="accountInfo">
                         <ul>
                             <h3>Your Info:</h3>

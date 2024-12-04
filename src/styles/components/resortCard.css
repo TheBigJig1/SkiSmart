@@ -1,5 +1,6 @@
 .cardContainer {
     
+    transform: scale(0.5);
     display: grid;
     grid-template-areas:
         "resortName"

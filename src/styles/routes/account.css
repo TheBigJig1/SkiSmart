@@ -70,7 +70,7 @@
     grid-area: accountPersonal;
     margin-top: 2vw;
 
-    width: 90vw;
+    width: 92vw;
     font-size: clamp(1rem, 3vw, 2.5rem);
 
     display: flex;
@@ -85,13 +85,13 @@
 
 .accountResorts {
     grid-area: accountResorts;
-    margin-left: 4vw;
+    width: 46vw;
     display: flex;
 }
 
 .accountInfo {
     grid-area: accountInfo;
-    margin-left: 2vw;
+    width: 46vw;
     display: flex;
 }
 
