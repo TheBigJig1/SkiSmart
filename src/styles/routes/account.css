@@ -117,6 +117,7 @@
     transform: scale(1.1); 
 }
 
+/* TODO: add breakpoint for mobile devices */
 
 @media (prefers-color-scheme: dark) {
     .accountContainer {
@@ -152,6 +153,25 @@
     .homeRedirect {
         margin-top: 2vh;
         border: 1px solid #ededeb;
+    }
+}
+
+@media (max-width: 1200px) {
+    .accountPersonal {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "accountInfo"
+            "accountResorts";
+    }
+
+    .accountResorts {
+        width: 96vw;
+        margin-right: 0;
+    }
+
+    .accountInfo {
+        width: 96vw;
+        margin-left: 0;
     }
 }
 
