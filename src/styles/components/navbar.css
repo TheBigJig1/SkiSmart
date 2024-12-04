@@ -2,7 +2,7 @@ div.navbarContainer {
     display:flex;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 100000;
     background-color: white;
     width: calc(100vw - 4px);
     border: 2px solid #141414;
