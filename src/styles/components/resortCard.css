@@ -1,5 +1,6 @@
 .cardContainer {
     display: grid;
+    width: 90%;
     grid-template-areas:
         "resortName"
         "resortImg"
@@ -8,6 +9,8 @@
 
 .resortName {
     grid-area: resortName;
+
+    font-size: 3rem;
 
     justify-self: center;
 
@@ -18,13 +21,13 @@
 .resortImg {
     grid-area: resortImg;
     padding-bottom: 1rem;
+    width: 100%;
 
     justify-self: center;
 
     img {
         width: 100%;
-        max-width: 70vw;
-        max-height: 60vh;
+        height: 60vh;
         object-fit: cover;
     }
 }
@@ -32,7 +35,7 @@
 .resortInfo {
     grid-area: resortInfo;
 
-    /* font-size: 1.5rem; */
+    font-size: 1rem;
 
     padding-block: 1rem;
     font-family: "Anonymous Pro";
