@@ -1,5 +1,6 @@
 import "@/styles/components/resortInfo.css";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import L from 'leaflet';
 import { ResortObj, WeatherObj } from "../routes/resort"
 import { fetchWeatherApi } from 'openmeteo';
 import "leaflet/dist/leaflet.css";
@@ -24,6 +25,25 @@ function ResortInfo() {
     if (thisResortStr) {
         thisResort = JSON.parse(thisResortStr);
     }
+
+    const API_URL = 'https://planetarycomputer.microsoft.com/api/stac/v1';
+
+
+    interface WeatherFeature {
+        type: string;
+        properties: {
+          title?: string;
+        };
+        geometry: {
+          type: string;
+          coordinates: number[];
+        };
+    }
+
+    interface GeoJSONResponse {
+        type: string;
+        features: WeatherFeature[];
+      }
     
     const [thisWeather, setThisWeather] = useState<WeatherObj>({
         temperature:        0,
@@ -81,37 +101,36 @@ function ResortInfo() {
             const responses = await fetchWeatherApi(url, params);
             console.log(responses);
 
-        // Helper function to form time ranges
-        const range = (start: number, stop: number, step: number) =>
-	        Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
+            // Helper function to form time ranges
+            const range = (start: number, stop: number, step: number) =>
+                Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
 
-        // Process first location. Add a for-loop for multiple locations or weather models
-        const response = responses[0];
+            // Process first location. Add a for-loop for multiple locations or weather models
+            const response = responses[0];
 
-        // Attributes for timezone and location
-        const utcOffsetSeconds = response.utcOffsetSeconds();;
+            // Attributes for timezone and location
+            const utcOffsetSeconds = response.utcOffsetSeconds();;
 
-        const hourly = response.hourly()!;
+            const hourly = response.hourly()!;
 
-        // Note: The order of weather variables in the URL query and the indices below need to match!
-        const weatherData = {
+            // Note: The order of weather variables in the URL query and the indices below need to match!
+            const weatherData = {
+                hourly: {
+                    time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
+                        (t) => new Date((t + utcOffsetSeconds) * 1000)
+                    ),
+                    temperature2m: hourly.variables(0)!.valuesArray()!,
+                    precipitationProbability: hourly.variables(1)!.valuesArray()!,
+                    snowfall: hourly.variables(2)!.valuesArray()!,
+                    snowDepth: hourly.variables(3)!.valuesArray()!,
+                    visibility: hourly.variables(4)!.valuesArray()!,
+                    windSpeed10m: hourly.variables(5)!.valuesArray()!,
+                    sunshineDuration: hourly.variables(6)!.valuesArray()!,
+                },
 
-	        hourly: {
-		        time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-			        (t) => new Date((t + utcOffsetSeconds) * 1000)
-		        ),
-		        temperature2m: hourly.variables(0)!.valuesArray()!,
-		        precipitationProbability: hourly.variables(1)!.valuesArray()!,
-		        snowfall: hourly.variables(2)!.valuesArray()!,
-		        snowDepth: hourly.variables(3)!.valuesArray()!,
-		        visibility: hourly.variables(4)!.valuesArray()!,
-		        windSpeed10m: hourly.variables(5)!.valuesArray()!,
-		        sunshineDuration: hourly.variables(6)!.valuesArray()!,
-	        },
+            };
 
-        };
-
-        setThisWeather({
+            setThisWeather({
             temperature: parseFloat(weatherData.hourly.temperature2m[0].toFixed(2)),
             precipitationProb: parseFloat(weatherData.hourly.precipitationProbability[0].toFixed(2)),
             snowfall: parseFloat(weatherData.hourly.snowfall[0].toFixed(2)),
@@ -122,11 +141,63 @@ function ResortInfo() {
         });
        
         localStorage.setItem("curWeather", JSON.stringify(thisWeather));
-    };
+        };
 
         fetchData();
     
     }, []);
+
+    const WeatherLayer: React.FC = () => {
+        const map = useMap();
+      
+        useEffect(() => {
+            async function fetchWeatherData(): Promise<WeatherFeature[]> {
+                const response = await fetch(`${API_URL}/search`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/geo+json',
+                  },
+                  body: JSON.stringify({
+                    collections: ['noaa-weather'], // Replace with the NOAA collection name
+                    bbox: [-125, 25, -66, 49],    // Bounding box for the US
+                    datetime: '2024-01-01T00:00:00Z/2024-12-31T23:59:59Z',
+                    limit: 10,
+                  }),
+                });
+              
+                if (!response.ok) {
+                  throw new Error('Failed to fetch weather data');
+                }
+              
+                const data: GeoJSONResponse = await response.json();
+                return data.features;
+            }
+    
+            const addWeatherLayer = async () => {
+                try {
+                  const weatherData: WeatherFeature[] = await fetchWeatherData();
+          
+                  const weatherLayer = L.geoJSON(weatherData as any, {
+                    onEachFeature: (feature, layer) => {
+                      const title = feature.properties.title || 'No Title';
+                      layer.bindPopup(`<strong>Weather Info:</strong><br>${title}`);
+                    },
+                    pointToLayer: (feature, latlng) => L.circleMarker(latlng),
+                  });
+          
+                  weatherLayer.addTo(map);
+                } catch (error) {
+                  console.error('Error adding weather layer:', error);
+                }
+            };
+
+            addWeatherLayer();
+            
+        }, []);
+      
+        return null;
+    };
 
     return (
         <div className="indvContainer">
@@ -161,6 +232,7 @@ function ResortInfo() {
                                 Resort Location: {thisResort.Lat}, {thisResort.Long}
                             </Popup>
                         </Marker>
+                        <WeatherLayer />
                     </MapContainer>
                     <h3><a href={thisResort.CameraLink} target="_blank" rel="noopener noreferrer">Click here to view {thisResort.Name} Cameras</a></h3>
                 </div>

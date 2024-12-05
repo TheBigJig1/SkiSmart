@@ -24,9 +24,11 @@
     width: 100%;
 
     justify-self: center;
+    justify-items: center;
 
     img {
         width: 100%;
+        max-width: 70vw;
         height: 60vh;
         object-fit: cover;
     }
