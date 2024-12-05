@@ -167,9 +167,14 @@
     .accountResorts {
         width: 96vw;
         margin-right: 0;
+
+        h2 {
+            padding-left: 26%;
+        }
     }
 
     .accountInfo {
+        padding-left: 8vw;
         width: 96vw;
         margin-left: 0;
     }

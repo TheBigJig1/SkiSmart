@@ -94,7 +94,7 @@ function Account() {
             <div className="accountContentContainer">
                 <div className="accountPersonal">
                     <div className="accountResorts">
-                        {/* <h2>Your Bookmarks:</h2><br></br> */}
+                        <h2>Your Bookmarks:</h2>
                         {resorts && resorts.map((resort, resortIndex) => (
                             <ResortCard key={resortIndex}{...resort} />
                         ))}
