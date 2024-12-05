@@ -194,7 +194,7 @@ function ResortInfo() {
 
             addWeatherLayer();
             
-        }, []);
+        }, [map]);
       
         return null;
     };

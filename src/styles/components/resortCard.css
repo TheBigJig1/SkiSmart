@@ -1,5 +1,8 @@
 .cardContainer {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
     width: 90%;
     grid-template-areas:
         "resortName"
@@ -23,8 +26,8 @@
     padding-bottom: 1rem;
     width: 100%;
 
-    justify-self: center;
-    justify-items: center;
+    display: flex;
+    justify-content: center;
 
     img {
         width: 100%;
@@ -36,6 +39,9 @@
 
 .resortInfo {
     grid-area: resortInfo;
+
+    width: 100%;
+    max-width: 70vw;
 
     font-size: 1rem;
 
@@ -59,7 +65,7 @@
 
 .visitPageButton {
     grid-area: visitPageButton;
-    height:80%;
+    height: 60px;
     width: 15vw;
 
     background-color: black;
