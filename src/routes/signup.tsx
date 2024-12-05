@@ -45,6 +45,7 @@ const Signup: React.FC = () => {
   };
 
     return (
+      <div className="signin-background">
         <div className="signin-container">
             {/*id how to comment but pretend this isnt here*/}
             {/*need to change image based on window size*/}
@@ -114,6 +115,7 @@ const Signup: React.FC = () => {
               </div>
             </form>
           </div>
+        </div>
       </div>
     )
  }
