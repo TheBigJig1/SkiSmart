@@ -70,7 +70,7 @@
     grid-area: accountPersonal;
     margin-top: 2vw;
 
-    width: 90vw;
+    width: 92vw;
     font-size: clamp(1rem, 3vw, 2.5rem);
 
     display: flex;
@@ -85,13 +85,19 @@
 
 .accountResorts {
     grid-area: accountResorts;
-    margin-left: 4vw;
+
+    display: flex;
+    flex-direction: column;
+    
+    width: 45vw;
+    margin-right: 1vw;
     display: flex;
 }
 
 .accountInfo {
     grid-area: accountInfo;
-    margin-left: 2vw;
+    width: 45vw;
+    margin-left: 1vw;
     display: flex;
 }
 
@@ -111,6 +117,7 @@
     transform: scale(1.1); 
 }
 
+/* TODO: add breakpoint for mobile devices */
 
 @media (prefers-color-scheme: dark) {
     .accountContainer {
@@ -146,6 +153,30 @@
     .homeRedirect {
         margin-top: 2vh;
         border: 1px solid #ededeb;
+    }
+}
+
+@media (max-width: 1200px) {
+    .accountPersonal {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "accountInfo"
+            "accountResorts";
+    }
+
+    .accountResorts {
+        width: 96vw;
+        margin-right: 0;
+
+        h2 {
+            padding-left: 26%;
+        }
+    }
+
+    .accountInfo {
+        padding-left: 8vw;
+        width: 96vw;
+        margin-left: 0;
     }
 }
 

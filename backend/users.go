@@ -213,7 +213,7 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	u.Password = ""
 
 	// Generate JWT Token
-	expirationTime := time.Now().Add(1 * time.Hour) // Login valid for 1 hour
+	expirationTime := time.Now().Add(6 * time.Hour) // Login valid for 1 hour
 	claims := &UserClaims{
 		StandardClaims: jwt.StandardClaims{
 			Subject:   u.Email,
@@ -298,8 +298,6 @@ func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Parse form
-	// Get token from form
 	t := strings.TrimPrefix(bearer, "Bearer ")
 	if t == "" {
 		w.WriteHeader(http.StatusUnprocessableEntity)
@@ -307,6 +305,8 @@ func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Parse form
+	// Get token from form
 	token, err := jwt.Parse(t, func(token *jwt.Token) (interface{}, error) {
 		return jwtKey, nil
 	})
@@ -376,19 +376,86 @@ func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 // Function to retrieve all bookmarks for a user
 func GetBookmarks(w http.ResponseWriter, r *http.Request) {
 	// Acknowledge request
-	fmt.Printf("recieved GetBookmarks request")
+	fmt.Println("recieved GetBookmarks request")
+
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Println("Error parsing form: ", err)
 		return
 	}
 
-	// Do not need to check if user is logged in
+	// Verify User is logged in
+	bearer := r.Header.Get("Authorization")
+	if !strings.HasPrefix(bearer, "Bearer ") {
+		w.WriteHeader(http.StatusUnauthorized)
+		fmt.Println("Invalid token")
+		return
+	}
+
+	t := strings.TrimPrefix(bearer, "Bearer ")
+	if t == "" {
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		fmt.Println("Empty token")
+		return
+	}
 
 	// Parse form
-	// Get user ID from JWT token
+	// Get token from form
+	token, err := jwt.Parse(t, func(token *jwt.Token) (interface{}, error) {
+		return jwtKey, nil
+	})
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Invalid token or Error Parsing: ", err)
+		return
+	}
+
+	// Create user object from token
+	u := token.Claims.(jwt.MapClaims)["user"]
+	b, _ := json.MarshalIndent(u, "", "  ")
+
+	user := User{}
+	_ = json.Unmarshal(b, &user) // Eat error
+	uid := user.ID
 
 	// Query UserBookmarkedResorts table for all bookmarks for this user
+	rows, err := db.Query(`SELECT ResortID_FK FROM UserBookmarkedResorts WHERE UserID_FK = @p1`, sql.Named("p1", uid))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error querying bookmarks: ", err)
+		return
+	}
 
-	// Return these bookmarks as a list of Resort objects
+	// Create slice of resorts
+	resorts := []Resort{}
+
+	// Get resorts where ID matches bookmarked ID
+	for rows.Next() {
+		var rid int
+		err = rows.Scan(&rid)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Println("Error scanning row: ", err)
+			return
+		}
+
+		// Query Resorts table for resort information
+		row := db.QueryRow(`SELECT * FROM Resorts WHERE ID = @p1`, sql.Named("p1", rid))
+
+		rl := Resort{}
+		err = row.Scan(&rl.ID, &rl.Name, &rl.Address, &rl.Zipcode, &rl.Lat, &rl.Long, &rl.HomeLink, &rl.CameraLink, &rl.ImageLink)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Println("Error scanning row: ", err)
+			return
+		}
+
+		resorts = append(resorts, rl)
+	}
+
+	// Server acknowledges success
+	log.Println("Bookmark List returned successfully")
+	w.WriteHeader(http.StatusOK) // 200 OK
+	_ = json.NewEncoder(w).Encode(&resorts)
+
 }

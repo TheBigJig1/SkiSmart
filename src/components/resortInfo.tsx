@@ -1,12 +1,30 @@
 import "@/styles/components/resortInfo.css";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import L from 'leaflet';
 import { ResortObj, WeatherObj } from "../routes/resort"
 import { fetchWeatherApi } from 'openmeteo';
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 
+interface WeatherFeature {
+    type: string;
+    properties: {
+      title?: string;
+    };
+    geometry: {
+      type: string;
+      coordinates: number[];
+    };
+}
+
+interface GeoJSONResponse {
+    type: string;
+    features: WeatherFeature[];
+}
+
 function ResortInfo() {
     
+    // Get the current resort from local storage and intialize it
     let thisResortStr = localStorage.getItem("curResort");
     
     let thisResort: ResortObj = {
@@ -24,6 +42,8 @@ function ResortInfo() {
     if (thisResortStr) {
         thisResort = JSON.parse(thisResortStr);
     }
+
+    const API_URL = 'https://planetarycomputer.microsoft.com/api/stac/v1';
     
     const [thisWeather, setThisWeather] = useState<WeatherObj>({
         temperature:        0,
@@ -35,6 +55,149 @@ function ResortInfo() {
         weatherAdvisories:  ""
     });
 
+    // Load the numerical weather data for the current resort
+    useEffect(() => {
+        const params = {
+	        "latitude": thisResort.Lat,
+	        "longitude": thisResort.Long,
+	        "hourly": ["temperature_2m", "precipitation_probability", "snowfall", "snow_depth", "visibility", "wind_speed_10m"],
+            "temperature_unit": "fahrenheit",
+	        "wind_speed_unit": "mph",
+	        "precipitation_unit": "inch",
+	        "forecast_hours": 12
+        };
+        const url = "https://api.open-meteo.com/v1/forecast";
+
+        const fetchData = async () => {
+            const responses = await fetchWeatherApi(url, params);
+            console.log(responses);
+
+            // Helper function to form time ranges
+            const range = (start: number, stop: number, step: number) =>
+                Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
+
+            // Process first location. Add a for-loop for multiple locations or weather models
+            const response = responses[0];
+
+            // Attributes for timezone and location
+            const utcOffsetSeconds = response.utcOffsetSeconds();;
+
+            const hourly = response.hourly()!;
+
+            // Note: The order of weather variables in the URL query and the indices below need to match!
+            const weatherData = {
+                hourly: {
+                    time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
+                        (t) => new Date((t + utcOffsetSeconds) * 1000)
+                    ),
+                    temperature2m: hourly.variables(0)!.valuesArray()!,
+                    precipitationProbability: hourly.variables(1)!.valuesArray()!,
+                    snowfall: hourly.variables(2)!.valuesArray()!,
+                    snowDepth: hourly.variables(3)!.valuesArray()!,
+                    visibility: hourly.variables(4)!.valuesArray()!,
+                    windSpeed10m: hourly.variables(5)!.valuesArray()!,
+                    sunshineDuration: hourly.variables(6)!.valuesArray()!,
+                },
+
+            };
+
+            setThisWeather({
+                temperature: parseFloat(weatherData.hourly.temperature2m[0].toFixed(2)),
+                precipitationProb: parseFloat(weatherData.hourly.precipitationProbability[0].toFixed(2)),
+                snowfall: parseFloat(weatherData.hourly.snowfall[0].toFixed(2)),
+                snowDepth: parseFloat(weatherData.hourly.snowDepth[0].toFixed(2)),
+                visibility: parseFloat(weatherData.hourly.visibility[0].toFixed(2)),
+                windSpeed: parseFloat(weatherData.hourly.windSpeed10m[0].toFixed(2)),
+                weatherAdvisories: ""
+            });
+       
+            localStorage.setItem("curWeather", JSON.stringify(thisWeather));
+        };
+
+        fetchData();
+    
+    }, []);
+
+    // Load map data for the current resort
+    async function fetchWeatherData(): Promise<GeoJSON.Feature[]> {
+        const response = await fetch(`${API_URL}/search`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/geo+json',
+          },
+          body: JSON.stringify({
+            collections: ['noaa-weather'], // Replace with the NOAA collection name
+            bbox: [-125, 25, -66, 49],    // Bounding box for the US
+            datetime: '2024-01-01T00:00:00Z/2024-12-31T23:59:59Z',
+            limit: 10,
+          }),
+        });
+      
+        if (!response.ok) {
+          throw new Error('Failed to fetch weather data');
+        }
+      
+        const data: GeoJSON.FeatureCollection = await response.json();
+        return data.features;
+      }
+
+    const WeatherLayer: React.FC = () => {
+        const map = useMap();
+      
+        useEffect(() => {
+            const addWeatherLayer = async () => {
+                try {
+                  const weatherData = await fetchWeatherData();
+              
+                  const geojsonData: GeoJSON.FeatureCollection = {
+                    type: 'FeatureCollection',
+                    features: weatherData,
+                  };
+              
+                  L.geoJSON(geojsonData, {
+                    onEachFeature: (feature, layer) => {
+                      layer.bindPopup(
+                        `<strong>Weather Info:</strong> <br>
+                         ${feature.properties.title || 'No Title'}`
+                      );
+                    },
+                    pointToLayer: (_feature, latlng) => L.circleMarker(latlng),
+                  }).addTo(map);
+                } catch (error) {
+                  console.error('Error adding weather layer:', error);
+                }
+            };
+
+            addWeatherLayer();
+            
+        }, [map]);
+      
+        return null;
+    };
+
+    const MyMapContainer = () => {
+        return (
+            <MapContainer
+                center={[thisResort.Lat, thisResort.Long]}
+                zoom={13}
+                style={{ height: "50vh", width: "55vw" }}
+            >
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                />
+                <WeatherLayer />
+                <Marker position={[thisResort.Lat, thisResort.Long]}>
+                    <Popup>
+                        {thisResort.Name} Location: {thisResort.Lat}, {thisResort.Long}
+                    </Popup>
+                </Marker>
+            </MapContainer>
+        );
+    };
+
+    // Function to toggle the bookmark status of the current resort
     const toggleBookmark = async () => {
         const token = localStorage.getItem('token') || ''
         const resortID = thisResort.ID;
@@ -65,69 +228,6 @@ function ResortInfo() {
         }
     };
 
-    useEffect(() => {
-        const params = {
-	        "latitude": thisResort.Lat,
-	        "longitude": thisResort.Long,
-	        "hourly": ["temperature_2m", "precipitation_probability", "snowfall", "snow_depth", "visibility", "wind_speed_10m"],
-            "temperature_unit": "fahrenheit",
-	        "wind_speed_unit": "mph",
-	        "precipitation_unit": "inch",
-	        "forecast_hours": 12
-        };
-        const url = "https://api.open-meteo.com/v1/forecast";
-
-        const fetchData = async () => {
-            const responses = await fetchWeatherApi(url, params);
-            console.log(responses);
-
-        // Helper function to form time ranges
-        const range = (start: number, stop: number, step: number) =>
-	        Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
-
-        // Process first location. Add a for-loop for multiple locations or weather models
-        const response = responses[0];
-
-        // Attributes for timezone and location
-        const utcOffsetSeconds = response.utcOffsetSeconds();;
-
-        const hourly = response.hourly()!;
-
-        // Note: The order of weather variables in the URL query and the indices below need to match!
-        const weatherData = {
-
-	        hourly: {
-		        time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-			        (t) => new Date((t + utcOffsetSeconds) * 1000)
-		        ),
-		        temperature2m: hourly.variables(0)!.valuesArray()!,
-		        precipitationProbability: hourly.variables(1)!.valuesArray()!,
-		        snowfall: hourly.variables(2)!.valuesArray()!,
-		        snowDepth: hourly.variables(3)!.valuesArray()!,
-		        visibility: hourly.variables(4)!.valuesArray()!,
-		        windSpeed10m: hourly.variables(5)!.valuesArray()!,
-		        sunshineDuration: hourly.variables(6)!.valuesArray()!,
-	        },
-
-        };
-
-        setThisWeather({
-            temperature: parseFloat(weatherData.hourly.temperature2m[0].toFixed(2)),
-            precipitationProb: parseFloat(weatherData.hourly.precipitationProbability[0].toFixed(2)),
-            snowfall: parseFloat(weatherData.hourly.snowfall[0].toFixed(2)),
-            snowDepth: parseFloat(weatherData.hourly.snowDepth[0].toFixed(2)),
-            visibility: parseFloat(weatherData.hourly.visibility[0].toFixed(2)),
-            windSpeed: parseFloat(weatherData.hourly.windSpeed10m[0].toFixed(2)),
-            weatherAdvisories: ""
-        });
-       
-        localStorage.setItem("curWeather", JSON.stringify(thisWeather));
-    };
-
-        fetchData();
-    
-    }, []);
-
     return (
         <div className="indvContainer">
             <div className="indvBackground">
@@ -147,21 +247,7 @@ function ResortInfo() {
                 </div>
                 <div className="leaflet">
                     <h1>Interactive Mountain Map</h1>
-                    <MapContainer
-                        center={[thisResort.Lat, thisResort.Long]}
-                        zoom={13}
-                        style={{ height: "50vh", width: "55vw" }}
-                    >
-                        <TileLayer
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        />
-                        <Marker position={[thisResort.Lat, thisResort.Long]}>
-                            <Popup>
-                                Resort Location: {thisResort.Lat}, {thisResort.Long}
-                            </Popup>
-                        </Marker>
-                    </MapContainer>
+                    <MyMapContainer />
                     <h3><a href={thisResort.CameraLink} target="_blank" rel="noopener noreferrer">Click here to view {thisResort.Name} Cameras</a></h3>
                 </div>
                 <div className="skiData">
