@@ -213,7 +213,7 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	u.Password = ""
 
 	// Generate JWT Token
-	expirationTime := time.Now().Add(1 * time.Hour) // Login valid for 1 hour
+	expirationTime := time.Now().Add(6 * time.Hour) // Login valid for 1 hour
 	claims := &UserClaims{
 		StandardClaims: jwt.StandardClaims{
 			Subject:   u.Email,
