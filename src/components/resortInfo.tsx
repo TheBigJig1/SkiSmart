@@ -1,10 +1,10 @@
 import "@/styles/components/resortInfo.css";
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
-import L from 'leaflet';
+import { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import WeatherLayer from './WeatherLayer';
 import { ResortObj, WeatherObj } from "../routes/resort"
 import { fetchWeatherApi } from 'openmeteo';
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState } from "react";
 
 interface WeatherFeature {
     type: string;
@@ -42,8 +42,6 @@ function ResortInfo() {
     if (thisResortStr) {
         thisResort = JSON.parse(thisResortStr);
     }
-
-    const API_URL = 'https://planetarycomputer.microsoft.com/api/stac/v1';
     
     const [thisWeather, setThisWeather] = useState<WeatherObj>({
         temperature:        0,
@@ -119,83 +117,24 @@ function ResortInfo() {
     }, []);
 
     // Load map data for the current resort
-    async function fetchWeatherData(): Promise<GeoJSON.Feature[]> {
-        const response = await fetch(`${API_URL}/search`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/geo+json',
-          },
-          body: JSON.stringify({
-            collections: ['noaa-weather'], // Replace with the NOAA collection name
-            bbox: [-125, 25, -66, 49],    // Bounding box for the US
-            datetime: '2024-01-01T00:00:00Z/2024-12-31T23:59:59Z',
-            limit: 10,
-          }),
-        });
-      
-        if (!response.ok) {
-          throw new Error('Failed to fetch weather data');
-        }
-      
-        const data: GeoJSON.FeatureCollection = await response.json();
-        return data.features;
-      }
-
-    const WeatherLayer: React.FC = () => {
-        const map = useMap();
-      
-        useEffect(() => {
-            const addWeatherLayer = async () => {
-                try {
-                  const weatherData = await fetchWeatherData();
-              
-                  const geojsonData: GeoJSON.FeatureCollection = {
-                    type: 'FeatureCollection',
-                    features: weatherData,
-                  };
-              
-                  L.geoJSON(geojsonData, {
-                    onEachFeature: (feature, layer) => {
-                      layer.bindPopup(
-                        `<strong>Weather Info:</strong> <br>
-                         ${feature.properties.title || 'No Title'}`
-                      );
-                    },
-                    pointToLayer: (_feature, latlng) => L.circleMarker(latlng),
-                  }).addTo(map);
-                } catch (error) {
-                  console.error('Error adding weather layer:', error);
-                }
-            };
-
-            addWeatherLayer();
-            
-        }, [map]);
-      
-        return null;
-    };
-
-    const MyMapContainer = () => {
-        return (
-            <MapContainer
-                center={[thisResort.Lat, thisResort.Long]}
-                zoom={13}
-                style={{ height: "50vh", width: "55vw" }}
-            >
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                />
-                <WeatherLayer />
-                <Marker position={[thisResort.Lat, thisResort.Long]}>
-                    <Popup>
-                        {thisResort.Name} Location: {thisResort.Lat}, {thisResort.Long}
-                    </Popup>
-                </Marker>
-            </MapContainer>
-        );
-    };
+    const MyMapContainer = () => (
+        <MapContainer
+            center={[thisResort.Lat, thisResort.Long]}
+            zoom={13}
+            style={{ height: '50vh', width: '55vw' }}
+        >
+        <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution="&copy; OpenStreetMap contributors"
+        />
+        <WeatherLayer />
+        <Marker position={[thisResort.Lat, thisResort.Long]}>
+            <Popup>
+                {thisResort.Name} Location: {thisResort.Lat}, {thisResort.Long}
+            </Popup>
+        </Marker>
+        </MapContainer>
+    );
 
     // Function to toggle the bookmark status of the current resort
     const toggleBookmark = async () => {
