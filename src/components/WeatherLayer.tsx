@@ -1,11 +1,11 @@
 // WeatherLayer.tsx
 import { useEffect, useState } from 'react';
-import { useMap, GeoJSON, TileLayer } from 'react-leaflet';
+import { useMap, TileLayer } from 'react-leaflet';
 
 const WeatherLayer: React.FC = () => {
 
     const [TileUrl, setTileUrl] = useState<string | null>(null);
-    const [firstFeature, setFirstFeature] = useState<any | null>(null);
+    // const [firstFeature, setFirstFeature] = useState<any | null>(null);
 
     const map = useMap();
     const API_URL = 'https://planetarycomputer.microsoft.com/api/stac/v1';
@@ -36,21 +36,19 @@ const WeatherLayer: React.FC = () => {
     const addWeatherLayer = async () => {
         try {
             const weatherData = await fetchWeatherData();
-
-            // Here you would examine the returned features to determine which asset to use
-            // For demonstration, we assume the first feature has a "rendered_preview" asset:
+            console.log("Weather Data fetched: ", weatherData);
             const f1 = weatherData.features[0] as any;
-            setFirstFeature(f1);
 
-            if (firstFeature && firstFeature.assets && firstFeature.assets.rendered_preview) {
+        
+            // setTileUrl("https://planetarycomputer.microsoft.com/api/data/v1/mosaic/8167fd2a30f179a980030ad19c008198/tiles/WebMercatorQuad/11/419/777@2x?assets=NDSI_Snow_Cover&colormap_name=modis-10A1&collection=modis-10A1-061&format=png")
+
+            if (f1 && f1.assets && f1.assets.rendered_preview) {
                 // Set the tileUrl from the rendered preview asset
-                const balls = firstFeature.assets.rendered_preview.href;
-                console.log("Balls: ", balls);
+                const balls = f1.assets.rendered_preview.href;
+                console.log("Inside if statement: ", balls);
                 setTileUrl(balls);
                 console.log("TileUrl: ", TileUrl);
-                // setTileUrl("https://planetarycomputer.microsoft.com/api/data/v1/mosaic/8167fd2a30f179a980030ad19c008198/tiles/WebMercatorQuad/11/419/777@2x?assets=NDSI_Snow_Cover&colormap_name=modis-10A1&collection=modis-10A1-061&format=png")
             }
-            
         } catch (error) {
             console.error('Error adding weather layer:', error);
         }

@@ -6,21 +6,21 @@ import { ResortObj, WeatherObj } from "../routes/resort"
 import { fetchWeatherApi } from 'openmeteo';
 import "leaflet/dist/leaflet.css";
 
-interface WeatherFeature {
-    type: string;
-    properties: {
-      title?: string;
-    };
-    geometry: {
-      type: string;
-      coordinates: number[];
-    };
-}
+// interface WeatherFeature {
+//     type: string;
+//     properties: {
+//       title?: string;
+//     };
+//     geometry: {
+//       type: string;
+//       coordinates: number[];
+//     };
+// }
 
-interface GeoJSONResponse {
-    type: string;
-    features: WeatherFeature[];
-}
+// interface GeoJSONResponse {
+//     type: string;
+//     features: WeatherFeature[];
+// }
 
 function ResortInfo() {
     
