@@ -5,14 +5,13 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"net/http/httputil"
 	"os"
 	"strings"
 	"time"
-
-	geojs "github.com/paulmach/go.geojson"
 )
 
 // https://planetarycomputer.microsoft.com/docs/reference/stac/
@@ -41,7 +40,7 @@ func SnowData(w http.ResponseWriter, r *http.Request) {
 	day := flag.String("day", time.Now().Add(-7.*DAY).Format("2006-01-02"), "Day to search for")
 	collections := flag.String("collections", "modis-10A1-061", "Comma-separated list of collections to search")
 	bbox := flag.String("bbox", "US", "Bounding box to search")
-	limit := flag.Int("limit", 10, "Limit the number of results")
+	limit := flag.Int("limit", 1, "Limit the number of results")
 	flag.Parse()
 	// incomplete but sufficient
 	params := SearchParams{
@@ -65,14 +64,112 @@ func SnowData(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Failed to fetch STAC resource: %v", err)
 	}
 	defer rsp.Body.Close()
-	fc := geojs.FeatureCollection{}
-	if err := json.NewDecoder(rsp.Body).Decode(&fc); err != nil {
+
+	raw, _ := io.ReadAll(rsp.Body)
+	_, _ = os.Stdout.Write(raw)
+
+	fc := FeatureCollection{}
+	if err := json.NewDecoder(bytes.NewBuffer(raw)).Decode(&fc); err != nil {
 		log.Fatalf("Failed to unmarshal STAC resource: %v", err)
 	}
+
+	if len(fc.Features) == 0 {
+		log.Print("No features found in STAC response")
+		return
+	}
+
 	fmt.Fprintf(os.Stderr, "Found %s collection with %d features\n", fc.Type, len(fc.Features))
 
-	for _, feat := range fc.Features {
-		raw, _ := json.MarshalIndent(&feat, "", "  ")
-		os.Stdout.Write(raw)
-	}
+	// item := fc.Features[0]
+	// asset_key := maps.Keys(item.Assets)
+	// signed_href := asset_key // TODO sign this
+
+	// raw, _ := json.MarshalIndent(&fc.Features[0], "", "  ")
+	// os.Stdout.Write(raw)
+
+	// for _, feat := range fc.Features {
+	// 	raw, _ := json.MarshalIndent(&feat, "", "  ")
+	// 	os.Stdout.Write(raw)
+	// }
+
+	avgTemps := []AverageTemp{}
+	// TODO convert temps here
+	_ = json.NewEncoder(os.Stdout).Encode(avgTemps)
+}
+
+type AverageTemp struct {
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+	AvgTemp   float64 `json:"avg_temp"`
+}
+
+type FeatureCollection struct {
+	Type     string    `json:"type"`
+	Features []Feature `json:"features"`
+	Links    []Link    `json:"links"`
+}
+
+type Feature struct {
+	ID          string            `json:"id"`
+	BBox        []float64         `json:"bbox"`
+	Type        string            `json:"type"`
+	Links       []Link            `json:"links"`
+	Assets      map[string]Asset  `json:"assets"`
+	Geometry    Geometry          `json:"geometry"`
+	Collection  string            `json:"collection"`
+	Properties  FeatureProperties `json:"properties"`
+	Extensions  []string          `json:"stac_extensions"`
+	StacVersion string            `json:"stac_version"`
+}
+
+type Link struct {
+	Rel    string      `json:"rel"`
+	Type   string      `json:"type,omitempty"`
+	Href   string      `json:"href"`
+	Method string      `json:"method,omitempty"`
+	Body   interface{} `json:"body,omitempty"`
+	Title  string      `json:"title,omitempty"`
+}
+
+type Asset struct {
+	Href        string       `json:"href"`
+	Type        string       `json:"type"`
+	Roles       []string     `json:"roles"`
+	Title       string       `json:"title"`
+	RasterBands []RasterBand `json:"raster:bands,omitempty"`
+	Classes     []Class      `json:"classification:classes,omitempty"`
+}
+
+type RasterBand struct {
+	Scale             *float64 `json:"scale,omitempty"`
+	DataType          string   `json:"data_type"`
+	SpatialResolution *int     `json:"spatial_resolution,omitempty"`
+}
+
+type Class struct {
+	Value       int    `json:"value"`
+	Description string `json:"description"`
+}
+
+type Geometry struct {
+	Type        string        `json:"type"`
+	Coordinates [][][]float64 `json:"coordinates"`
+}
+
+type FeatureProperties struct {
+	Created             string    `json:"created"`
+	Updated             string    `json:"updated"`
+	Datetime            *string   `json:"datetime"` // nullable
+	Platform            string    `json:"platform"`
+	ProjEPSG            *int      `json:"proj:epsg"` // nullable if needed
+	ProjWKT2            string    `json:"proj:wkt2"`
+	ProjShape           []int     `json:"proj:shape"`
+	Instruments         []string  `json:"instruments"`
+	EndDatetime         string    `json:"end_datetime"`
+	ModisTileID         string    `json:"modis:tile-id"`
+	ProjGeometry        Geometry  `json:"proj:geometry"`
+	ProjTransform       []float64 `json:"proj:transform"`
+	StartDatetime       string    `json:"start_datetime"`
+	ModisVerticalTile   int       `json:"modis:vertical-tile"`
+	ModisHorizontalTile int       `json:"modis:horizontal-tile"`
 }
