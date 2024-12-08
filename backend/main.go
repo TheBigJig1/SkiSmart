@@ -228,7 +228,7 @@ func main() {
 	mux.HandleFunc("/resorts/get", ResortGet)
 	mux.HandleFunc("/users/togglebookmark", ToggleUserBookmark)
 	mux.HandleFunc("/users/loadbookmarks", GetBookmarks)
-	mux.HandleFunc("/temperature-data", TemperatureData)
+	mux.HandleFunc("/snow-data", SnowData)
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173"}, // Frontend origin
