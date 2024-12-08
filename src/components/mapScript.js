@@ -43,4 +43,3 @@ document.getElementById('toggleForecast').addEventListener('click', function () 
     }
     layerAdded = !layerAdded;
 });
-

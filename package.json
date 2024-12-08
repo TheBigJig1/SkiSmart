@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/esri-leaflet": "^3.0.3",
     "@types/node": "^22.7.5",
     "esri-leaflet": "^3.0.13",
     "jQuery": "^1.7.4",
@@ -23,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "@types/esri-leaflet": "^3.0.3",
     "@types/jquery": "^3.5.32",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
