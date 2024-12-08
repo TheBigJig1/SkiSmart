@@ -1,26 +1,9 @@
 import "@/styles/components/resortInfo.css";
 import { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import WeatherLayer from './WeatherLayer';
 import { ResortObj, WeatherObj } from "../routes/resort"
 import { fetchWeatherApi } from 'openmeteo';
 import "leaflet/dist/leaflet.css";
-
-// interface WeatherFeature {
-//     type: string;
-//     properties: {
-//       title?: string;
-//     };
-//     geometry: {
-//       type: string;
-//       coordinates: number[];
-//     };
-// }
-
-// interface GeoJSONResponse {
-//     type: string;
-//     features: WeatherFeature[];
-// }
+import "./mapScript.js";
 
 function ResortInfo() {
     
@@ -116,26 +99,6 @@ function ResortInfo() {
     
     }, []);
 
-    // Load map data for the current resort
-    const MyMapContainer = () => (
-        <MapContainer
-            center={[thisResort.Lat, thisResort.Long]}
-            zoom={13}
-            style={{ height: '50vh', width: '55vw' }}
-        >
-        <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution="&copy; OpenStreetMap contributors"
-        />
-        <WeatherLayer />
-        <Marker position={[thisResort.Lat, thisResort.Long]}>
-            <Popup>
-                {thisResort.Name} Location: {thisResort.Lat}, {thisResort.Long}
-            </Popup>
-        </Marker>
-        </MapContainer>
-    );
-
     // Function to toggle the bookmark status of the current resort
     const toggleBookmark = async () => {
         const token = localStorage.getItem('token') || ''
@@ -186,7 +149,10 @@ function ResortInfo() {
                 </div>
                 <div className="leaflet">
                     <h1>Interactive Mountain Map</h1>
-                    <MyMapContainer />
+                    <div id="map" style={{ width: '100%', height: '550px' }}>
+                        <script src="mapScript.js"></script>
+                    </div>
+                    <button id="toggleForecast">Toggle Snowfall Layer</button>
                     <h3><a href={thisResort.CameraLink} target="_blank" rel="noopener noreferrer">Click here to view {thisResort.Name} Cameras</a></h3>
                 </div>
                 <div className="skiData">

@@ -41,6 +41,7 @@ func SnowData(w http.ResponseWriter, r *http.Request) {
 	collections := flag.String("collections", "modis-10A1-061", "Comma-separated list of collections to search")
 	bbox := flag.String("bbox", "US", "Bounding box to search")
 	limit := flag.Int("limit", 1, "Limit the number of results")
+	debug := flag.Bool("debug", false, "Enable debug output")
 	flag.Parse()
 	// incomplete but sufficient
 	params := SearchParams{
@@ -55,9 +56,11 @@ func SnowData(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalf("Failed to make STAC request: %v", err)
 	}
-	rqRaw, _ := httputil.DumpRequestOut(req, true)
-	os.Stderr.Write(rqRaw)
-	os.Stderr.Write([]byte("\n"))
+	if *debug {
+		rqRaw, _ := httputil.DumpRequestOut(req, true)
+		os.Stderr.Write(rqRaw)
+		os.Stderr.Write([]byte("\n"))
+	}
 	// Fetch the collection from the remote STAC endpoint
 	rsp, err := cl.Do(req)
 	if err != nil {
@@ -66,7 +69,9 @@ func SnowData(w http.ResponseWriter, r *http.Request) {
 	defer rsp.Body.Close()
 
 	raw, _ := io.ReadAll(rsp.Body)
-	_, _ = os.Stdout.Write(raw)
+	if *debug {
+		_, _ = os.Stdout.Write(raw)
+	}
 
 	fc := FeatureCollection{}
 	if err := json.NewDecoder(bytes.NewBuffer(raw)).Decode(&fc); err != nil {
@@ -95,6 +100,23 @@ func SnowData(w http.ResponseWriter, r *http.Request) {
 	avgTemps := []AverageTemp{}
 	// TODO convert temps here
 	_ = json.NewEncoder(os.Stdout).Encode(avgTemps)
+}
+
+// https://planetarycomputer.microsoft.com/docs/quickstarts/reading-stac/#Manually-signing-assets
+func Sign(cl *http.Client, url, collection string) (string, error) {
+	rsp, err := cl.Get(fmt.Sprintf("https://planetarycomputer.microsoft.com/api/sas/v1/token/%s", collection))
+	if err != nil {
+		return "", fmt.Errorf("failed to fetch SAS token: %v", err)
+	}
+	tmp := map[string]interface{}{}
+	if err := json.NewDecoder(rsp.Body).Decode(&tmp); err != nil {
+		return "", fmt.Errorf("failed to unmarshal SAS token: %v", err)
+	}
+	token, ok := tmp["token"].(string)
+	if !ok {
+		return "", fmt.Errorf("failed to extract SAS token")
+	}
+	return fmt.Sprintf("%s?%s", url, token), nil
 }
 
 type AverageTemp struct {

@@ -1,74 +1,110 @@
-// WeatherLayer.tsx
-import { useEffect, useState } from 'react';
-import { useMap, TileLayer } from 'react-leaflet';
+// import React, { useEffect, useState } from "react";
+// import { MapContainer, TileLayer, useMap } from "react-leaflet";
+// import { ResortObj } from "../routes/resort"
+// import "leaflet/dist/leaflet.css";
+// import L from 'leaflet';
+// import * as EsriLeaflet from 'esri-leaflet';
 
-const WeatherLayer: React.FC = () => {
+// const WeatherLayer: React.FC = () => {
+//     const [forecastLayerVisible, setForecastLayerVisible] = useState(false);
+//     const [snowForecastLayer, setSnowForecastLayer] = useState<L.Layer | null>(
+//         null
+//     );
 
-    const [TileUrl, setTileUrl] = useState<string | null>(null);
-    // const [firstFeature, setFirstFeature] = useState<any | null>(null);
+//     let thisResortStr = localStorage.getItem("curResort");
 
-    const map = useMap();
-    const API_URL = 'https://planetarycomputer.microsoft.com/api/stac/v1';
+//     let thisResort: ResortObj = {
+//         ID: 0,
+//         Name: "",
+//         Address: "",
+//         Zipcode: "",
+//         Lat: 0,
+//         Long: 0,
+//         HomeLink: "",
+//         CameraLink: "",
+//         ImageLink: ""
+//     };
 
-    async function fetchWeatherData(): Promise<GeoJSON.FeatureCollection> {
-        const response = await fetch(`${API_URL}/search`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/geo+json',
-            },
-            body: JSON.stringify({
-                collections: ['modis-10A1-061'], // Replace with the NOAA collection name
-                bbox: [-125, 25, -66, 49], // Bounding box for the US
-                datetime: '2024-01-01T00:00:00Z/2024-12-31T23:59:59Z',
-                limit: 20,
-            }),
-        });
+//     if (thisResortStr) {
+//         thisResort = JSON.parse(thisResortStr);
+//     }
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch weather data');
-        }
+//     const toggleForecastLayer = () => {
+//         setForecastLayerVisible((prev) => !prev);
+//     };
 
-        const data: GeoJSON.FeatureCollection = await response.json();
-        return data;
-    }
+//     const addSnowForecastLayer = (map: L.Map) => {
+//         function getColor(d: number): string {
+//             return d > 12
+//                 ? "#FF0000"
+//                 : d > 9
+//                     ? "#FFA500"
+//                     : d > 6
+//                         ? "#FFFF00"
+//                         : d > 3
+//                             ? "#6495ED"
+//                             : d > 1
+//                                 ? "#ADD8E6"
+//                                 : "#D3D3D3";
+//         }
 
-    const addWeatherLayer = async () => {
-        try {
-            const weatherData = await fetchWeatherData();
-            console.log("Weather Data fetched: ", weatherData);
-            const f1 = weatherData.features[0] as any;
+//         function snowfallStyle(feature: any) {
+//             return {
+//                 color: "#444",
+//                 weight: 1,
+//                 fillColor: getColor(feature.properties.grid_code), // Assuming grid_code represents snowfall amount
+//                 fillOpacity: 0.5,
+//             };
+//         }
 
-        
-            // setTileUrl("https://planetarycomputer.microsoft.com/api/data/v1/mosaic/8167fd2a30f179a980030ad19c008198/tiles/WebMercatorQuad/11/419/777@2x?assets=NDSI_Snow_Cover&colormap_name=modis-10A1&collection=modis-10A1-061&format=png")
+//         const layer = EsriLeaflet.featureLayer({
+//             url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NDFD_SnowFall_v1/FeatureServer/2",
+//             style: snowfallStyle,
+//         });
 
-            if (f1 && f1.assets && f1.assets.rendered_preview) {
-                // Set the tileUrl from the rendered preview asset
-                const balls = f1.assets.rendered_preview.href;
-                console.log("Inside if statement: ", balls);
-                setTileUrl(balls);
-                console.log("TileUrl: ", TileUrl);
-            }
-        } catch (error) {
-            console.error('Error adding weather layer:', error);
-        }
-    };
+//         layer.bindPopup((layer) => {
+//             const props = (layer as L.Layer & { feature: any }).feature?.properties;
+//             return `<b>Forecast Snowfall:</b> ${props?.label || "N/A"}`;
+//         });
 
-    useEffect(() => {
-        if (typeof window === 'undefined' || !map) return;
-        
-        console.log("Adding weather layer");
-        addWeatherLayer();
-        
-    }, []);
+//         setSnowForecastLayer(layer);
+//         map.addLayer(layer);
+//     };
 
-    return (
-        <>
-            { TileUrl && (
-                <TileLayer url={TileUrl} opacity={.6} />
-            )}
-        </>
-    );
-};
+//     const SnowLayerControl: React.FC = () => {
+//         const map = useMap();
 
-export default WeatherLayer;
+//         useEffect(() => {
+//             if (snowForecastLayer && !forecastLayerVisible) {
+//                 map.removeLayer(snowForecastLayer);
+//             } else if (snowForecastLayer && forecastLayerVisible) {
+//                 map.addLayer(snowForecastLayer);
+//             }
+//         }, [forecastLayerVisible, snowForecastLayer, map]);
+
+//         useEffect(() => {
+//             addSnowForecastLayer(map);
+//         }, [map]);
+
+//         return null;
+//     };
+
+//     return (
+//         <div>
+//             <MapContainer
+//                 center={[thisResort.Lat, thisResort.Long]}
+//                 zoom={13}
+//                 style={{ height: '60vh', width: '70vw' }}
+//             >
+//                 <TileLayer
+//                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//                     attribution="© OpenStreetMap"
+//                 />
+//                 <SnowLayerControl />
+//             </MapContainer>
+//             <button onClick={toggleForecastLayer}>Toggle Snowfall Layer</button>
+//         </div>
+//     );
+// };
+
+// export default WeatherLayer;
