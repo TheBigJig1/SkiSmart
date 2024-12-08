@@ -1,3 +1,5 @@
+// This didnt work, but I think it was close. I was trying to get the snow data from the Microsoft Planetary Computer API
+
 package main
 
 import (
