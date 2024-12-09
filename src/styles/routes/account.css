@@ -94,10 +94,9 @@
 
 .accountResorts {
     grid-area: accountResorts;
-
+    align-items: center;
     display: flex;
     flex-direction: column;
-    
     margin-right: 1vw;
     display: flex;
 
