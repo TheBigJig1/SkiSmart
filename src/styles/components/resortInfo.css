@@ -1,14 +1,9 @@
 .indvContainer {
     display: grid;
-    color: #ededeb;
     width: 100%;
     grid-template-areas:
         "indvBackground"
         "indvPageContainer";
-
-    a {
-        color: #ededeb;
-    }
 }
 
 .indvBackground {
@@ -232,6 +227,10 @@
  
     .indvContainer {
         background-color: #141414;
+        color: #ededeb;
+        a {
+            color: #ededeb;
+        }
     }
 
     .indvBackground {
