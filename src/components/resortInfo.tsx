@@ -131,16 +131,33 @@ function ResortInfo() {
         }
     };
 
+    // Declare state variables for the map and layers
     const [map, setMap] = useState<L.Map | null>(null);
     const [snowfallLayer, setSnowfallLayer] = useState<L.Layer | null>(null);
+    const [advisoryLayer, setAdvisoryLayer] = useState<L.Layer | null>(null);
     const [isSnowfallLayerVisible, setIsSnowfallLayerVisible] = useState(true);
+    const [isAdvisoryLayerVisible, setIsAdvisoryLayerVisible] = useState(true);
 
+    // Initialize the map
     useEffect(() => {
-        const mapInstance = L.map('map').setView([thisResort.Lat, thisResort.Long], 13);
+        const mapInstance = L.map('map').setView([thisResort.Lat, thisResort.Long], 15);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors',
-        }).addTo(mapInstance);
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            {
+                attribution:
+                    'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+            }
+        ).addTo(mapInstance);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                attribution: '&copy; OpenStreetMap contributors',
+                opacity: 0.5, // Adjust opacity to ensure labels are visible over the imagery
+            }
+        ).addTo(mapInstance);
+
+        const marker = L.marker([thisResort.Lat, thisResort.Long]).addTo(mapInstance);
+        marker.bindPopup(thisResort.Name).openPopup();
 
         setMap(mapInstance);
 
@@ -149,6 +166,7 @@ function ResortInfo() {
         };
     }, [thisResort.Lat, thisResort.Long]);
 
+    // Snowfall layer
     useEffect(() => {
         if (map) {
             function getColor(d: number): string {
@@ -188,6 +206,47 @@ function ResortInfo() {
         }
     }, [map]);
 
+    // Weather advisory layer
+    useEffect(() => {
+        if (map) {
+            function advisoryStyle(feature: { properties: { Event: string } }) {
+                const warningColor: { [key: string]: string } = {
+                    'Winter Storm Warning': '#ff0000',
+                    'Winter Weather Advisory': '#00ff00',
+                    'Blizzard Warning': '#0000ff',
+                };
+
+                return {
+                    color: '#444',
+                    weight: 1,
+                    fillColor: warningColor[feature.properties.Event] || '#ffcc00', // Default color if event not mapped
+                    fillOpacity: 0.5,
+                };
+            }
+
+            const advisoryLayer = EsriLeaflet.featureLayer({
+                url: 'https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/6',
+                style: advisoryStyle,
+            }).addTo(map)
+
+            advisoryLayer.bindPopup((layer) => {
+                const props = (layer as L.Layer & { feature: any }).feature?.properties;
+
+                // Constructing a popup HTML with multiple properties
+                return `
+                    <b>${props?.Event || 'N/A'}</b><br>
+                    <b>Severity:</b> ${props?.Severity || 'N/A'}<br>
+                    <b>Summary:</b> ${props?.Summary || 'N/A'}<br>
+                    <b>Affected Areas:</b> ${props?.Affected || 'N/A'}<br>
+                    <b>Urgency:</b> ${props?.Urgency || 'N/A'}<br>
+                    <b>Details:</b> ${props?.Link ? `<a href="${props.Link}" target="_blank">Click here</a>` : 'N/A'}<br>
+                `;
+            });
+
+            setAdvisoryLayer(advisoryLayer);
+        }
+    }, [map]);
+
     const handleToggleForecast = () => {
         if (map && snowfallLayer) {
             if (isSnowfallLayerVisible) {
@@ -198,6 +257,25 @@ function ResortInfo() {
             setIsSnowfallLayerVisible(!isSnowfallLayerVisible);
         }
     };
+
+    const handleToggleAdvisory = () => {
+        if (map && advisoryLayer) {
+            if (isAdvisoryLayerVisible) {
+                map.removeLayer(advisoryLayer);
+            } else {
+                map.addLayer(advisoryLayer);
+            }
+            setIsAdvisoryLayerVisible(!isAdvisoryLayerVisible);
+        }
+    }
+
+    // Storm report link - https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NOAA_storm_reports_v1/FeatureServer/4
+
+    // Extreme event link - https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/8
+    // Severe weather link - https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/9
+    // Moderate weather link- https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/10
+    // Minor weather link - https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/11 
+
 
     return (
         <div className="indvContainer">
@@ -220,6 +298,7 @@ function ResortInfo() {
                     <h1>Interactive Mountain Map</h1>
                     <div id="map" style={{ width: '80%', height: '60vh' }}></div>
                     <button onClick={handleToggleForecast}>Toggle Snowfall Layer</button>
+                    <button onClick={handleToggleAdvisory}>Toggle Advisory Layer</button>
                     <h3>
                         <a href={thisResort.CameraLink} target="_blank" rel="noopener noreferrer">
                             Click here to view {thisResort.Name} Cameras
