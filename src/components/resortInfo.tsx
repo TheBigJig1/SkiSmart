@@ -132,72 +132,72 @@ function ResortInfo() {
     };
 
     const [map, setMap] = useState<L.Map | null>(null);
-const [snowfallLayer, setSnowfallLayer] = useState<L.Layer | null>(null);
-const [isSnowfallLayerVisible, setIsSnowfallLayerVisible] = useState(true);
+    const [snowfallLayer, setSnowfallLayer] = useState<L.Layer | null>(null);
+    const [isSnowfallLayerVisible, setIsSnowfallLayerVisible] = useState(true);
 
-useEffect(() => {
-  const mapInstance = L.map('map').setView([thisResort.Lat, thisResort.Long], 13);
+    useEffect(() => {
+        const mapInstance = L.map('map').setView([thisResort.Lat, thisResort.Long], 13);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
-  }).addTo(mapInstance);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+        }).addTo(mapInstance);
 
-  setMap(mapInstance);
+        setMap(mapInstance);
 
-  return () => {
-    mapInstance.remove();
-  };
-}, [thisResort.Lat, thisResort.Long]);
+        return () => {
+            mapInstance.remove();
+        };
+    }, [thisResort.Lat, thisResort.Long]);
 
-useEffect(() => {
-  if (map) {
-    function getColor(d: number): string {
-      return d > 12
-        ? '#FF0000' // red
-        : d > 9
-        ? '#FFA500' // orange
-        : d > 6
-        ? '#FFFF00' // yellow
-        : d > 3
-        ? '#6495ED' // navy blue
-        : d > 1
-        ? '#ADD8E6' // light blue
-        : '#D3D3D3'; // light gray
-    }
+    useEffect(() => {
+        if (map) {
+            function getColor(d: number): string {
+                return d > 12
+                    ? '#FF0000' // red
+                    : d > 9
+                        ? '#FFA500' // orange
+                        : d > 6
+                            ? '#FFFF00' // yellow
+                            : d > 3
+                                ? '#6495ED' // navy blue
+                                : d > 1
+                                    ? '#ADD8E6' // light blue
+                                    : '#D3D3D3'; // light gray
+            }
 
-    function snowfallStyle(feature: any) {
-      return {
-        color: '#444',
-        weight: 1,
-        fillColor: getColor(feature.properties.grid_code), // Assuming grid_code represents snowfall amount
-        fillOpacity: 0.5,
-      };
-    }
+            function snowfallStyle(feature: any) {
+                return {
+                    color: '#444',
+                    weight: 1,
+                    fillColor: getColor(feature.properties.grid_code), // Assuming grid_code represents snowfall amount
+                    fillOpacity: 0.5,
+                };
+            }
 
-    const snowForecastLayer = EsriLeaflet.featureLayer({
-      url: 'https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NDFD_SnowFall_v1/FeatureServer/2',
-      style: snowfallStyle,
-    }).addTo(map);
+            const snowForecastLayer = EsriLeaflet.featureLayer({
+                url: 'https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NDFD_SnowFall_v1/FeatureServer/2',
+                style: snowfallStyle,
+            }).addTo(map);
 
-    snowForecastLayer.bindPopup((layer) => {
-      const props = (layer as L.Layer & { feature: any }).feature?.properties;
-      return '<b>Forecast Snowfall:</b> ' + (props?.label || 'N/A');
-    });
+            snowForecastLayer.bindPopup((layer) => {
+                const props = (layer as L.Layer & { feature: any }).feature?.properties;
+                return '<b>Forecast Snowfall:</b> ' + (props?.label || 'N/A');
+            });
 
-    setSnowfallLayer(snowForecastLayer);
-  }
-}, [map]);
+            setSnowfallLayer(snowForecastLayer);
+        }
+    }, [map]);
 
-const handleToggleForecast = () => {
-  if (map && snowfallLayer) {
-    if (isSnowfallLayerVisible) {
-      map.removeLayer(snowfallLayer);
-    } else {
-      map.addLayer(snowfallLayer);
-    }
-    setIsSnowfallLayerVisible(!isSnowfallLayerVisible);
-  }
-};
+    const handleToggleForecast = () => {
+        if (map && snowfallLayer) {
+            if (isSnowfallLayerVisible) {
+                map.removeLayer(snowfallLayer);
+            } else {
+                map.addLayer(snowfallLayer);
+            }
+            setIsSnowfallLayerVisible(!isSnowfallLayerVisible);
+        }
+    };
 
     return (
         <div className="indvContainer">
