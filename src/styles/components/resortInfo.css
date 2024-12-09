@@ -52,7 +52,7 @@
 
     font-size: 4vw;
     font-family: "Anonymous Pro", monospace;
-    text-shadow: 0 0 15px black;
+    color: black;
 
     height: 4vw;
 }
@@ -123,7 +123,7 @@
 
     font-size: 2em;
 
-    border-color: #ededeb;
+    border-color: black;
     border-radius: 10px;
     border-width: 2px;
 }
@@ -145,10 +145,26 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    
+    grid-area: leaflet;
 
-    MapContainer {
-        width: 90vw;
-        height: auto;
+    .mapbuttons {
+        margin-top: 2vh;
+        display: flex;
+        gap: 2vw;
+
+        button {
+            width: 20vw;
+            min-width: 30vw;
+            padding: 1.5vh;
+            border-color: #ededeb;
+            cursor: pointer;
+            transition: transform 0.3s ease; 
+        }
+
+        button:hover {
+            transform: scale(1.1); 
+        }
     }
 }
 
@@ -248,6 +264,10 @@
 
     .indvPageContainer {
         background-color: #141414;
+        color: #ededeb;
+    }
+
+    .favoriteButton {
         color: #ededeb;
     }
 

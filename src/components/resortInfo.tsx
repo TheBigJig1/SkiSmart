@@ -203,6 +203,10 @@ function ResortInfo() {
             });
 
             setSnowfallLayer(snowForecastLayer);
+
+            // Initialize as hidden
+            map.removeLayer(snowForecastLayer);
+            setIsSnowfallLayerVisible(false); 
         }
     }, [map]);
 
@@ -244,6 +248,10 @@ function ResortInfo() {
             });
 
             setAdvisoryLayer(advisoryLayer);
+
+            // Initialize as hidden
+            map.removeLayer(advisoryLayer);
+            setIsAdvisoryLayerVisible(false);
         }
     }, [map]);
 
@@ -288,9 +296,11 @@ function ResortInfo() {
                 </div>
                 <div className="leaflet">
                     <h1>Interactive Mountain Map</h1>
-                    <div id="map" style={{ width: '80%', height: '60vh' }}></div>
-                    <button onClick={handleToggleForecast}>Toggle Snowfall Layer</button>
-                    <button onClick={handleToggleAdvisory}>Toggle Advisory Layer</button>
+                    <div id="map" style={{ width: '80%', height: '65vh' }}></div>
+                    <div className="mapbuttons">
+                        <button onClick={handleToggleForecast}>Toggle Snowfall Layer</button>
+                        <button onClick={handleToggleAdvisory}>Toggle Advisory Layer</button>
+                    </div>
                     <h3>
                         <a href={thisResort.CameraLink} target="_blank" rel="noopener noreferrer">
                             Click here to view {thisResort.Name} Cameras
@@ -298,7 +308,7 @@ function ResortInfo() {
                     </h3>
                 </div>
                 <div className="skiData">
-                    <h1 className="skiIntro">Weather Data</h1>
+                    <h1 className="skiIntro">Current Weather</h1>
                     <div className="skiConditions">
                         <h3 className="temperature">Temperature: {thisWeather.temperature}</h3>
                         <h3 className="snowfallRecent">Recent Snowfall: {thisWeather.snowfall} in</h3>

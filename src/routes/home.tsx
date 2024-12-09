@@ -1,6 +1,25 @@
 import '@/styles/routes/home.css';
+import { useEffect, useState } from 'react';
 
 function Home() {
+    
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        const checkToken = async () => {
+            const token = await getToken();
+            setIsAuthenticated(!!token);
+        };
+        checkToken();
+    }, []);
+
+    const getToken = async () => {
+        const token = localStorage.getItem('token') || ''
+        if(token) {
+            return true;
+        }
+    }; 
+
     return (
         <div className="pageContainer">
             <div className="pageBackground">
@@ -62,7 +81,7 @@ function Home() {
                         <p>
                             <strong>Join SkiSmart today and glide into a safer, more informed adventure on the slopes.</strong>
                         </p>
-                        <a href="./signin" style={{ textDecoration: 'none' }}>
+                        <a href={isAuthenticated ? "./account" : "./signin"} style={{ textDecoration: 'none' }}>
                             <button className="signinRedirect" style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}}>Get Started Now</button>
                         </a>
                     <p style={{ fontStyle: 'italic', textAlign: 'center' }}>
