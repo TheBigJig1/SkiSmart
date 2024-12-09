@@ -94,11 +94,10 @@
 
 .accountResorts {
     grid-area: accountResorts;
+
     align-items: center;
     display: flex;
     flex-direction: column;
-    margin-right: 1vw;
-    display: flex;
 
     h2 {
         justify-self: center;
@@ -108,14 +107,12 @@
 .accountInfo {
     grid-area: accountInfo;
     width: 96vw;
-    margin-left: 1vw;
     display: flex;
 }
 
 .accountFooter {
     grid-area: accountFooter;
     justify-items: center;
-    margin-left: 2vw;
     margin-bottom: 2vw;
 }
 

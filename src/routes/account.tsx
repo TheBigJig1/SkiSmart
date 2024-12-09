@@ -93,18 +93,18 @@ function Account() {
             </div>
             <div className="accountContentContainer">
                 <div className="accountPersonal">
-                    <div className="accountResorts">
-                        <h2>Your Bookmarks:</h2>
-                        {resorts && resorts.map((resort, resortIndex) => (
-                            <ResortCard key={resortIndex}{...resort} />
-                        ))}
-                    </div>
                     <div className="accountInfo">
                         <ul>
                             <h3>Your Info:</h3>
                             <li>Resorts Viewed: </li>
                             <li>Trips Completed: </li>
                         </ul>
+                    </div>
+                    <div className="accountResorts">
+                        <h2>Your Bookmarks</h2>
+                        {resorts && resorts.map((resort, resortIndex) => (
+                            <ResortCard key={resortIndex}{...resort} />
+                        ))}
                     </div>
                 </div>
                 <div className="accountFooter">
