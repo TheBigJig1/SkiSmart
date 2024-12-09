@@ -199,7 +199,7 @@ function ResortInfo() {
 
             snowForecastLayer.bindPopup((layer) => {
                 const props = (layer as L.Layer & { feature: any }).feature?.properties;
-                return '<b>Forecast Snowfall:</b> ' + (props?.label || 'N/A');
+                return '<b>72 Hour Snow Forecast:</b> ' + (props?.label || 'N/A') + '<b> in<b>';
             });
 
             setSnowfallLayer(snowForecastLayer);

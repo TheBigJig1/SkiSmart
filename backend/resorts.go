@@ -172,9 +172,16 @@ func ResortGet(w http.ResponseWriter, r *http.Request) {
 
 	// Get name parameter
 	name := r.URL.Query().Get("name")
+	if name == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprintln(w, "Name parameter is required")
+		return
+	}
+
+	searchName := "%" + name + "%" // SQL wildcard search
 
 	// Create prepared statement stmt for query parameters
-	stmt, err := db.Prepare("SELECT * FROM [dbo].[Resorts] WHERE Name = @Name")
+	stmt, err := db.Prepare("SELECT * FROM [dbo].[Resorts] WHERE Name LIKE @Name")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println("Error preparing statement: ", err)
@@ -183,29 +190,37 @@ func ResortGet(w http.ResponseWriter, r *http.Request) {
 	defer stmt.Close()
 
 	// Execute prepared statement
-	row := stmt.QueryRow(sql.Named("Name", name))
-
-	fmt.Printf("SQL query: %v\n", row)
-
-	// Create resort struct
-	tr := Resort{}
-
-	// Scan row into resort struct
-	err = row.Scan(&tr.ID, &tr.Name, &tr.Address, &tr.Zipcode, &tr.Lat, &tr.Long, &tr.HomeLink, &tr.CameraLink, &tr.ImageLink)
+	rows, err := stmt.Query(sql.Named("Name", searchName))
 	if err != nil {
-		if err == sql.ErrNoRows {
-			w.WriteHeader(http.StatusBadRequest)
-			fmt.Println("Resort not found")
-			return
-		} else {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error executing query: ", err)
+		return
+	}
+	defer rows.Close()
+
+	var resorts []Resort
+
+	// Iterate over result set
+	for rows.Next() {
+		var tr Resort
+		err = rows.Scan(&tr.ID, &tr.Name, &tr.Address, &tr.Zipcode, &tr.Lat, &tr.Long, &tr.HomeLink, &tr.CameraLink, &tr.ImageLink)
+		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Println("Error scanning row: ", err)
 			return
 		}
+		resorts = append(resorts, tr)
+	}
+
+	// Check if no resorts were found
+	if len(resorts) == 0 {
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintln(w, "No resorts found")
+		return
 	}
 
 	// Server acknowledges success
-	log.Println("Resort returned successfully")
+	log.Println("Resorts returned successfully")
 	w.WriteHeader(http.StatusOK) // 200 OK
-	_ = json.NewEncoder(w).Encode(&tr)
+	_ = json.NewEncoder(w).Encode(resorts)
 }
