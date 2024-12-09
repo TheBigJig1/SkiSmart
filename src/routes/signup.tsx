@@ -9,8 +9,45 @@ const Signup: React.FC = () => {
   const [fullname, setFullname] = useState('');
   const [zipcode, setZipcode] = useState('');
 
+  // State to store error messages
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  // Function to validate email format
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  // Function to validate password strength
+  const validatePassword = (password: string) => {
+    // Password must be at least 8 characters long, contain at least one number and one special character
+    const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+    return re.test(password);
+  };
+
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
+
+        // Reset error messages
+        setEmailError('');
+        setPasswordError('');
+    
+        // Validate email and password
+        let valid = true;
+        if (!validateEmail(email)) {
+          setEmailError('Please enter a valid email address.');
+          valid = false;
+        }
+    
+        if (!validatePassword(password)) {
+          setPasswordError('Password must be at least 8 characters long, contain at least one number and one special character.');
+          valid = false;
+        }
+    
+        if (!valid) {
+          return;
+        }
 
     try {
 
@@ -47,8 +84,6 @@ const Signup: React.FC = () => {
     return (
       <div className="signin-background">
         <div className="signin-container">
-            {/*id how to comment but pretend this isnt here*/}
-            {/*need to change image based on window size*/}
           <div className="signin-form">
             <div className="signin-logo">
               <img src={logo} alt="Skismart Logo" className="logo-image" />
@@ -79,6 +114,7 @@ const Signup: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
               </div>
               <div className="form-group">
                 <label htmlFor="password" className="form-label">Password:</label>
@@ -93,6 +129,7 @@ const Signup: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
               </div>
               <div className="form-group">
                 <label htmlFor="zipcode" className="form-label">Zipcode (Optional):</label>
