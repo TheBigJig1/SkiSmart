@@ -170,21 +170,29 @@ function ResortInfo() {
 
     // Snow depth Layer
     useEffect(() =>{
+        // Uses spatial reference 4269
+        // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/0 is Mosaic Layer of esriGeometry Polygon
+        // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/2 is a esriGeometryPolygon of Type: FeatureLayer
+        // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/3 is a Raster Layer
         if (map) {
-            const snowDepthLayer = EsriLeaflet.featureLayer({
-                url: 'https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/0',
-            });
+            var snowDepthRasterLayer = EsriLeaflet.imageMapLayer({
+                url: 'https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/3',
+                opacity: 0.75 // Adjust the transparency for better visibility
+            }).addTo(map);
 
-            setSnowDepthLayer(snowDepthLayer);
+            setSnowDepthLayer(snowDepthRasterLayer);
 
             // Initialize as hidden
-            map.removeLayer(snowDepthLayer);
+            map.removeLayer(snowDepthRasterLayer);
             setIsSnowDepthLayerVisible(false);
         }
     }, [map]);
 
     // Snowfall layer
     useEffect(() => {
+        // uses spatial reference 102100 (3857)
+        // esriGeometry Polygon
+        // FeatureServer
         if (map) {
             function getColor(d: number): string {
                 return d > 12
