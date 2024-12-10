@@ -153,8 +153,7 @@
         gap: 2vw;
 
         button {
-            width: 20vw;
-            min-width: 30vw;
+            width: 25vw;
             padding: 1.5vh;
             background-color: #141414;
             color: #ededed;
@@ -246,6 +245,9 @@
         color: #ededeb;
         a {
             color: #ededeb;
+        }
+        button {
+            border-color: #ededed;
         }
     }
 

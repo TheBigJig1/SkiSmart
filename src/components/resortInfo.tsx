@@ -133,8 +133,10 @@ function ResortInfo() {
 
     // Declare state variables for the map and layers
     const [map, setMap] = useState<L.Map | null>(null);
+    const [snowDepthLayer, setSnowDepthLayer] = useState<L.Layer | null>(null);
     const [snowfallLayer, setSnowfallLayer] = useState<L.Layer | null>(null);
     const [advisoryLayer, setAdvisoryLayer] = useState<L.Layer | null>(null);
+    const [isSnowDepthLayerVisible, setIsSnowDepthLayerVisible] = useState(true);
     const [isSnowfallLayerVisible, setIsSnowfallLayerVisible] = useState(true);
     const [isAdvisoryLayerVisible, setIsAdvisoryLayerVisible] = useState(true);
 
@@ -165,6 +167,21 @@ function ResortInfo() {
             mapInstance.remove();
         };
     }, [thisResort.Lat, thisResort.Long]);
+
+    // Snow depth Layer
+    useEffect(() =>{
+        if (map) {
+            const snowDepthLayer = EsriLeaflet.featureLayer({
+                url: 'https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/0',
+            });
+
+            setSnowDepthLayer(snowDepthLayer);
+
+            // Initialize as hidden
+            map.removeLayer(snowDepthLayer);
+            setIsSnowDepthLayerVisible(false);
+        }
+    }, [map]);
 
     // Snowfall layer
     useEffect(() => {
@@ -255,6 +272,17 @@ function ResortInfo() {
         }
     }, [map]);
 
+    const handleToggleDepth = () => {
+        if (map && snowDepthLayer) {
+            if (isSnowDepthLayerVisible) {
+                map.removeLayer(snowDepthLayer);
+            } else {
+                map.addLayer(snowDepthLayer);
+            }
+            setIsSnowDepthLayerVisible(!isSnowDepthLayerVisible);
+        }
+    };
+
     const handleToggleForecast = () => {
         if (map && snowfallLayer) {
             if (isSnowfallLayerVisible) {
@@ -298,6 +326,7 @@ function ResortInfo() {
                     <h1>Interactive Mountain Map</h1>
                     <div id="map" style={{ width: '80%', height: '65vh' }}></div>
                     <div className="mapbuttons">
+                        <button onClick={handleToggleDepth}>Toggle Depth Layer</button>
                         <button onClick={handleToggleForecast}>Toggle Snowfall Layer</button>
                         <button onClick={handleToggleAdvisory}>Toggle Advisory Layer</button>
                     </div>
