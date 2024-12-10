@@ -31,6 +31,7 @@ function Resort() {
     const [limit, setLimit] = useState(5);
     const [userZip, setZip] = useState('');
     const [inputValue, setInputValue] = useState('');
+    const [search, setSearch] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('token') || '';
@@ -84,10 +85,6 @@ function Resort() {
 
     }, [userZip, limit]);
 
-    const handleButtonClick = () => {
-        setInputValue('given text');
-    };
-
     useEffect(() => {
         const searchResorts = async (inputValue: string) => {
             if(inputValue === '') {
@@ -122,6 +119,12 @@ function Resort() {
         };
         searchResorts(inputValue);
 
+    }, [search]);
+
+    useEffect(() => {
+        if(inputValue == '') {
+            setSearch(false);
+        }
     }, [inputValue]);
 
     return (
@@ -141,7 +144,7 @@ function Resort() {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     />
-                <button className="searchButton" onClick={handleButtonClick}>Search</button>
+                <button className="searchButton" onClick={() => {setSearch(true) }}>Search</button>
             </div>
             <div className="resortContentContainer">
                 {resorts && resorts.map((resort, resortIndex) => (
