@@ -52,7 +52,7 @@
     font-size: 1.5vw;
     
     font-family: "Anonymous Pro"," monospace";
-    color: black;
+    color: #141414;
     transition: margin-top 0.5s ease;
 }
 
@@ -62,7 +62,7 @@
 
     font-size: 2vw;
     font-family: "Anonymous Pro", monospace;
-    color: black;
+    color: #141414;
 
     height: 4vw;
 

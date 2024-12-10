@@ -48,37 +48,37 @@ function Resort() {
         }
     }, []);
 
+    const listResorts = async (limit: number) => {
+        try {
+            // Fetch resorts from server
+
+            // Endpoint is parameterized
+            const response = await fetch(`http://localhost:8080/resorts/list?zip=${userZip}&limit=${limit}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                // Handle successful response
+                const resorts = await response.json();
+
+                // Update reviews state variable
+                setResorts(resorts);
+
+                // Log reviews
+                console.log('Resort list fetched successfully');
+                console.log(resorts);
+                return;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
     useEffect(() => {
         if (!userZip) return;
-
-        const listResorts = async (limit: number) => {
-            try {
-                // Fetch resorts from server
-
-                // Endpoint is parameterized
-                const response = await fetch(`http://localhost:8080/resorts/list?zip=${userZip}&limit=${limit}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    // Handle successful response
-                    const resorts = await response.json();
-
-                    // Update reviews state variable
-                    setResorts(resorts);
-
-                    // Log reviews
-                    console.log('Resort list fetched successfully');
-                    console.log(resorts);
-                    return;
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
 
         listResorts(limit);
 
@@ -92,9 +92,10 @@ function Resort() {
         const searchResorts = async (inputValue: string) => {
             if(inputValue === '') {
                 setLimit(5);
+                listResorts(limit);
                 return;
             }
-            
+
             try {
                 const response = await fetch(`http://localhost:8080/resorts/get?name=${inputValue}`, {
                     method: 'GET',
@@ -107,10 +108,10 @@ function Resort() {
                     // Handle successful response
                     const resorts = await response.json();
 
-                    // Update reviews state variable
+                    // Update resorts state variable
                     setResorts(resorts);
 
-                    // Log reviews
+                    // Log resorts
                     console.log('Resort search fetched successfully');
                     console.log(resorts);
                     return;
