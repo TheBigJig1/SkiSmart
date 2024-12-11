@@ -13,7 +13,7 @@
   background-position: center;
   background-repeat: no-repeat;
   justify-content: center;
-  height:100vh;
+  height:calc(96vh - 2px);
   width: 100vw;
 }
 

@@ -1,24 +1,14 @@
 import '@/styles/routes/home.css';
 import { useEffect, useState } from 'react';
+import { isAuthenticated } from '../utils/auth';
 
 function Home() {
     
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
-        const checkToken = async () => {
-            const token = await getToken();
-            setIsAuthenticated(!!token);
-        };
-        checkToken();
+        isAuthenticated() ? setAuthenticated(true) : setAuthenticated(false);
     }, []);
-
-    const getToken = async () => {
-        const token = localStorage.getItem('token') || ''
-        if(token) {
-            return true;
-        }
-    }; 
 
     return (
         <div className="pageContainer">
@@ -81,8 +71,10 @@ function Home() {
                         <p>
                             <strong>Join SkiSmart today and glide into a safer, more informed adventure on the slopes.</strong>
                         </p>
-                        <a href={isAuthenticated ? "./account" : "./signin"} style={{ textDecoration: 'none' }}>
-                            <button className="signinRedirect" style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}}>Get Started Now</button>
+                        <a href={authenticated ? "./account" : "./signin"} style={{ textDecoration: 'none' }}>
+                            <button className="signinRedirect" style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}}>
+                                {isAuthenticated() ? 'View Your Account' : 'Get Started Now'}
+                            </button>
                         </a>
                     <p style={{ fontStyle: 'italic', textAlign: 'center' }}>
                         Stay safe. Stay informed. Enjoy every moment with SkiSmart.

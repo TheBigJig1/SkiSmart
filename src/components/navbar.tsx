@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react';
+import { isAuthenticated } from '../utils/auth';
 import '@/styles/components/navbar.css';
 
 function Navbar() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
 
-  useEffect(() => {
-    // Check if the user is already signed in, for example by checking local storage or session
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, []);
+    useEffect(() => {
+        isAuthenticated() ? setAuthenticated(true) : setAuthenticated(false);
+    }, []);
 
 
   return (
@@ -26,7 +23,7 @@ function Navbar() {
         <a href='/'>Home</a>
         <a href='/resorts'>Resorts</a>
         <a href='/feedback'>Feedback</a>
-        {isAuthenticated ? (
+        {authenticated ? (
           <>
             <a href='/account'>Account</a>
           </>
