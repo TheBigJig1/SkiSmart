@@ -85,8 +85,9 @@ function Signin() {
             </div>
             <div className="form-links">
               <div style={{ color: 'black' }}>
-                Don't have an account? <a href="/signup" className="signup-link">Create Account</a>
+                Don't have an account?
               </div>
+              <a href="/signup" className="signup-link">Create Account</a>
               <a href="#" className="forgot-password-link">
                 Forgot password?
               </a>
