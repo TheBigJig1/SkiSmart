@@ -31,7 +31,7 @@ func main() {
 	flag.StringVar(&user, "user", "cs330admin", "user")
 	flag.IntVar(&dbport, "dbport", 1433, "port")
 	flag.IntVar(&hport, "hport", 8080, "port")
-	flag.String("react", "../dist", "ReactJS path")
+	flag.StringVar(&reactDir, "react-dir", "../dist", "ReactJS path")
 
 	// Optional flags
 	createdb := flag.Bool("create-db", false, "initialize DB")
