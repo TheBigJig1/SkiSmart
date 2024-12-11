@@ -1,19 +1,13 @@
-/* Apply box-sizing to all elements */
-* {
-    box-sizing: border-box;
-}
-
 div.navbarContainer {
-    display: flex;
+    display:flex;
     position: sticky;
     top: 0;
     z-index: 100000;
     background-color: white;
-    width: 100%; /* Ensure the width does not exceed 100% */
+    width: calc(100vw - 4px);
     border: 2px solid #141414;
     font-family: "Anonymous Pro";
     font-size: calc(0.5vw + 10px);
-    overflow-x: hidden; /* Prevent horizontal scrolling */
 
     a {
         transition: 500ms;
@@ -22,40 +16,35 @@ div.navbarContainer {
         scale: 1.2;
     }
 }
-
-div.navLeft {
+div.navLeft{
     display: flex;
     flex-direction: row;
     padding-left: 2vw;
     text-align: left;
-    padding-top: 0.5vh;
+    padding-top:0.5vh;
     width: 30%;
+   
 }
-
-div.navRight {
+div.navRight{
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: end;
     align-items: center;
     padding-top: 0.5vh;
-    padding-right: 2vw;
+    padding-right:2vw;
     gap: 1rem;
     text-align: right;
     width: 70%;
+    
 }
-
-div.imgContainer {
+div.imgContainer{
     transform: translateY(-1px);
     img {
         width: 20px;
         height: 20px;
-        margin-left: .5vw;
-    }
-}
-
-/* Ensure body does not scroll horizontally */
-body {
-    overflow-x: hidden;
+        margin-left:.5vw;
+      }
+      
 }
 
 @media (prefers-color-scheme: dark) {
@@ -65,7 +54,7 @@ body {
         width: calc(100vw - 2px);
         color: #ededeb;
     }
-    div.navLeft a, div.navRight a {
+    div.navLeft a, div.navRight a{
         color: #ededeb;
     }
     div.imgContainer img {
