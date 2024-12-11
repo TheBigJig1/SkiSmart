@@ -1,23 +1,23 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import '@/styles/routes/feedback.css';
-import { jwtDecode }  from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 // Define interface for response data
 interface FeedbackReview {
-    id:         number;
-    first:      string;
-    rating:     number;
-    feedback:   string;
+    id: number;
+    first: string;
+    rating: number;
+    feedback: string;
 }
 
 function Feedback() {
     // State variables
-    const [selectRate, setSelectRate]=useState(0);
-    const [feedback,setFeedback]=useState('');
+    const [selectRate, setSelectRate] = useState(0);
+    const [feedback, setFeedback] = useState('');
     const [first, setFirst] = useState('');
     const [limit, setLimit] = useState(3);
     const [reviews, setReviews] = useState<FeedbackReview[]>([]);
-    
+
     useEffect(() => {
         // List reviews
         listReviews(limit);
@@ -38,9 +38,8 @@ function Feedback() {
 
     }, [limit]); // Add limit as a dependency to re-fetch reviews when limit changes
 
-    const hanStarCl= (index: number) =>
-    {
-        setSelectRate(index+1);
+    const hanStarCl = (index: number) => {
+        setSelectRate(index + 1);
         console.log('Star clicked');
     };
 
@@ -56,7 +55,9 @@ function Feedback() {
 
         // Send feedback to server
         try {
-            const response = await fetch('http://localhost:8080/feedback/add', {
+            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+            const response = await fetch(`${API_BASE_URL}/feedback/add`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
@@ -94,7 +95,9 @@ function Feedback() {
             // Fetch reviews from server
 
             // Endpoint is parameterized
-            const response = await fetch(`http://localhost:8080/feedback/list?limit=${limit}`, {
+            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const response = await fetch(`${ API_BASE_URL } / feedback / list ? limit = ${ limit }`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -131,7 +134,7 @@ function Feedback() {
                             {[...Array(5)].map((_,index)=> (
                                 <span 
                                     key= {index} 
-                                    className={`star ${selectRate > index ? 'selected' : ''}`}
+                                    className={`star ${ selectRate > index ? 'selected' : ''}`}
                                     onClick={()=> hanStarCl(index)}
                                     >
                                         ★
@@ -151,7 +154,7 @@ function Feedback() {
                             {[...Array(5)].map((_, starIndex) => (
                                 <span
                                     key={starIndex}
-                                    className={`staticReviewstar ${review.rating > starIndex ? 'selected' : ''}`}
+                                    className={`staticReviewstar ${ review.rating > starIndex ? 'selected' : '' } `}
                                 >
                                     ★
                                 </span>

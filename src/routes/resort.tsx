@@ -54,7 +54,9 @@ function Resort() {
             // Fetch resorts from server
 
             // Endpoint is parameterized
-            const response = await fetch(`http://localhost:8080/resorts/list?zip=${userZip}&limit=${limit}`, {
+            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const response = await fetch(`${API_BASE_URL}/resorts/list?zip=${userZip}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -94,7 +96,9 @@ function Resort() {
             }
 
             try {
-                const response = await fetch(`http://localhost:8080/resorts/get?name=${inputValue}`, {
+                const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const response = await fetch(`${API_BASE_URL}/resorts/get?name=${inputValue}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

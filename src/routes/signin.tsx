@@ -18,7 +18,9 @@ function Signin() {
       formData.append('password', password);
 
       // Sending form data to server
-      const response = await fetch('http://localhost:8080/users/login', {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const response = await fetch(`${API_BASE_URL}/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

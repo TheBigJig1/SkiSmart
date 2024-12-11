@@ -163,7 +163,9 @@ function ResortInfo() {
         // Send a POST request to the server with the token and resort ID
         try {
             // Offering server chance to revoke token
-            const response = await fetch('http://localhost:8080/users/togglebookmark', {
+            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+            const response = await fetch(`${API_BASE_URL}/users/togglebookmark`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -428,7 +430,7 @@ function ResortInfo() {
                 </div>
                 <div className="leaflet">
                     <h1>Interactive Mountain Map</h1>
-                    <div id="map" style={{ width: '80%', height: '65vh', border: '2px solid black'}}>
+                    <div id="map" style={{ width: '80%', height: '65vh', border: '2px solid black' }}>
                         <div className="legend-container">
                             <Legend handleToggleDepth={handleToggleDepth} isLegendVisible={isLegendVisible} />
                         </div>

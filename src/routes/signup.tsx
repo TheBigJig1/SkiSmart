@@ -57,7 +57,9 @@ const Signup: React.FC = () => {
       formData.append('password', password);
       formData.append('zipcode', zipcode);
       
-      const response = await fetch('http://localhost:8080/users/create', {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const response = await fetch(`${API_BASE_URL}/users/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

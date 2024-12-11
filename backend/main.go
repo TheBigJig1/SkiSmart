@@ -15,10 +15,12 @@ import (
 // Connection arguments
 var db *sql.DB
 var server = "cs3301.database.windows.net"
-var port = 1433
+var dbport = 1433
+var hport = 8080
 var user = ""
 var password = ""
 var database = "CS_330_1"
+var reactDir = ""
 
 // TODO: Add JWT secret key flag
 // var pwHash = "testHash"
@@ -27,7 +29,9 @@ func main() {
 	// Establish up Database connection
 	flag.StringVar(&password, "password", "", "password")
 	flag.StringVar(&user, "user", "cs330admin", "user")
-	flag.IntVar(&port, "port", 1433, "port")
+	flag.IntVar(&dbport, "dbport", 1433, "port")
+	flag.IntVar(&hport, "hport", 8080, "port")
+	flag.String("react", "../dist", "ReactJS path")
 
 	// Optional flags
 	createdb := flag.Bool("create-db", false, "initialize DB")
@@ -40,7 +44,7 @@ func main() {
 
 	// Build connection string
 	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-		server, user, password, port, database)
+		server, user, password, dbport, database)
 	var err error
 	// Create connection pool
 	db, err = sql.Open("sqlserver", connString)
@@ -219,6 +223,7 @@ func main() {
 
 	// Start web server - connects backend to npm app / terminal
 	mux := http.NewServeMux()
+	mux.Handle("/", http.FileServer(http.Dir(reactDir)))
 	mux.HandleFunc("/users/create", UserCreate)
 	mux.HandleFunc("/users/login", UserLogin)
 	mux.HandleFunc("/users/logout", UserLogout)
@@ -231,7 +236,7 @@ func main() {
 	// mux.HandleFunc("/snow-data", SnowData)
 
 	corsHandler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:5173"}, // Frontend origin
+		AllowedOrigins:   []string{"http://localhost:5173", "http://172.174.105.76:5173"}, // HACK: Frontend origin and VM
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"*"},
@@ -240,7 +245,7 @@ func main() {
 	handler := corsHandler.Handler(mux)
 
 	server := &http.Server{
-		Addr:    ":8080",
+		Addr:    fmt.Sprintf(":%d", hport),
 		Handler: handler,
 	}
 
