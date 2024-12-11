@@ -12,7 +12,7 @@
 
     height: 35vw;
     width: 100%;
-    
+
     background-image: url('src/assets/HiResMountain.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
@@ -36,7 +36,7 @@
     width: 100%;
     height: 33%;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 .indvLogo {
@@ -65,9 +65,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     font-size: 1.3em;
-    font-family: "Anonymous Pro"," monospace";
+    font-family: "Anonymous Pro", " monospace";
     color: #141414;
 
     display: grid;
@@ -82,6 +82,7 @@
     margin-top: 2vh;
     margin-bottom: 2vh;
     padding: 2vh;
+
     h3 {
         margin: 2vh;
     }
@@ -106,15 +107,15 @@
 }
 
 .titleContainer h1 {
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 .favoriteButton {
     cursor: pointer;
-    transition: transform 0.3s ease; 
+    transition: transform 0.3s ease;
 
     width: 8vh;
-    
+
     padding-top: 0%;
     padding-bottom: 1%;
     padding-left: 2.5%;
@@ -137,14 +138,14 @@
 }
 
 .leaflet {
-    height: auto; 
+    height: auto;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    
+
     grid-area: leaflet;
 
     .mapbuttons {
@@ -158,12 +159,28 @@
             background-color: #141414;
             color: #ededed;
             cursor: pointer;
-            transition: transform 0.3s ease; 
+            transition: transform 0.3s ease;
         }
 
         button:hover {
-            transform: scale(1.1); 
+            transform: scale(1.1);
         }
+    }
+
+    .legend-container {
+        position: absolute;
+        top: 1vh;
+        right: .5vw;
+        z-index: 1000;
+
+        display: flex;
+        color: #141414;
+        background-color: #ededed;
+        padding: 5px;
+
+        border-radius: 5px;
+        border-width: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 }
 
@@ -205,47 +222,50 @@
 }
 
 .temperature {
-    justify-self:center;
+    justify-self: center;
     grid-area: temperature;
 }
 
 .windSpeed {
-    justify-self:center;
+    justify-self: center;
     grid-area: windSpeed;
 }
 
 .snowfallRecent {
-    justify-self:center;
+    justify-self: center;
     grid-area: snowfallRecent;
 }
+
 .precipitationProb {
-    justify-self:center;
+    justify-self: center;
     grid-area: precipitationProb;
 }
 
 .snowDepth {
-    justify-self:center;
+    justify-self: center;
     grid-area: snowDepth;
 }
 
 .visibility {
-    justify-self:center;
+    justify-self: center;
     grid-area: visibility;
 }
 
 .weatherAdvisories {
-    justify-self:center;
+    justify-self: center;
     grid-area: weatherAdvisories;
 }
 
 @media (prefers-color-scheme: dark) {
- 
+
     .indvContainer {
         background-color: #141414;
         color: #ededeb;
+
         a {
             color: #ededeb;
         }
+
         button {
             border-color: #ededed;
         }
@@ -274,11 +294,18 @@
         color: #ededeb;
     }
 
+    .leaflet {
+        .legend-container {
+            color: #ededeb;
+            background-color: #141414;
+        }
+    }
+
 }
 
 @media (max-width: 612px) {
     .titleContainer {
-        font-size: 2.8vw; 
+        font-size: 2.8vw;
     }
 
     .favoriteButton {

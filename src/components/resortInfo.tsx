@@ -8,8 +8,61 @@ import * as EsriLeaflet from 'esri-leaflet';
 import proj4 from 'proj4';
 import 'proj4leaflet';
 
-function ResortInfo() {
+interface LegendProps {
+    handleToggleDepth: (range: string) => void;
+    isLegendVisible?: boolean;
+}
 
+const Legend: React.FC<LegendProps> = ({ handleToggleDepth, isLegendVisible }) => {
+    const legendItems = [
+        { range: "0 - 0.39", color: "#d1d9db" },
+        { range: "0.39 - 2.0", color: "#79c3c9" },
+        { range: "2.0 - 3.9", color: "#5daac8" },
+        { range: "3.9 - 9.8", color: "#3b88cb" },
+        { range: "9.8 - 20", color: "#3265c1" },
+        { range: "20 - 39", color: "#3e42b2" },
+        { range: "39 - 59", color: "#5a2da5" },
+        { range: "59 - 98", color: "#9628a8" },
+        { range: "98 - 197", color: "#ad1b77" },
+        { range: "197 - 295", color: "#7a1b43" },
+        { range: "295 - 394", color: "#601a2d" },
+        { range: "394 - 787", color: "#4d191f" },
+    ];
+
+    if (!isLegendVisible) return null;
+
+    return (
+        <div style={{ padding: "10px", border: "1px solid #ccc", maxWidth: "200px", margin: "10px auto" }}>
+            <h4>Snow Depth (inches)</h4>
+            <ul style={{ listStyleType: "none", padding: 0 }}>
+                {legendItems.map((item, index) => (
+                    <li
+                        key={index}
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            marginBottom: "5px",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => handleToggleDepth(item.range)} // Use wrapper function
+                    >
+                        <div
+                            style={{
+                                width: "20px",
+                                height: "20px",
+                                backgroundColor: item.color,
+                                marginRight: "10px",
+                            }}
+                        ></div>
+                        <span>{item.range}</span>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+function ResortInfo() {
     // Get the current resort from local storage and intialize it
     let thisResortStr = localStorage.getItem("curResort");
 
@@ -138,9 +191,10 @@ function ResortInfo() {
     const [snowDepthLayer, setSnowDepthLayer] = useState<L.Layer | null>(null);
     const [snowfallLayer, setSnowfallLayer] = useState<L.Layer | null>(null);
     const [advisoryLayer, setAdvisoryLayer] = useState<L.Layer | null>(null);
-    const [isSnowDepthLayerVisible, setIsSnowDepthLayerVisible] = useState(true);
-    const [isSnowfallLayerVisible, setIsSnowfallLayerVisible] = useState(true);
-    const [isAdvisoryLayerVisible, setIsAdvisoryLayerVisible] = useState(true);
+    const [isLegendVisible, setIsLegendVisible] = useState(false);
+    const [isSnowDepthLayerVisible, setIsSnowDepthLayerVisible] = useState(false);
+    const [isSnowfallLayerVisible, setIsSnowfallLayerVisible] = useState(false);
+    const [isAdvisoryLayerVisible, setIsAdvisoryLayerVisible] = useState(false);
 
     const snowDepthLayerRef = useRef<L.Layer | null>(null);
 
@@ -209,10 +263,14 @@ function ResortInfo() {
                     map.removeLayer(snowDepthLayerRef.current);
                 }
 
-                // Add the new snow depth layer to the map
-                const newSnowDepthLayer = L.imageOverlay(imageUrl, bounds, { opacity: 0.5 }).addTo(map);
+                // Add the new snow depth layer to the map only if it is visible
+                const newSnowDepthLayer = L.imageOverlay(imageUrl, bounds, { opacity: 0.5 });
                 snowDepthLayerRef.current = newSnowDepthLayer;
                 setSnowDepthLayer(newSnowDepthLayer);
+
+                if (isSnowDepthLayerVisible) {
+                    newSnowDepthLayer.addTo(map);
+                }
             };
 
             // Initial overlay
@@ -227,7 +285,7 @@ function ResortInfo() {
                 map.off('zoomend', updateOverlay);
             };
         }
-    }, [map]);
+    }, [map, isSnowDepthLayerVisible]);
 
     // Snowfall layer
     useEffect(() => {
@@ -272,7 +330,6 @@ function ResortInfo() {
 
             // Initialize as hidden
             map.removeLayer(snowForecastLayer);
-            setIsSnowfallLayerVisible(false);
         }
     }, [map]);
 
@@ -317,18 +374,19 @@ function ResortInfo() {
 
             // Initialize as hidden
             map.removeLayer(advisoryLayer);
-            setIsAdvisoryLayerVisible(false);
         }
     }, [map]);
 
-    const handleToggleDepth = () => {
+    const handleToggleDepth = (): void => {
         if (map && snowDepthLayer) {
             if (isSnowDepthLayerVisible) {
                 map.removeLayer(snowDepthLayer);
             } else {
                 map.addLayer(snowDepthLayer);
             }
+            setIsLegendVisible(!isLegendVisible);
             setIsSnowDepthLayerVisible(!isSnowDepthLayerVisible);
+            console.log(`Legend status: ${isLegendVisible}`);
         }
     };
 
@@ -373,11 +431,15 @@ function ResortInfo() {
                 </div>
                 <div className="leaflet">
                     <h1>Interactive Mountain Map</h1>
-                    <div id="map" style={{ width: '80%', height: '65vh' }}></div>
+                    <div id="map" style={{ width: '80%', height: '65vh', border: '2px solid black'}}>
+                        <div className="legend-container">
+                            <Legend handleToggleDepth={handleToggleDepth} isLegendVisible={isLegendVisible} />
+                        </div>
+                    </div>
                     <div className="mapbuttons">
-                        <button onClick={handleToggleDepth}>Toggle Depth Layer</button>
-                        <button onClick={handleToggleForecast}>Toggle Snowfall Layer</button>
-                        <button onClick={handleToggleAdvisory}>Toggle Advisory Layer</button>
+                        <button onClick={handleToggleDepth}> {isSnowDepthLayerVisible ? 'Hide Snow Depth Layer' : 'Show Snow Depth Layer'}</button>
+                        <button onClick={handleToggleForecast}>{isSnowfallLayerVisible ? 'Hide Snowfall Layer' : 'Show Snowfall Layer'}</button>
+                        <button onClick={handleToggleAdvisory}>{isAdvisoryLayerVisible ? 'Hide Advisory Layer' : 'Show Advisory Layer'}</button>
                     </div>
                     <h3>
                         <a href={thisResort.CameraLink} target="_blank" rel="noopener noreferrer">
