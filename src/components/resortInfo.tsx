@@ -146,8 +146,7 @@ function ResortInfo() {
 
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
             {
-                attribution:
-                    'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+                attribution: 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
             }
         ).addTo(mapInstance);
 
@@ -169,24 +168,43 @@ function ResortInfo() {
     }, [thisResort.Lat, thisResort.Long]);
 
     // Snow depth Layer
-    useEffect(() =>{
-        // Uses spatial reference 4269
-        // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/0 is Mosaic Layer of esriGeometry Polygon
-        // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/2 is a esriGeometryPolygon of Type: FeatureLayer
-        // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/3 is a Raster Layer
+    // Snow depth layer
+    useEffect(() => {
         if (map) {
-            var snowDepthRasterLayer = EsriLeaflet.imageMapLayer({
-                url: 'https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/3',
-                opacity: 0.75 // Adjust the transparency for better visibility
-            }).addTo(map);
-
-            setSnowDepthLayer(snowDepthRasterLayer);
-
+            const url = 'https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/export';
+            const bounds = map.getBounds();
+            const size = map.getSize();
+    
+            const params = {
+                dpi: '96',
+                transparent: 'false', // TODO: change once working
+                format: 'png32',
+                layers: 'show:3', // Specify layer ID 3
+                bbox: `${bounds.getWest()},${bounds.getSouth()},${bounds.getEast()},${bounds.getNorth()}`,
+                bboxSR: '102100',
+                imageSR: '102100',
+                size: `${size.x},${size.y}`,
+                f: 'image'
+            };
+    
+            // Example urls that work
+            // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/export?dpi=96&transparent=true&format=png32&layers=show%3A3&bbox=-8765673.408989755%2C4858266.707493256%2C-7649081.299800196%2C6051907.341194251&bboxSR=102100&imageSR=102100&size=913%2C976&f=image
+            // 
+            const queryString = new URLSearchParams(params).toString();
+            const imageUrl = `${url}?${queryString}`;
+    
+            const snowDepthImageLayer = L.imageOverlay(imageUrl, bounds).addTo(map);
+    
+            setSnowDepthLayer(snowDepthImageLayer);
+    
             // Initialize as hidden
-            map.removeLayer(snowDepthRasterLayer);
+            map.removeLayer(snowDepthImageLayer);
             setIsSnowDepthLayerVisible(false);
         }
     }, [map]);
+    // Uses spatial reference 4269
+    // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/0 is Mosaic Layer of esriGeometry Polygon
+    // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/3 is a Raster Layer
 
     // Snowfall layer
     useEffect(() => {
