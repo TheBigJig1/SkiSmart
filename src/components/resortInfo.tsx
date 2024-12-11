@@ -1,5 +1,5 @@
 import "@/styles/components/resortInfo.css";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { ResortObj, WeatherObj } from "../routes/resort"
 import { fetchWeatherApi } from 'openmeteo';
 import "leaflet/dist/leaflet.css";
@@ -142,6 +142,8 @@ function ResortInfo() {
     const [isSnowfallLayerVisible, setIsSnowfallLayerVisible] = useState(true);
     const [isAdvisoryLayerVisible, setIsAdvisoryLayerVisible] = useState(true);
 
+    const snowDepthLayerRef = useRef<L.Layer | null>(null);
+
     // Initialize the map
     useEffect(() => {
         const mapInstance = L.map('map', {
@@ -178,15 +180,15 @@ function ResortInfo() {
         if (map) {
             const updateOverlay = () => {
                 const url = 'https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/export';
-    
+
                 const bounds = map.getBounds();
                 const size = map.getSize();
-    
+
                 const sw = proj4('EPSG:4326', 'EPSG:3857', [bounds.getWest(), bounds.getSouth()]);
                 const ne = proj4('EPSG:4326', 'EPSG:3857', [bounds.getEast(), bounds.getNorth()]);
-    
+
                 const bbox = `${sw[0]},${sw[1]},${ne[0]},${ne[1]}`;
-    
+
                 const params = {
                     dpi: '96',
                     transparent: 'true',
@@ -198,40 +200,34 @@ function ResortInfo() {
                     size: `${size.x},${size.y}`,
                     f: 'image'
                 };
-    
+
                 const queryString = new URLSearchParams(params).toString();
                 const timestamp = new Date().getTime();
                 const imageUrl = `${url}?${queryString}&_=${timestamp}`;
-    
-                if (snowDepthLayer) {
-                    map.removeLayer(snowDepthLayer);
+
+                if (snowDepthLayerRef.current) {
+                    map.removeLayer(snowDepthLayerRef.current);
                 }
-    
-                const newSnowDepthLayer = L.imageOverlay(imageUrl, bounds).addTo(map);
+
+                // Add the new snow depth layer to the map
+                const newSnowDepthLayer = L.imageOverlay(imageUrl, bounds, { opacity: 0.5 }).addTo(map);
+                snowDepthLayerRef.current = newSnowDepthLayer;
                 setSnowDepthLayer(newSnowDepthLayer);
-    
-                // Initialize as hidden
-                map.removeLayer(newSnowDepthLayer);
-                setIsSnowDepthLayerVisible(false);
             };
-    
+
             // Initial overlay
             updateOverlay();
-    
+
             // Update overlay on map movements
             map.on('moveend', updateOverlay);
             map.on('zoomend', updateOverlay);
-    
+
             return () => {
                 map.off('moveend', updateOverlay);
                 map.off('zoomend', updateOverlay);
             };
         }
     }, [map]);
-
-    // Uses spatial reference 4269
-    // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/0 is Mosaic Layer of esriGeometry Polygon
-    // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/3 is a Raster Layer
 
     // Snowfall layer
     useEffect(() => {
