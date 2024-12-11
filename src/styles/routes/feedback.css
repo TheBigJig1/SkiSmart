@@ -73,7 +73,7 @@
     align-items: center;
 
     font-family: "Anonymous Pro", monospace;
-    background-color: rgba(217,217,217,0.8);
+    background-color: white(217,217,217,0.8);
     border-radius: 20px;
 
     grid-template-areas: 
@@ -161,10 +161,9 @@
 
 .feedbackDisplay {
     grid-area: feedbackDisplay;
-    
-    background-color: #ededed;
-    
-    display: flex;
+    background-color: white;
+    display: flex
+;
     flex-direction: column;
     justify-content: center;
     align-items: center;
