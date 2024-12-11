@@ -8,8 +8,8 @@ import Signin from './routes/signin'
 import Signup from './routes/signup'
 import ResortInfo from './components/resortInfo'
 import Account from './routes/account'
-
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { isAuthenticated } from './utils/auth';
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/resortInfo' element={<ResortInfo />} />
-        <Route path='/account' element={<Account />} />
+        <Route path='/account' element={isAuthenticated() ? <Account /> : <Navigate to="/signin" />} />
       </Routes>
     </Router>
   );
