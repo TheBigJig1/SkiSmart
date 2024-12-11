@@ -5,6 +5,8 @@ import { fetchWeatherApi } from 'openmeteo';
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
 import * as EsriLeaflet from 'esri-leaflet';
+import proj4 from 'proj4';
+import 'proj4leaflet';
 
 function ResortInfo() {
 
@@ -142,7 +144,11 @@ function ResortInfo() {
 
     // Initialize the map
     useEffect(() => {
-        const mapInstance = L.map('map').setView([thisResort.Lat, thisResort.Long], 15);
+        const mapInstance = L.map('map', {
+            // crs: crs102100,
+            center: [thisResort.Lat, thisResort.Long],
+            zoom: 15
+        });
 
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
             {
@@ -168,40 +174,61 @@ function ResortInfo() {
     }, [thisResort.Lat, thisResort.Long]);
 
     // Snow depth Layer
-    // Snow depth layer
     useEffect(() => {
         if (map) {
-            const url = 'https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/export';
-            const bounds = map.getBounds();
-            const size = map.getSize();
+            const updateOverlay = () => {
+                const url = 'https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/export';
     
-            const params = {
-                dpi: '96',
-                transparent: 'false', // TODO: change once working
-                format: 'png32',
-                layers: 'show:3', // Specify layer ID 3
-                bbox: `${bounds.getWest()},${bounds.getSouth()},${bounds.getEast()},${bounds.getNorth()}`,
-                bboxSR: '102100',
-                imageSR: '102100',
-                size: `${size.x},${size.y}`,
-                f: 'image'
+                const bounds = map.getBounds();
+                const size = map.getSize();
+    
+                const sw = proj4('EPSG:4326', 'EPSG:3857', [bounds.getWest(), bounds.getSouth()]);
+                const ne = proj4('EPSG:4326', 'EPSG:3857', [bounds.getEast(), bounds.getNorth()]);
+    
+                const bbox = `${sw[0]},${sw[1]},${ne[0]},${ne[1]}`;
+    
+                const params = {
+                    dpi: '96',
+                    transparent: 'true',
+                    format: 'png32',
+                    layers: 'show:3',
+                    bbox: bbox,
+                    bboxSR: '102100',
+                    imageSR: '102100',
+                    size: `${size.x},${size.y}`,
+                    f: 'image'
+                };
+    
+                const queryString = new URLSearchParams(params).toString();
+                const timestamp = new Date().getTime();
+                const imageUrl = `${url}?${queryString}&_=${timestamp}`;
+    
+                if (snowDepthLayer) {
+                    map.removeLayer(snowDepthLayer);
+                }
+    
+                const newSnowDepthLayer = L.imageOverlay(imageUrl, bounds).addTo(map);
+                setSnowDepthLayer(newSnowDepthLayer);
+    
+                // Initialize as hidden
+                map.removeLayer(newSnowDepthLayer);
+                setIsSnowDepthLayerVisible(false);
             };
     
-            // Example urls that work
-            // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/export?dpi=96&transparent=true&format=png32&layers=show%3A3&bbox=-8765673.408989755%2C4858266.707493256%2C-7649081.299800196%2C6051907.341194251&bboxSR=102100&imageSR=102100&size=913%2C976&f=image
-            // 
-            const queryString = new URLSearchParams(params).toString();
-            const imageUrl = `${url}?${queryString}`;
+            // Initial overlay
+            updateOverlay();
     
-            const snowDepthImageLayer = L.imageOverlay(imageUrl, bounds).addTo(map);
+            // Update overlay on map movements
+            map.on('moveend', updateOverlay);
+            map.on('zoomend', updateOverlay);
     
-            setSnowDepthLayer(snowDepthImageLayer);
-    
-            // Initialize as hidden
-            map.removeLayer(snowDepthImageLayer);
-            setIsSnowDepthLayerVisible(false);
+            return () => {
+                map.off('moveend', updateOverlay);
+                map.off('zoomend', updateOverlay);
+            };
         }
     }, [map]);
+
     // Uses spatial reference 4269
     // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/0 is Mosaic Layer of esriGeometry Polygon
     // https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/3 is a Raster Layer
@@ -249,7 +276,7 @@ function ResortInfo() {
 
             // Initialize as hidden
             map.removeLayer(snowForecastLayer);
-            setIsSnowfallLayerVisible(false); 
+            setIsSnowfallLayerVisible(false);
         }
     }, [map]);
 
