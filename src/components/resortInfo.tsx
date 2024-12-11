@@ -289,9 +289,6 @@ function ResortInfo() {
 
     // Snowfall layer
     useEffect(() => {
-        // uses spatial reference 102100 (3857)
-        // esriGeometry Polygon
-        // FeatureServer
         if (map) {
             function getColor(d: number): string {
                 return d > 12
@@ -311,7 +308,7 @@ function ResortInfo() {
                 return {
                     color: '#444',
                     weight: 1,
-                    fillColor: getColor(feature.properties.grid_code), // Assuming grid_code represents snowfall amount
+                    fillColor: getColor(feature.properties.grid_code),
                     fillOpacity: 0.5,
                 };
             }
