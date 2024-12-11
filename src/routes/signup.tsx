@@ -1,3 +1,13 @@
+/*
+Breif: This file contains the code for the Sign Up page.
+It contains a form with fields for Full Name, Email, Password, and Zipcode.
+The form is submitted to the server when the user clicks the "Create Account" button.
+The server will create a new user account if the email is not already in use.
+If the account is created successfully, the user is redirected to the Sign In page.
+If there is an error creating the account, an error message is displayed in the console.
+*/
+
+//import statements
 import '@/styles/routes/signin.css';
 import logo from '../assets/logoCircle.png';
 import React, { useState } from 'react';
@@ -26,6 +36,7 @@ const Signup: React.FC = () => {
     return re.test(password);
   };
 
+//handle submit function to create account
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
 
@@ -80,7 +91,7 @@ const Signup: React.FC = () => {
       console.error('Error:', error);
     }
   };
-
+//html code for the signup page
     return (
       <div className="signin-background">
         <div className="signin-container">
