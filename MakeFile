@@ -1,3 +1,5 @@
+
+
 all: clean test build
 
 clean:
@@ -14,10 +16,10 @@ vet:
 
 .PHONY: backend
 backend:
-	cd backend && go build -o ../bin/skismart *.go
+	cd backend && GOOS=linux GOARCH=amd64 go build -o ../bin/skismart *.go
 
 frontend:
-	npm run bui;d -- --mode prod
+	npm run build -- --mode prod
 
 build: backend frontend
 
@@ -26,9 +28,10 @@ build: backend frontend
 ## Host cs300
 #	Hostname 172.174.105.76
 #	User azureuser
-# 	IdentityFile ~./.ssh/cs330.pem
+# 	IdentityFile ~./.ssh/cs330_1.pem
 
 deploy:
+	ssh cs330 "rm -rf skismart skismart.js"
 	scp -r dist cs330:/home/azureuser/skismart.js
 	scp bin/skismart cs330:/home/azureuser/skismart
 

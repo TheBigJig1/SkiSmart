@@ -98,6 +98,8 @@
     max-width: 90vw;
     padding: 20px;
     border-radius: 8px;
+
+    background-color: rgba(182, 182, 182, 0.849);
     
     display: flex;
     flex-direction: column;
