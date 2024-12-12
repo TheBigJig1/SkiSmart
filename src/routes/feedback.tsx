@@ -60,31 +60,31 @@ function Feedback() {
             const response = await fetch(`${API_BASE_URL}/feedback/add`, {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: formData.toString(),
                 // credentials: 'include',
-              });
+            });
 
-              if (response.ok) {
+            if (response.ok) {
                 // Handle successful response
                 console.log('Feedback submitted successfully');
                 alert('Feedback submitted successfully!');
 
                 // Reload page
                 window.location.reload();
-        
-              } else {
+
+            } else {
                 // Handle error response
                 console.error('Error submitting feedback');
-              }
+            }
 
         } catch (error) {
             console.error('Error:', error);
         }
 
-        console.log('Feedback submitted', feedback,selectRate);
-        
+        console.log('Feedback submitted', feedback, selectRate);
+
         setFeedback(''); //resets feedback
         setSelectRate(0); //resets star rating
     };
@@ -97,14 +97,14 @@ function Feedback() {
             // Endpoint is parameterized
             const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const response = await fetch(`${ API_BASE_URL } / feedback / list ? limit = ${ limit }`, {
+            const response = await fetch(`${API_BASE_URL}/feedback/list?limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
-            if(response.ok) {
+            if (response.ok) {
                 // Handle successful response
                 const feedbacks = await response.json();
 
@@ -120,31 +120,31 @@ const response = await fetch(`${ API_BASE_URL } / feedback / list ? limit = ${ l
             console.error('Error:', error);
         }
     }
-    
+
     return (
         <div className="fcontainer">
             <div className="fbackground">
                 <img src='src/assets/logoCircle.png' className="flogo"></img>
                 <div className="ftitle">SkiSmart</div>
-                    <form className="feedback-box" onSubmit={handleSub}>
-                        <label htmlFor="feedback">Feedback: </label>
-                        <textarea className="thisfeedback" rows={3} placeholder="Type feedback here" style={{ width: '100%' }} value={feedback} onChange={(e)=>setFeedback(e.target.value)}></textarea>
-                        <h3> Leave Us A Review:</h3>
-                        <div className="starRating">
-                            {[...Array(5)].map((_,index)=> (
-                                <span 
-                                    key= {index} 
-                                    className={`star ${ selectRate > index ? 'selected' : ''}`}
-                                    onClick={()=> hanStarCl(index)}
-                                    >
-                                        ★
-                                    </span>
-                            ))}
-                        </div>
-                        <button className="submitButton" style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}} type= "submit" > Submit </button>
-                    </form>
+                <form className="feedback-box" onSubmit={handleSub}>
+                    <label htmlFor="feedback">Feedback: </label>
+                    <textarea className="thisfeedback" rows={3} placeholder="Type feedback here" style={{ width: '100%' }} value={feedback} onChange={(e) => setFeedback(e.target.value)}></textarea>
+                    <h3> Leave Us A Review:</h3>
+                    <div className="starRating">
+                        {[...Array(5)].map((_, index) => (
+                            <span
+                                key={index}
+                                className={`star ${selectRate > index ? 'selected' : ''}`}
+                                onClick={() => hanStarCl(index)}
+                            >
+                                ★
+                            </span>
+                        ))}
+                    </div>
+                    <button className="submitButton" style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white' }} type="submit" > Submit </button>
+                </form>
             </div>
-            
+
             <div className="feedbackDisplay">
                 <h1>Our Reviews!</h1>
                 {reviews && reviews.map((review, reviewIndex) => (
@@ -154,7 +154,7 @@ const response = await fetch(`${ API_BASE_URL } / feedback / list ? limit = ${ l
                             {[...Array(5)].map((_, starIndex) => (
                                 <span
                                     key={starIndex}
-                                    className={`staticReviewstar ${ review.rating > starIndex ? 'selected' : '' } `}
+                                    className={`staticReviewstar ${review.rating > starIndex ? 'selected' : ''} `}
                                 >
                                     ★
                                 </span>
@@ -164,8 +164,8 @@ const response = await fetch(`${ API_BASE_URL } / feedback / list ? limit = ${ l
                     </div>
                 ))}
                 <div>
-                    <button className="moreReviews" 
-                    onClick={() => {setLimit(limit + 3) }}>More Reviews</button>
+                    <button className="moreReviews"
+                        onClick={() => { setLimit(limit + 3) }}>More Reviews</button>
                 </div>
             </div>
         </div>
