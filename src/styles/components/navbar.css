@@ -39,6 +39,7 @@ div.navRight{
 }
 div.imgContainer{
     transform: translateY(-1px);
+    justify-content: center;
     img {
         width: 20px;
         height: 20px;

@@ -41,3 +41,6 @@ remote-run:
 
 remote-stop:
 	ssh cs330 "pkill skismart"
+
+remote-logs:
+	ssh cs330 "tail -f skismart.log"
