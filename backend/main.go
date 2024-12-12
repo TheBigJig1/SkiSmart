@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"path/filepath"
 
 	_ "github.com/microsoft/go-mssqldb"
 	"github.com/rs/cors"
@@ -20,7 +21,7 @@ var hport = 8080
 var user = ""
 var password = ""
 var database = "CS_330_1"
-var reactDir = ""
+var reactDir string
 
 // TODO: Add JWT secret key flag
 // var pwHash = "testHash"
@@ -31,7 +32,7 @@ func main() {
 	flag.StringVar(&user, "user", "cs330admin", "user")
 	flag.IntVar(&dbport, "dbport", 1433, "port")
 	flag.IntVar(&hport, "hport", 8080, "port")
-	flag.StringVar(&reactDir, "react-dir", "../dist", "ReactJS path")
+	flag.StringVar(&reactDir, "react-dir", "../dist", "React build directory")
 
 	// Optional flags
 	createdb := flag.Bool("create-db", false, "initialize DB")
@@ -57,6 +58,12 @@ func main() {
 		log.Fatal(err.Error())
 	}
 	fmt.Println("Connected!")
+
+	// Ensure reactDir is an absolute path
+	reactDir, err := filepath.Abs(reactDir)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Drop all databases flag
 	if *dropdb {
@@ -223,7 +230,11 @@ func main() {
 
 	// Start web server - connects backend to npm app / terminal
 	mux := http.NewServeMux()
-	mux.Handle("/", http.FileServer(http.Dir(reactDir)))
+
+	// Serve static files from the React app
+	fs := http.FileServer(http.Dir(reactDir))
+	http.Handle("/", fs)
+
 	mux.HandleFunc("/users/create", UserCreate)
 	mux.HandleFunc("/users/login", UserLogin)
 	mux.HandleFunc("/users/logout", UserLogout)
