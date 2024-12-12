@@ -1,5 +1,6 @@
 .pageContainer {
     display: grid;
+    width: 100%;
     grid-template-areas:
         "pageBackground"
         "contentContainer";
@@ -13,8 +14,9 @@
     width: 100%;
     
     background-image: url('../assets/HiResMountain.jpg');
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
 
     justify-items:center;
 
