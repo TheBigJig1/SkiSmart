@@ -1,4 +1,4 @@
-import './styles/routes/signin.css';
+import '../styles/routes/signIn.css';
 import logo from '../assets/logoCircle.png';
 import { useState } from 'react';
 
