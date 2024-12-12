@@ -6,8 +6,11 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"mime"
 	"net/http"
+	"os"
 	"path/filepath"
+	"strings"
 
 	_ "github.com/microsoft/go-mssqldb"
 	"github.com/rs/cors"
@@ -245,6 +248,36 @@ func main() {
 	mux.HandleFunc("/users/togglebookmark", ToggleUserBookmark)
 	mux.HandleFunc("/users/loadbookmarks", GetBookmarks)
 	// mux.HandleFunc("/snow-data", SnowData)
+
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// Serve API routes
+		if strings.HasPrefix(r.URL.Path, "/users/") ||
+			strings.HasPrefix(r.URL.Path, "/feedback/") ||
+			strings.HasPrefix(r.URL.Path, "/resorts/") {
+			mux.ServeHTTP(w, r)
+			return
+		}
+
+		// Construct the full file path
+		path := filepath.Join(reactDir, r.URL.Path)
+
+		// Check if the file exists
+		_, err := os.Stat(path)
+		if os.IsNotExist(err) || r.URL.Path == "/" {
+			// If the file doesn't exist or path is root, serve index.html for client-side routing
+			path = filepath.Join(reactDir, "index.html")
+		}
+
+		// Get the file extension to determine the MIME type
+		ext := filepath.Ext(path)
+		mimeType := mime.TypeByExtension(ext)
+
+		// Set the Content-Type header
+		w.Header().Set("Content-Type", mimeType)
+
+		// Serve the file
+		http.ServeFile(w, r, path)
+	})
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173", "http://172.174.105.76:5173"}, // HACK: Frontend origin and VM
