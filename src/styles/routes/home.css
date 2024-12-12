@@ -82,7 +82,7 @@
     grid-area: intro;
     margin-top: 2vw;
 
-    font-size: 2rem;
+    font-size: clamp(1.1rem, 2.3vw, 2.4vw);
 
     display: flex;
     flex-direction: column;

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import '@/styles/routes/feedback.css';
+import '../styles/routes/feedback.css';
 import { jwtDecode }  from 'jwt-decode';
 
 // Define interface for response data
