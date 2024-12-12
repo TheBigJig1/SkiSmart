@@ -10,7 +10,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
 
 	_ "github.com/microsoft/go-mssqldb"
 	"github.com/rs/cors"
@@ -249,33 +248,35 @@ func main() {
 	mux.HandleFunc("/users/loadbookmarks", GetBookmarks)
 	// mux.HandleFunc("/snow-data", SnowData)
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// Serve API routes
-		if strings.HasPrefix(r.URL.Path, "/users/") ||
-			strings.HasPrefix(r.URL.Path, "/feedback/") ||
-			strings.HasPrefix(r.URL.Path, "/resorts/") {
-			mux.ServeHTTP(w, r)
+	// Create the main mux
+	mainMux := http.NewServeMux()
+
+	// Handle API routes
+	mainMux.Handle("/users/", mux)
+	mainMux.Handle("/feedback/", mux)
+	mainMux.Handle("/resorts/", mux)
+
+	mainMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// Construct the full file path
+		path := filepath.Join(reactDir, r.URL.Path)
+		info, err := os.Stat(path)
+
+		// If the path is a directory or doesn't exist, serve index.html
+		if err != nil || info.IsDir() {
+			http.ServeFile(w, r, filepath.Join(reactDir, "index.html"))
 			return
 		}
 
-		// Construct the full file path
-		path := filepath.Join(reactDir, r.URL.Path)
-
-		// Check if the file exists
-		_, err := os.Stat(path)
-		if os.IsNotExist(err) || r.URL.Path == "/" {
-			// If the file doesn't exist or path is root, serve index.html for client-side routing
-			path = filepath.Join(reactDir, "index.html")
-		}
-
-		// Get the file extension to determine the MIME type
+		// Set the correct MIME type
 		ext := filepath.Ext(path)
 		mimeType := mime.TypeByExtension(ext)
+		if mimeType != "" {
+			w.Header().Set("Content-Type", mimeType)
+		} else {
+			w.Header().Set("Content-Type", "application/octet-stream")
+		}
 
-		// Set the Content-Type header
-		w.Header().Set("Content-Type", mimeType)
-
-		// Serve the file
+		// Serve the static file
 		http.ServeFile(w, r, path)
 	})
 
