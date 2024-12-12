@@ -1,0 +1,40 @@
+all: clean test build
+
+clean:
+	rm -rf bin dist
+
+restore-deps:
+	go mod tidy
+
+test:
+	go test -short -v ./...
+
+vet:
+	go vet ./...
+
+.PHONY: backend
+backend:
+	cd backend && go build -o ../bin/skismart *.go
+
+frontend:
+	npm run bui;d -- --mode prod
+
+build: backend frontend
+
+## Remote command
+## assumes cs330 is setup in ~/.ssh/config
+## Host cs300
+#	Hostname 172.174.105.76
+#	User azureuser
+# 	IdentityFile ~./.ssh/cs330.pem
+
+deploy:
+	scp -r dist cs330:/home/azureuser/skismart.js
+	scp bin/skismart cs330:/home/azureuser/skismart
+
+remote-run:
+	read -p "Enter server db password: " db_pass; \
+	ssh cs330 "nohup ./skismart --password ${db_pass} --react-dir skismart.js > skismart.log 2>&1 &"
+
+remote-stop:
+	ssh cs330 "pkill skismart"
