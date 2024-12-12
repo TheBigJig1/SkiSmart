@@ -36,8 +36,8 @@ deploy:
 	scp bin/skismart cs330:/home/azureuser/skismart
 
 remote-run:
-	read -p "Enter server db password: " db_pass; \
-	ssh cs330 "nohup ./skismart --password ${db_pass} --react-dir skismart.js > skismart.log 2>&1 &"
+	@read -p "Enter server db password: " db_pass; \
+	ssh cs330 "nohup ./skismart --password $$db_pass --react-dir skismart.js > skismart.log 2>&1 &"
 
 remote-stop:
 	ssh cs330 "pkill skismart"
