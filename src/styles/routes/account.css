@@ -14,7 +14,7 @@
     height: 20vw;
     width: 100%;
     
-    background-image: url('src/assets/accountbackground3.jpg');
+    background-image: url('../assets/accountbackground3.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
 
@@ -143,7 +143,7 @@
     }
 
     .accountBackground {
-        background-image: url('src/assets/accountnightbackground.jpg');
+        background-image: url('../assets/accountnightbackground.jpg');
         background-position: center;
     }
 

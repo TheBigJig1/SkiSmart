@@ -414,7 +414,7 @@ function ResortInfo() {
     return (
         <div className="indvContainer">
             <div className="indvBackground">
-                <img className="indvLogo" src='src/assets/logoCircle.png' alt="Logo" />
+                <img className="indvLogo" src='../assets/logoCircle.png' alt="Logo" />
                 <div className="indvTitle">SkiSmart</div>
             </div>
             <div className="indvPageContainer">

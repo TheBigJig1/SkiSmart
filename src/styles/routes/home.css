@@ -12,7 +12,7 @@
     height: 35vw;
     width: 100%;
     
-    background-image: url('src/assets/HiResMountain.jpg');
+    background-image: url('../assets/HiResMountain.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
 
@@ -132,7 +132,7 @@
 .exploreButtonContainer {
     justify-self: center;
     width: 85%;
-    background-image: url("src/assets/exploreButton.png");
+    background-image: url("../assets/exploreButton.png");
     background-size: cover;
     cursor: pointer; 
     transition: transform 0.3s ease; 
@@ -266,7 +266,7 @@
     }
 
     .pageBackground {
-        background-image: url('src/assets/dark-mode-background.jpg');
+        background-image: url('../assets/dark-mode-background.jpg');
         background-position: center;
     }
 
@@ -291,7 +291,7 @@
     }
 
     .exploreButtonContainer {
-        background-image: url("src/assets/exploreButtonDark.png");
+        background-image: url("../assets/exploreButtonDark.png");
     }
 
     .footer {

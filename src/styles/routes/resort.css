@@ -15,7 +15,7 @@
     height: 35vw;
     width: 100%;
     
-    background-image: url('src/assets/resort-page-background.png');
+    background-image: url('../assets/resort-page-background.png');
     background-size: 100%;
     background-repeat: no-repeat;
 
@@ -169,7 +169,7 @@
     }
 
     .resortBackground {
-        background-image: url('src/assets/resortBackgroundImgDark.jpg');
+        background-image: url('../assets/resortBackgroundImgDark.jpg');
         background-position: center;
     }
 

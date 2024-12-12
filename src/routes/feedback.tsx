@@ -124,7 +124,7 @@ function Feedback() {
     return (
         <div className="fcontainer">
             <div className="fbackground">
-                <img src='src/assets/logoCircle.png' className="flogo"></img>
+                <img src='../assets/logoCircle.png' className="flogo"></img>
                 <div className="ftitle">SkiSmart</div>
                 <form className="feedback-box" onSubmit={handleSub}>
                     <label htmlFor="feedback">Feedback: </label>

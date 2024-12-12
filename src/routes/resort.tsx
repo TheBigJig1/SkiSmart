@@ -56,7 +56,7 @@ function Resort() {
             // Endpoint is parameterized
             const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const response = await fetch(`${API_BASE_URL}/resorts/list?zip=${userZip}&limit=${limit}`, {
+            const response = await fetch(`${API_BASE_URL}/resorts/list?zip=${userZip}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ const response = await fetch(`${API_BASE_URL}/resorts/list?zip=${userZip}&limit=
 
     useEffect(() => {
         const searchResorts = async (inputValue: string) => {
-            if(inputValue === '') {
+            if (inputValue === '') {
                 setLimit(5);
                 listResorts(limit);
                 return;
@@ -98,7 +98,7 @@ const response = await fetch(`${API_BASE_URL}/resorts/list?zip=${userZip}&limit=
             try {
                 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const response = await fetch(`${API_BASE_URL}/resorts/get?name=${inputValue}`, {
+                const response = await fetch(`${API_BASE_URL}/resorts/get?name=${inputValue}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -126,7 +126,7 @@ const response = await fetch(`${API_BASE_URL}/resorts/get?name=${inputValue}`, {
     }, [search]);
 
     useEffect(() => {
-        if(inputValue == '') {
+        if (inputValue == '') {
             setSearch(false);
         }
     }, [inputValue]);
@@ -134,21 +134,21 @@ const response = await fetch(`${API_BASE_URL}/resorts/get?name=${inputValue}`, {
     return (
         <div className="resortContainer">
             <div className="resortBackground">
-                <img src='src/assets/logoCircle.png' className="resortLogo"></img>
+                <img src='../assets/logoCircle.png' className="resortLogo"></img>
                 <div className="resortTitle">SkiSmart</div>
             </div>
             <div className="resortText">
                 <h1 className="resortText">Find Your Resort</h1>
             </div>
             <div className="searchbar">
-                <input 
-                    type="text" 
-                    className="textBar" 
-                    placeholder="Search for a resort..." 
+                <input
+                    type="text"
+                    className="textBar"
+                    placeholder="Search for a resort..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    />
-                <button className="searchButton" onClick={() => {setSearch(true) }}>Search</button>
+                />
+                <button className="searchButton" onClick={() => { setSearch(true) }}>Search</button>
             </div>
             <div className="resortContentContainer">
                 {resorts && resorts.map((resort, resortIndex) => (
@@ -156,7 +156,7 @@ const response = await fetch(`${API_BASE_URL}/resorts/get?name=${inputValue}`, {
                 ))}
 
                 <div>
-                    <button className="moreResorts" onClick={() => {setLimit(limit + 5) }}>
+                    <button className="moreResorts" onClick={() => { setLimit(limit + 5) }}>
                         More Resorts
                     </button>
                 </div>

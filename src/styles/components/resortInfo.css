@@ -13,7 +13,7 @@
     height: 35vw;
     width: 100%;
 
-    background-image: url('src/assets/HiResMountain.jpg');
+    background-image: url('../assets/HiResMountain.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
 
@@ -272,7 +272,7 @@
     }
 
     .indvBackground {
-        background-image: url('src/assets/dark-mode-background.jpg');
+        background-image: url('../assets/dark-mode-background.jpg');
         background-position: center;
     }
 
