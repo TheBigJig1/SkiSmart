@@ -6,10 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"mime"
 	"net/http"
-	"os"
-	"path/filepath"
 
 	_ "github.com/microsoft/go-mssqldb"
 	"github.com/rs/cors"
@@ -23,7 +20,7 @@ var hport = 8080
 var user = ""
 var password = ""
 var database = "CS_330_1"
-var reactDir string
+var reactDir = ""
 
 // TODO: Add JWT secret key flag
 // var pwHash = "testHash"
@@ -34,7 +31,7 @@ func main() {
 	flag.StringVar(&user, "user", "cs330admin", "user")
 	flag.IntVar(&dbport, "dbport", 1433, "port")
 	flag.IntVar(&hport, "hport", 8080, "port")
-	flag.StringVar(&reactDir, "react-dir", "../dist", "React build directory")
+	flag.StringVar(&reactDir, "react-dir", "../dist", "ReactJS path")
 
 	// Optional flags
 	createdb := flag.Bool("create-db", false, "initialize DB")
@@ -60,12 +57,6 @@ func main() {
 		log.Fatal(err.Error())
 	}
 	fmt.Println("Connected!")
-
-	// Ensure reactDir is an absolute path
-	reactDir, err := filepath.Abs(reactDir)
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	// Drop all databases flag
 	if *dropdb {
@@ -232,11 +223,7 @@ func main() {
 
 	// Start web server - connects backend to npm app / terminal
 	mux := http.NewServeMux()
-
-	// Serve static files from the React app
-	fs := http.FileServer(http.Dir(reactDir))
-	http.Handle("/", fs)
-
+	mux.Handle("/", http.FileServer(http.Dir(reactDir)))
 	mux.HandleFunc("/users/create", UserCreate)
 	mux.HandleFunc("/users/login", UserLogin)
 	mux.HandleFunc("/users/logout", UserLogout)
@@ -247,38 +234,6 @@ func main() {
 	mux.HandleFunc("/users/togglebookmark", ToggleUserBookmark)
 	mux.HandleFunc("/users/loadbookmarks", GetBookmarks)
 	// mux.HandleFunc("/snow-data", SnowData)
-
-	// Create the main mux
-	mainMux := http.NewServeMux()
-
-	// Handle API routes
-	mainMux.Handle("/users/", mux)
-	mainMux.Handle("/feedback/", mux)
-	mainMux.Handle("/resorts/", mux)
-
-	mainMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// Construct the full file path
-		path := filepath.Join(reactDir, r.URL.Path)
-		info, err := os.Stat(path)
-
-		// If the path is a directory or doesn't exist, serve index.html
-		if err != nil || info.IsDir() {
-			http.ServeFile(w, r, filepath.Join(reactDir, "index.html"))
-			return
-		}
-
-		// Set the correct MIME type
-		ext := filepath.Ext(path)
-		mimeType := mime.TypeByExtension(ext)
-		if mimeType != "" {
-			w.Header().Set("Content-Type", mimeType)
-		} else {
-			w.Header().Set("Content-Type", "application/octet-stream")
-		}
-
-		// Serve the static file
-		http.ServeFile(w, r, path)
-	})
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173", "http://172.174.105.76:5173"}, // HACK: Frontend origin and VM

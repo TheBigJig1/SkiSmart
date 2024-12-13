@@ -40,7 +40,7 @@ remote-run:
 	ssh cs330 "nohup ./skismart --password $$db_pass --react-dir skismart.js > skismart.log 2>&1 &"
 
 remote-stop:
-	ssh cs330 "pkill skismart"
+	ssh cs330 "pkill skismart" || true
 
 remote-logs:
 	ssh cs330 "tail -f skismart.log"
