@@ -2,7 +2,7 @@
     display: grid;
     width: 100%;
 
-    background-image: url('src/assets/feedback-background.jpg');
+    background-image: url('../assets/feedback-background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -219,7 +219,7 @@
     }
 
     .fbackground {
-        background-image: url('src/assets/feedback-background-dark.jpg');
+        background-image: url('../assets/feedback-background-dark.jpg');
         background-position: top;
     }
 

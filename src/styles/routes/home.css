@@ -1,5 +1,7 @@
 .pageContainer {
     display: grid;
+    width: 100%;
+    max-width: 100vw; /* Add this line */
     grid-template-areas:
         "pageBackground"
         "contentContainer";
@@ -11,10 +13,12 @@
 
     height: 35vw;
     width: 100%;
+    max-width:100vw;
     
-    background-image: url('src/assets/HiResMountain.jpg');
-    background-size: 100%;
+    background-image: url('../assets/HiResMountain.jpg');
+    background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
 
     justify-items:center;
 
@@ -54,7 +58,7 @@
     height: 4vw;
 }
 
-.pageContainer .contentContainer {
+.contentContainer {
     grid-area: contentContainer;
     margin-left: 2vh;
     margin-right: 2vh;
@@ -68,7 +72,6 @@
     font-family: "Anonymous Pro"," monospace";
     color: #141414;
 
-    display: grid;
     grid-template-areas:
         "intro"
         "mission"
@@ -82,7 +85,7 @@
     grid-area: intro;
     margin-top: 2vw;
 
-    font-size: clamp(1.1rem, 2.3vw, 2.4vw);
+    font-size: clamp(1rem, 4vw, 2rem);
 
     display: flex;
     flex-direction: column;
@@ -132,7 +135,7 @@
 .exploreButtonContainer {
     justify-self: center;
     width: 85%;
-    background-image: url("src/assets/exploreButton.png");
+    background-image: url("../assets/exploreButton.png");
     background-size: cover;
     cursor: pointer; 
     transition: transform 0.3s ease; 
@@ -242,6 +245,9 @@
 
   
 @media (max-width: 964px) {
+    .pageContainer {
+        width: 100vw; /* Add this line */
+    }
     .NOAA {
         height: auto;
         grid-template-columns: 1fr; 
@@ -266,7 +272,7 @@
     }
 
     .pageBackground {
-        background-image: url('src/assets/dark-mode-background.jpg');
+        background-image: url('../assets/dark-mode-background.jpg');
         background-position: center;
     }
 
@@ -291,7 +297,7 @@
     }
 
     .exploreButtonContainer {
-        background-image: url("src/assets/exploreButtonDark.png");
+        background-image: url("../assets/exploreButtonDark.png");
     }
 
     .footer {

@@ -1,23 +1,23 @@
-import {useEffect, useState} from 'react';
-import '../styles/routes/feedback.css';
-import { jwtDecode }  from 'jwt-decode';
+import { useEffect, useState } from 'react';
+import '@/styles/routes/feedback.css';
+import { jwtDecode } from 'jwt-decode';
 
 // Define interface for response data
 interface FeedbackReview {
-    id:         number;
-    first:      string;
-    rating:     number;
-    feedback:   string;
+    id: number;
+    first: string;
+    rating: number;
+    feedback: string;
 }
 
 function Feedback() {
     // State variables
-    const [selectRate, setSelectRate]=useState(0);
-    const [feedback,setFeedback]=useState('');
+    const [selectRate, setSelectRate] = useState(0);
+    const [feedback, setFeedback] = useState('');
     const [first, setFirst] = useState('');
     const [limit, setLimit] = useState(3);
     const [reviews, setReviews] = useState<FeedbackReview[]>([]);
-    
+
     useEffect(() => {
         // List reviews
         listReviews(limit);
@@ -38,9 +38,8 @@ function Feedback() {
 
     }, [limit]); // Add limit as a dependency to re-fetch reviews when limit changes
 
-    const hanStarCl= (index: number) =>
-    {
-        setSelectRate(index+1);
+    const hanStarCl = (index: number) => {
+        setSelectRate(index + 1);
         console.log('Star clicked');
     };
 
@@ -56,34 +55,36 @@ function Feedback() {
 
         // Send feedback to server
         try {
-            const response = await fetch('http://localhost:8080/feedback/add', {
+            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+            const response = await fetch(`${API_BASE_URL}/feedback/add`, {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: formData.toString(),
                 // credentials: 'include',
-              });
+            });
 
-              if (response.ok) {
+            if (response.ok) {
                 // Handle successful response
                 console.log('Feedback submitted successfully');
                 alert('Feedback submitted successfully!');
 
                 // Reload page
                 window.location.reload();
-        
-              } else {
+
+            } else {
                 // Handle error response
                 console.error('Error submitting feedback');
-              }
+            }
 
         } catch (error) {
             console.error('Error:', error);
         }
 
-        console.log('Feedback submitted', feedback,selectRate);
-        
+        console.log('Feedback submitted', feedback, selectRate);
+
         setFeedback(''); //resets feedback
         setSelectRate(0); //resets star rating
     };
@@ -94,14 +95,16 @@ function Feedback() {
             // Fetch reviews from server
 
             // Endpoint is parameterized
-            const response = await fetch(`http://localhost:8080/feedback/list?limit=${limit}`, {
+            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+            const response = await fetch(`${API_BASE_URL}/feedback/list?limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
-            if(response.ok) {
+            if (response.ok) {
                 // Handle successful response
                 const feedbacks = await response.json();
 
@@ -117,31 +120,31 @@ function Feedback() {
             console.error('Error:', error);
         }
     }
-    
+
     return (
         <div className="fcontainer">
             <div className="fbackground">
-                <img src='src/assets/logoCircle.png' className="flogo"></img>
+                <img src='../assets/logoCircle.png' className="flogo"></img>
                 <div className="ftitle">SkiSmart</div>
-                    <form className="feedback-box" onSubmit={handleSub}>
-                        <label htmlFor="feedback">Feedback: </label>
-                        <textarea className="thisfeedback" rows={3} placeholder="Type feedback here" style={{ width: '100%' }} value={feedback} onChange={(e)=>setFeedback(e.target.value)}></textarea>
-                        <h3> Leave Us A Review:</h3>
-                        <div className="starRating">
-                            {[...Array(5)].map((_,index)=> (
-                                <span 
-                                    key= {index} 
-                                    className={`star ${selectRate > index ? 'selected' : ''}`}
-                                    onClick={()=> hanStarCl(index)}
-                                    >
-                                        ★
-                                    </span>
-                            ))}
-                        </div>
-                        <button className="submitButton" style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white'}} type= "submit" > Submit </button>
-                    </form>
+                <form className="feedback-box" onSubmit={handleSub}>
+                    <label htmlFor="feedback">Feedback: </label>
+                    <textarea className="thisfeedback" rows={3} placeholder="Type feedback here" style={{ width: '100%' }} value={feedback} onChange={(e) => setFeedback(e.target.value)}></textarea>
+                    <h3> Leave Us A Review:</h3>
+                    <div className="starRating">
+                        {[...Array(5)].map((_, index) => (
+                            <span
+                                key={index}
+                                className={`star ${selectRate > index ? 'selected' : ''}`}
+                                onClick={() => hanStarCl(index)}
+                            >
+                                ★
+                            </span>
+                        ))}
+                    </div>
+                    <button className="submitButton" style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', background: 'black', color: 'white' }} type="submit" > Submit </button>
+                </form>
             </div>
-            
+
             <div className="feedbackDisplay">
                 <h1>Our Reviews!</h1>
                 {reviews && reviews.map((review, reviewIndex) => (
@@ -151,7 +154,7 @@ function Feedback() {
                             {[...Array(5)].map((_, starIndex) => (
                                 <span
                                     key={starIndex}
-                                    className={`staticReviewstar ${review.rating > starIndex ? 'selected' : ''}`}
+                                    className={`staticReviewstar ${review.rating > starIndex ? 'selected' : ''} `}
                                 >
                                     ★
                                 </span>
@@ -161,8 +164,8 @@ function Feedback() {
                     </div>
                 ))}
                 <div>
-                    <button className="moreReviews" 
-                    onClick={() => {setLimit(limit + 3) }}>More Reviews</button>
+                    <button className="moreReviews"
+                        onClick={() => { setLimit(limit + 3) }}>More Reviews</button>
                 </div>
             </div>
         </div>

@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { isAuthenticated } from '../utils/auth';
-import '@/styles/components/navbar.css';
+import '../styles/components/navbar.css';
+import logoImg from '../assets/logo.png';
 
 function Navbar() {
   const [authenticated, setAuthenticated] = useState(false);
 
-    useEffect(() => {
-        isAuthenticated() ? setAuthenticated(true) : setAuthenticated(false);
-    }, []);
+  useEffect(() => {
+    isAuthenticated() ? setAuthenticated(true) : setAuthenticated(false);
+  }, []);
 
 
   return (
@@ -15,8 +16,7 @@ function Navbar() {
       <div className='navLeft'>
         <a href='/'>SkiSmart</a>
         <div className='imgContainer'>
-          <img src='src/assets/logo.png' alt='Logo' />
-        </div>
+          <img src={logoImg} alt="Logo" /></div>
       </div>
 
       <div className='navRight'>
