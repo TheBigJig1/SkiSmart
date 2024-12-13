@@ -232,7 +232,7 @@ func main() {
 	fs := http.FileServer(http.Dir(reactDir))
 	http.Handle("/", fs)
 
-	mux.HandleFunc("api/users/create", UserCreate)
+	mux.HandleFunc("/users/create", UserCreate)
 	mux.HandleFunc("/users/login", UserLogin)
 	mux.HandleFunc("/users/logout", UserLogout)
 	mux.HandleFunc("/feedback/add", FeedbackAdd)

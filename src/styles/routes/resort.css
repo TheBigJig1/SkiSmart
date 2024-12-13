@@ -121,8 +121,8 @@
 
 .resortContentContainer {
     grid-area: resortContentContainer;
-    margin-left: 2vh;
-    margin-right: 2vh;
+    margin-left: 4vw;
+    margin-right: 4vw;
 
     display: flex;
     flex-direction: column;
@@ -195,6 +195,10 @@
         margin-top: 2vh;
         border: 1px solid #ededeb;
     }
+}
 
-
+@media (max-width: 768px) {
+    .searchButton:hover {
+        transform: none;
+    }
 }

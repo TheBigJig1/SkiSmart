@@ -105,7 +105,7 @@ function Account() {
                         </ul>
                     </div>
                     <div className="accountResorts">
-                        <h2>Your Bookmarks</h2>
+                        <h1>Your Bookmarks</h1>
                         {resorts && resorts.map((resort, resortIndex) => (
                             <ResortCard key={resortIndex}{...resort} />
                         ))}

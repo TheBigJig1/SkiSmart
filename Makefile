@@ -1,5 +1,3 @@
-
-
 all: clean test build
 
 clean:
@@ -32,8 +30,8 @@ build: backend frontend
 
 deploy:
 	ssh cs330 "rm -rf skismart skismart.js"
-	scp -r dist cs330:/home/azureuser/skismart.js
-	scp bin/skismart cs330:/home/azureuser/skismart
+	scp -r -C dist cs330:/home/azureuser/skismart.js
+	scp -C bin/skismart cs330:/home/azureuser/skismart
 
 remote-run:
 	read -p "Enter server db password: " db_pass; \
