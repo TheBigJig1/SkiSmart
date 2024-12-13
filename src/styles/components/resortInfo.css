@@ -148,6 +148,10 @@
 
     grid-area: leaflet;
 
+    h1 {
+        font-size: clamp(1rem, 10vw, 4rem);
+    }
+
     .mapbuttons {
         margin-top: 2vh;
         display: flex;
@@ -181,6 +185,13 @@
         border-radius: 5px;
         border-width: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .legend {
+        padding: 10px;
+        border: 1px solid #ccc;
+        max-width: 200px;
+        margin: 10px auto;
     }
 }
 
@@ -301,6 +312,12 @@
         }
     }
 
+}
+
+@media (max-width: 700px) {
+    .legend-container {
+        transform: scale(.6) translate(20%, 20%);
+    }
 }
 
 @media (max-width: 612px) {

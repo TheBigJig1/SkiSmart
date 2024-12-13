@@ -32,7 +32,7 @@ const Legend: React.FC<LegendProps> = ({ handleToggleDepth, isLegendVisible }) =
     if (!isLegendVisible) return null;
 
     return (
-        <div style={{ padding: "10px", border: "1px solid #ccc", maxWidth: "200px", margin: "10px auto" }}>
+        <div className="legend">
             <h4>Snow Depth (inches)</h4>
             <ul style={{ listStyleType: "none", padding: 0 }}>
                 {legendItems.map((item, index) => (
