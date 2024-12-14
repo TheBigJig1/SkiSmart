@@ -20,6 +20,10 @@
     min-height: 80vh;
     width: 100%;
 
+    background-image: url('../assets/feedback-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+
     justify-items:center;
 
     display: grid;
@@ -220,7 +224,6 @@
 
     .fbackground {
         background-image: url('../assets/feedback-background-dark.jpg');
-        background-position: top;
     }
 
     .ftitle {
