@@ -1,39 +1,44 @@
+/* Styles for the sign-in page */
+
+/* Container for the sign-in page */
 .signin-container {
-  height: calc(100vh- 2px);
-  width: 100%;
+  height: calc(100vh - 2px); /* Full viewport height minus 2 pixels */
+  width: 100%; /* Full width */
 
-  font-family: "Anonymous Pro", monospace;
+  font-family: "Anonymous Pro", monospace; /* Font style */
 
-  display: flex;
-  justify-content: center;
+  display: flex; /* Flexbox layout */
+  justify-content: center; /* Center content horizontally */
 }
-.signin-background{
-  background-image: url('../assets/sign-in-background.jpg');
-  background-size:cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  justify-content: center;
-  height:calc(96vh - 2px);
-  width: 100vw;
+
+/* Background styling for the sign-in page */
+.signin-background {
+  background-image: url('../assets/sign-in-background.jpg'); /* Background image */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Do not repeat the background image */
+  justify-content: center; /* Center content horizontally */
+  height: calc(96vh - 2px); /* 96% of viewport height minus 2 pixels */
+  width: 100vw; /* Full viewport width */
 }
 
 .signin-form {
-  padding: 5vh 5vw;
-  padding-top: 3vh;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  width: 100%;
-  height: auto;
-  max-height: 90vh;
+  padding: 5vh 5vw; /* Padding: 5% of viewport height and width */
+  padding-top: 3vh; /* Top padding: 3% of viewport height */
+  margin-top: 2vh; /* Top margin: 2% of viewport height */
+  margin-bottom: 2vh; /* Bottom margin: 2% of viewport height */
+  width: 100%; /* Full width */
+  height: auto; /* Automatic height */
+  max-height: 90vh; /* Maximum height: 90% of viewport height */
 
-  background-color: rgba(182, 182, 182, 0.849);
-  border: 0px;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
-  max-width: 24rem;
+  background-color: rgba(182, 182, 182, 0.849); /* Semi-transparent background color */
+  border: 0px; /* No border */
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  max-width: 24rem; /* Maximum width: 24 rem */
 
-  display: grid;
-  grid-template-areas:
+  display: grid; /* Grid layout */
+  grid-template-areas: /* Define grid areas */
     "signinLogo"
     "form-group"
     "form-links"
@@ -41,57 +46,55 @@
     "contact-info";
 }
 
+/* Styling for the logo area in the sign-in form */
 .signinLogo {
-  grid-area: signinLogo;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  grid-area: signinLogo; /* Assign to grid area */
+  display: flex; /* Flexbox layout */
+  flex-direction: column; /* Column layout */
+  align-items: center; /* Center items horizontally */
 }
 
-
+/* Styling for the logo image */
 .logo-image {
-  width: 18vw;
-  max-width: 50%;
-  height: auto;
-  object-fit: contain;
+  width: 18vw; /* Width: 18% of viewport width */
+  max-width: 50%; /* Maximum width: 50% */
 }
 
+/* Styling for the logo container */
 .signin-logo {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
+  position: relative; /* Relative positioning */
+  display: flex; /* Flexbox layout */
+  flex-direction: column; /* Column layout */
+  align-items: center; /* Center items horizontally */
+  margin-bottom: 2rem; /* Bottom margin: 2 rem */
 }
 
+/* Styling for the logo text */
 .logo-text {
-  font-size: 2rem;
-  color: #141414;
-  margin: 0;
-  font-family: "Anonymous Pro", monospace;
-  font-weight: normal;
+  font-size: 2rem; /* Font size: 2 rem */
+  color: #141414; /* Text color */
+  margin: 0; /* No margin */
+  font-family: "Anonymous Pro", monospace; /* Font style */
+  font-weight: normal; /* Normal font weight */
 }
 
+/* Styling for the form fields container */
 .signin-form-fields {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: flex; /* Flexbox layout */
+  flex-direction: column; /* Column layout */
+  gap: 1rem; /* Gap between items: 1 rem */
 }
 
-.form-input {
-  width: 100%;
-}
-
+/* Styling for the form group */
 .form-group {
-  width: 80%;
-  margin-bottom: 1rem;
+  width: 80%; /* Width: 80% */
+  margin-bottom: 1rem; /* Bottom margin: 1 rem */
 }
 
+/* Styling for the form labels */
 .form-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  color:#141414;
+  display: block; /* Block display */
+  margin-bottom: 0.5rem; /* Bottom margin: 0.5 rem */
 }
 
 .form-input {
@@ -118,48 +121,49 @@
   margin-bottom: 0.5rem;
 }
 
+/* Styling for the form submit button */
 .form-submit {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  display: flex; /* Flexbox layout */
+  justify-content: center; /* Center content horizontally */
+  margin-top: 1rem; /* Top margin: 1 rem */
 }
 
+/* Styling for the submit button */
 .submit-button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: #ededed;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  padding: 0.5rem 1rem; /* Padding: 0.5 rem top/bottom, 1 rem left/right */
+  background-color: #007bff; /* Background color: blue */
+  color: #ededed; /* Text color: light gray */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners with 4px radius */
+  cursor: pointer; /* Pointer cursor on hover */
 }
 
+/* Styling for the contact information section */
 .contact-info {
-  text-align: center;
-  padding: 1rem;
-  background-color: #f8f9fa;
-  font-size: small;
+  text-align: center; /* Center text alignment */
+  padding: 1rem; /* Padding: 1 rem */
+  background-color: #f8f9fa; /* Background color: light gray */
+  font-size: small; /* Small font size */
 }
 
+/* Styling for the signup form fields */
 .signup-form-fields {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  transform: translateY(-3vh);
-
-  margin-bottom: 4vw;
+  display: flex; /* Flexbox layout */
+  flex-direction: column; /* Column direction */
+  align-items: center; /* Center items horizontally */
+  transform: translateY(-3vh); /* Move up by 3% of viewport height */
+  margin-bottom: 4vw; /* Bottom margin: 4% of viewport width */
 }
 
+/* Dark mode styling */
 @media (prefers-color-scheme: dark) {
- 
   .signin-container {
-    background-image: url('../assets/sign-in-background-dark.jpg');
-    background-position: center;
-    height: calc(96vh - 2px);
+    background-image: url('../assets/sign-in-background-dark.jpg'); /* Background image for dark mode */
+    background-position: center; /* Center background image */
+    height: calc(96vh - 2px); /* Height calculation */
   }
 
   .signin-logo {
-      color: #ededeb;
+    color: #ededeb; /* Light gray color for logo text */
   }
-
 }

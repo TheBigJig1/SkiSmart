@@ -1,180 +1,189 @@
+/* Main container for the resort page */
 .resortContainer {
-    display: grid;
-    width: 100%;
-    grid-template-areas:
+    display: grid; /* Grid layout for organizing sections */
+    width: 100%; /* Full width of the page */
+    grid-template-areas: /* Define named grid areas */
         "resortBackground"
         "resortText"
         "searchbar"
         "resortContentContainer";
 }
 
+/* Background section of the resort page */
 .resortBackground {
-    position: relative;
-    grid-area: resortBackground;
+    position: relative; /* Allows positioning of pseudo-elements */
+    grid-area: resortBackground; /* Assign to the grid area */
 
-    height: 35vw;
-    width: 100%;
-    
-    background-image: url('../assets/resort-page-background.png');
-    background-size: 100%;
-    background-repeat: no-repeat;
+    height: 35vw; /* Height is responsive to viewport width */
+    width: 100%; /* Full width of the viewport */
 
-    justify-items: center;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
+    background-image: url('../assets/resort-page-background.png'); /* Add a background image */
+    background-size: 100%; /* Scale image to fit container width */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+
+    justify-items: center; /* Center items within the grid horizontally */
+    display: grid; /* Use grid layout for content */
+    grid-template-rows: 1fr 1fr; /* Two equal-height rows */
+    grid-template-areas: /* Define areas for logo and title */
         "resortLogo"
         "resortTitle";
 
-    padding-top: 5vh;
-    margin-bottom: 10vh;
+    padding-top: 5vh; /* Top padding for spacing */
+    margin-bottom: 10vh; /* Bottom margin for spacing below */
 }
 
+/* Gradient overlay on the background section */
 .resortBackground::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 33%;
+    content: ""; /* Empty content for the overlay */
+    position: absolute; /* Positioned relative to the parent */
+    bottom: 0; /* Stick to the bottom of the parent */
+    left: 0; /* Align with the left side */
+    width: 100%; /* Full width */
+    height: 33%; /* Covers the bottom third of the background */
+
+    /* Gradient effect transitioning from transparent to white */
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-    pointer-events: none; 
+    pointer-events: none; /* Prevent interaction with the overlay */
 }
 
+/* Logo area inside the background */
 .resortLogo {
-    grid-area: resortLogo;
-    width: auto;
-    height: 18vw;
+    grid-area: resortLogo; /* Assigned to the logo grid area */
+    width: auto; /* Automatically adjust width */
+    height: 18vw; /* Height responsive to viewport width */
 }
 
+/* Title displayed in the background section */
 .resortTitle {
-    grid-area: resortTitle;
-    justify-self: center;
+    grid-area: resortTitle; /* Assigned to the title grid area */
+    justify-self: center; /* Center the title horizontally */
 
-    font-size: 4vw;
-    font-family: "Anonymous Pro", monospace;
-    color: #141414;
+    font-size: 4vw; /* Responsive font size */
+    font-family: "Anonymous Pro", monospace; /* Monospace font style */
+    color: #141414; /* Dark gray color */
 
-    height: 4vw;
+    height: 4vw; /* Height matches font size */
 }
 
+/* Text section below the background */
 .resortText {
-    grid-area: resortText;
-    margin-top: 2vw;
-    justify-self: center;
+    grid-area: resortText; /* Assign to the text grid area */
+    margin-top: 2vw; /* Top margin for spacing */
+    justify-self: center; /* Center horizontally */
 
-    transform: translateY(-2vh);
+    transform: translateY(-2vh); /* Adjust position slightly upward */
 
-    font-size: 5vw;
-    font-family: "Anonymous Pro", monospace;
-    color: #141414;
+    font-size: 5vw; /* Large, responsive font size */
+    font-family: "Anonymous Pro", monospace; /* Monospace font style */
+    color: #141414; /* Dark gray color */
 
-    height: 4vw;
-    margin-bottom: 2vw;
+    height: 4vw; /* Height matches font size */
+    margin-bottom: 2vw; /* Bottom margin for spacing */
 }
 
+/* Search bar section */
 .searchbar {
-    grid-area: searchbar;
-    margin-top: 2vw;
-    margin-left: 10vw;
-    margin-right: 10vw;
-    margin-bottom: 2vw;
-    padding-left: 5vw;
+    grid-area: searchbar; /* Assign to search bar grid area */
+    margin: 2vw 10vw; /* Spacing around the search bar */
+    padding-left: 5vw; /* Padding on the left side */
 
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Center contents horizontally */
+    align-items: center; /* Align contents vertically */
 
-    font-size: 1.5vw;
-    
-    font-family: "Anonymous Pro"," monospace";
-    color: #141414;
-    transition: margin-top 0.5s ease;
+    font-size: 1.5vw; /* Responsive font size */
+    font-family: "Anonymous Pro", monospace; /* Monospace font style */
+    color: #141414; /* Dark gray color */
+    transition: margin-top 0.5s ease; /* Smooth margin-top animation */
 }
 
+/* Text input field for the search bar */
 .textBar {
-    width: 75%;
-    padding: 10px; 
-    font-size: 1em; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
-    margin-right: 10px;
+    width: 75%; /* Occupies 75% of the container width */
+    padding: 10px; /* Internal spacing */
+    font-size: 1em; /* Standard font size */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    margin-right: 10px; /* Spacing on the right */
 }
 
+/* Search button styling */
 .searchButton {
-    padding: 1vw 2vw; 
-    font-size: 1.5vw;
-    width: auto;
-    height: auto;
+    padding: 1vw 2vw; /* Responsive padding */
+    font-size: 1.5vw; /* Responsive font size */
+    width: auto; /* Automatic width */
+    height: auto; /* Automatic height */
 
-    border: 2px solid #141414;
-    
-    border-radius: 5px;
-    background-color: #141414;
-    color: #ededed; 
-    cursor: pointer;
-    transition: transform 0.3s ease; 
+    border: 2px solid #141414; /* Dark border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #141414; /* Dark background */
+    color: #ededed; /* Light text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: transform 0.3s ease; /* Smooth scaling animation */
 }
 
+/* Hover effect for the search button */
 .searchButton:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
+/* Main content container below the search bar */
 .resortContentContainer {
-    grid-area: resortContentContainer;
-    margin-left: 4vw;
-    margin-right: 4vw;
+    grid-area: resortContentContainer; /* Assign to content grid area */
+    margin: 0 4vw; /* Left and right margins */
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Column layout */
+    justify-content: center; /* Center contents vertically */
+    align-items: center; /* Center contents horizontally */
 
-    font-size: 1.5vw;
-    
-    font-family: "Anonymous Pro"," monospace";
-    color: #141414;
-    transition: margin-top 0.5s ease;
+    font-size: 1.5vw; /* Responsive font size */
+    font-family: "Anonymous Pro", monospace; /* Monospace font style */
+    color: #141414; /* Dark gray color */
+    transition: margin-top 0.5s ease; /* Smooth margin-top animation */
 }
 
+/* Row layout for resort information */
 .resortInfo {
-    display: flex;
-    flex-direction: row;
-    gap: 5rem;
+    display: flex; /* Flexbox layout */
+    flex-direction: row; /* Horizontal layout */
+    gap: 5rem; /* Space between items */
 }
 
+/* Button for loading more resorts */
 .moreResorts {
-    padding: 10px 20px;
-    margin-top: 4vw;
-    margin-bottom: 2vw;
+    padding: 10px 20px; /* Internal spacing */
+    margin-top: 4vw; /* Top margin */
+    margin-bottom: 2vw; /* Bottom margin */
 
-    font-size: 16px;
-    background: #141414;
-    color: #ededed;
-    cursor: pointer;
-    transition: transform 0.3s ease; 
+    font-size: 16px; /* Font size */
+    background: #141414; /* Dark background */
+    color: #ededed; /* Light text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: transform 0.3s ease; /* Smooth scaling animation */
 }
 
+/* Hover effect for the "More Resorts" button */
 .moreResorts:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
+/* Dark mode styles */
 @media (prefers-color-scheme: dark) {
- 
     .resortContainer {
-        background-color: #141414;
+        background-color: #141414; /* Dark background */
     }
 
     .resortText {
-        color: #ededed;
+        color: #ededed; /* Light text color */
     }
 
     .resortBackground {
-        background-image: url('../assets/resortBackgroundImgDark.jpg');
-        background-position: center;
+        background-image: url('../assets/resortBackgroundImgDark.jpg'); /* Dark mode background */
+        background-position: center; /* Center the background image */
     }
 
     .resortTitle {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
     .resortBackground::after {
@@ -182,23 +191,24 @@
     }
 
     .searchButton {
-        border: 2px solid #ededeb;
-        background-color: #141414;
-        color: #ededeb; 
+        border: 2px solid #ededeb; /* Light border */
+        background-color: #141414; /* Dark background */
+        color: #ededeb; /* Light text color */
     }
 
     .resortContentContainer {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
     .moreResorts {
-        margin-top: 2vh;
-        border: 1px solid #ededeb;
+        margin-top: 2vh; /* Adjusted top margin */
+        border: 1px solid #ededeb; /* Light border */
     }
 }
 
+/* Responsive styles for small screens */
 @media (max-width: 768px) {
     .searchButton:hover {
-        transform: none;
+        transform: none; /* Disable hover scaling on smaller screens */
     }
 }
