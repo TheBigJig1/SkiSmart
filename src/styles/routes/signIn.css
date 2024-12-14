@@ -97,28 +97,31 @@
   margin-bottom: 0.5rem; /* Bottom margin: 0.5 rem */
 }
 
+/* Styling for the form input fields */
 .form-input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  color: #141414;
-  background-color: #ededed;
+  width: 100%; /* Full width */
+  padding: 0.5rem; /* Padding: 0.5 rem */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Rounded corners with 4px radius */
+  color: #141414; /* Text color: dark gray */
+  background-color: #ededed; /* Background color: light gray */
 }
 
-.form-links {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+/* Styling for the form links container */
+.form-links { 
+  display: flex; /* Flexbox layout */
+  flex-direction: column; /* Column layout */
+  align-items: center; /* Center items horizontally */
+  margin-top: 1rem; /* Top margin: 1 rem */
+  margin-bottom: 1rem; /* Bottom margin: 1 rem */
 }
 
+/* Styling for the signup and forgot password links */
 .signup-link,
 .forgot-password-link {
-  color: #333;
-  text-decoration: none;
-  margin-bottom: 0.5rem;
+  color: #333; /* Text color: dark gray */
+  text-decoration: none; /* No underline */
+  margin-bottom: 0.5rem; /* Bottom margin: 0.5 rem */
 }
 
 /* Styling for the form submit button */
@@ -157,12 +160,14 @@
 
 /* Dark mode styling */
 @media (prefers-color-scheme: dark) {
+  /* Dark mode styles for the sign-in form */
   .signin-container {
     background-image: url('../assets/sign-in-background-dark.jpg'); /* Background image for dark mode */
     background-position: center; /* Center background image */
     height: calc(96vh - 2px); /* Height calculation */
   }
 
+  /* Dark mode styles for the sign-in form */
   .signin-logo {
     color: #ededeb; /* Light gray color for logo text */
   }

@@ -1,3 +1,5 @@
+/* Styles for the Home route */
+
 /* Main container for the page layout */
 .pageContainer {
     display: grid; /* Use grid layout for organizing sections */
@@ -249,9 +251,12 @@
   
 /* Responsive styles for small screens */
 @media (max-width: 964px) {
+    /* Adjustments for smaller screens */
     .pageContainer {
         width: 100vw; /* Full viewport width */
     }
+
+    /* Background section adjustments */
     .NOAA {
         height: auto; /* Adjust height automatically */
         grid-template-columns: 1fr; /* Single column layout */
@@ -260,6 +265,7 @@
             "NOAAImg"; /* Stack text and image vertically */
     }
 
+    /* Team section adjustments */
     .team {
         height: auto; /* Adjust height automatically */
         grid-template-columns: 1fr; /* Single column layout */
@@ -271,52 +277,63 @@
 
 /* Dark mode styles */
 @media (prefers-color-scheme: dark) {
- 
+    /* Dark mode styles for the page container */
     .pageContainer {
         background-color: #141414; /* Dark background color */
     }
 
+    /* Dark mode styles for the title */
     .pageBackground {
         background-image: url('../assets/dark-mode-background.jpg'); /* Dark mode background image */
         background-position: center; /* Center the background image */
     }
 
+    /* Dark mode styles for the title */
     .title {
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the intro section */
     .pageBackground::after {
         background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);  /* Dark gradient overlay */
     }
 
+    /* Dark mode styles for the intro section */
     .intro {
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the mission section */
     .mission {
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the popular resorts section */
     .popularResorts {
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the explore button */
     .exploreButtonContainer {
         background-image: url("../assets/exploreButtonDark.png"); /* Dark mode image */
     }
 
+    /* Dark mode styles for the NOAA section */
     .footer {
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the team section */
     .teamText {
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the footer section */
     .NOAAText {
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the footer section */
     .signinRedirect {
         margin-top: 2vh; /* Adjusted top margin */
         border: 1px solid #ededeb; /* Light border */

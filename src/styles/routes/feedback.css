@@ -1,3 +1,5 @@
+/* Styles for the feedback page */
+
 /* Container for the feedback section */
 .fcontainer {
     display: grid; /* Use grid layout to organize sections */
@@ -93,16 +95,17 @@
     font-family: "Anonymous Pro", monospace; /* Monospace font */
 }
 
+/* Textarea for feedback input */
 .feedback-box {
-    max-width: 90vw;
-    padding: 20px;
-    border-radius: 8px;
+    max-width: 90vw; /* Maximum width */
+    padding: 20px; /* Padding around the box */
+    border-radius: 8px; /* Rounded corners */
 
-    background-color: rgba(182, 182, 182, 0.849);
+    background-color: rgba(182, 182, 182, 0.849); /* Semi-transparent background */
     
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;  /* Center items horizontally */
 }
 
 /* Feedback input box */
@@ -223,37 +226,45 @@
 
 /* Dark mode styles */
 @media (prefers-color-scheme: dark) {
+    /* Dark mode styles for the feedback container */
     .fcontainer {
         background-color: #141414; /* Dark background color */
     }
 
+    /* Dark mode styles for the feedback background */
     .fbackground {
         background-image: url('../assets/feedback-background-dark.jpg'); /* Dark mode background */
     }
 
+    /* Dark mode styles for the feedback title */
     .ftitle {
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the feedback box */
     .fbackground::after {
         background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%); /* Dark gradient overlay */
     }
 
+    /* Dark mode styles for the feedback input label */
     .submitButton {
         border: 2px solid #ededeb; /* Light border */
         background-color: #141414; /* Dark background */
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the feedback display section */
     .feedbackDisplay {
         background-color: #141414; /* Dark background */
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the feedback display heading */
     .feedbackDisplay h1 {
         color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the feedback item */
     .moreReviews {
         margin-top: 2vh; /* Adjusted top margin */
         border: 1px solid #ededeb; /* Light border */

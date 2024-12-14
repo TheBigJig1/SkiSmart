@@ -112,6 +112,7 @@
 
     font-size: 1.5vw; /* Font size based on viewport width */
 
+    /* Responsive layout for different screen sizes */
     h2 {
         justify-self: center; /* Centers the h2 element */
     }
@@ -143,35 +144,43 @@
 
 /* Dark mode specific styles */
 @media (prefers-color-scheme: dark) {
+    /* Dark mode styles for the account container */
     .accountContainer {
         background-color: #141414; /* Dark background for account container */
     }
     
+    /* Dark mode styles for the account header */
     .accountHeader {
         color: #ededeb; /* Lighter text color */
     }
 
+    /* Dark mode styles for the account personal section */
     .accountResorts {
         color: #ededeb; /* Lighter text color */
     }
 
+    /* Dark mode styles for the account info section */
     .accountInfo {
         color: #ededeb; /* Lighter text color */
     }
 
+    /* Dark mode styles for the account background */
     .accountBackground {
         background-image: url('../assets/accountnightbackground.jpg'); /* Dark mode background */
         background-position: center; /* Centers the background image */
     }
 
+    /* Dark mode styles for the account background overlay */
     .accountBackground::after {
         background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%); /* Dark gradient */
     }
 
+    /* Dark mode styles for the account footer */
     .accountFooter {
         color: #ededeb; /* Lighter text color */
     }
 
+    /* Dark mode styles for the home redirect button */
     .homeRedirect {
         margin-top: 2vh; /* Adds margin to the top */
         border: 1px solid #ededeb; /* Light border for the button */
