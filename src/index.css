@@ -1,72 +1,92 @@
+/* This file is a global CSS file that sets the default styles for the application. */
+
+/* Root element styles the root element of the application. */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  width: 100%;
-  color-scheme: light dark;
-  color: #141414;
-  background-color: #242424;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; /* This property specifies the font of the element. */
+  line-height: 1.5; /* Specifies the line height of the element. */
+  font-weight: 400; /* Specifies the weight of the font. */
+  width: 100%; /* Specifies the width of the element. */
+  color-scheme: light dark; /* Specifies the color scheme of the element. */
+  color: #141414; /* Specifies the color of the element. */
+  background-color: #242424; /* Specifies the background color of the element. */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none; /* Specifies the font synthesis of the element. */
+  text-rendering: optimizeLegibility; /* Specifies the text rendering of the element. */
+  -webkit-font-smoothing: antialiased; /* Specifies the font smoothing of the element. */
+  -moz-osx-font-smoothing: grayscale; /* Specifies the font smoothing of the element. */
 
+  /* Scrollbar styles */
   ::-webkit-scrollbar {
-    display: none;
+    display: none; /* Specifies the display of the scrollbar. */
   }
 }
 
+/* Anchor element styles the anchor element of the application. */
 a {
-  font-weight: 500;
-  color: #141414;
-  text-decoration: inherit;
+  font-weight: 500; /* Specifies the weight of the font. */
+  color: #141414; /* Specifies the color of the element. */
+  text-decoration: inherit; /* Specifies the text decoration of the element. */
 }
+
+/* Anchor element on hover styles the anchor element when hovered. */
 a:hover {
-  color: #535bf2;
+  color: #535bf2; /* Specifies the color of the element. */
 }
 
+/* Body styles the body of the application. */
 body {
-  margin: 0;
-  display: flex;
-  min-width: 320px;
-  min-height: 100vh;
-  width: 100%;
+  margin: 0; /* Specifies the margin of the element. */
+  display: flex; /* Specifies the display of the element. */
+  min-width: 320px; /* Specifies the minimum width of the element. */
+  min-height: 100vh; /* Specifies the minimum height of the element. */
+  width: 100%; /* Specifies the width of the element. */
 }
 
+/* Header styles the header of the application. */
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 3.2em; /* Specifies the font size of the element. */
+  line-height: 1.1; /* Specifies the line height of the element. */
 }
 
+/* Button styles the button of the application. */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  border-radius: 8px; /* Specifies the border radius of the element. */
+  border: 1px solid transparent; /* Specifies the border of the element. */
+  padding: 0.6em 1.2em; /* Specifies the padding of the element. */
+  font-size: 1em; /* Specifies the font size of the element. */
+  font-weight: 500; /* Specifies the weight of the font. */
+  font-family: inherit; /* Specifies the font family of the element. */
+  background-color: #1a1a1a; /* Specifies the background color of the element. */
+  cursor: pointer; /* Specifies the cursor of the element. */
+  transition: border-color 0.25s; /* Specifies the transition of the element. */
 }
+
+/* Button on hover styles the button when hovered. */
 button:hover {
-  border-color: #646cff;
+  border-color: #646cff; /* Specifies the border color of the element. */
 }
+
+/* Button on focus styles the button when focused. */
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto -webkit-focus-ring-color; /* Specifies the outline of the element. */
 }
 
+/* Button on active styles the button when active. */
 @media (prefers-color-scheme: light) {
+  /* Root element styles the root element of the application. */
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #213547; /* Specifies the color of the element. */
+    background-color: #ffffff; /* Specifies the background color of the element. */
   }
+
+  /* Anchor element styles the anchor element of the application. */
   a:hover {
-    color: #747bff;
+    color: #747bff; /* Specifies the color of the element. */
   }
+
+  /* Button styles the button of the application. */
   button {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* Specifies the background color of the element. */
   }
 }

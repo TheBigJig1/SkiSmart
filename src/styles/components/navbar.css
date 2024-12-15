@@ -1,69 +1,86 @@
+/* This file contains the styles for the navbar component */
+
+/* Navbar container */
 div.navbarContainer {
-    display:flex;
-    position: sticky;
-    top: 0;
-    z-index: 100000;
+    display:flex; /* Use flexbox for layout */
+    position: sticky; /* Stick to the top of the viewport */
+    top: 0; /* Align to the top */
+    z-index: 100000; /* Set a high z-index */
 
-    width: calc(100% - 4px);
-    max-width: 100vw;
-    min-width: 99vw;
+    width: calc(100% - 4px); /* Full width minus 4px */
+    max-width: 100vw; /* Maximum width of 100vw */
+    min-width: 99vw; /* Minimum width of 99vw */
 
-    background-color: white;
-    border: 2px solid #141414;
-    font-family: "Anonymous Pro";
-    font-size: calc(0.5vw + 10px);
+    background-color: white; /* White background color */
+    border: 2px solid #141414; /* Dark border with 2px width */
+    font-family: "Anonymous Pro"; /* Font style */
+    font-size: calc(0.5vw + 10px); /* Responsive font size */
 
+    /* Transition effect for smooth animation */
     a {
-        transition: 500ms;
+        transition: 500ms; /* Smooth transition effect */
     }
+
+    /* Hover effect for the links */
     a:hover {
-        scale: 1.2;
+        scale: 1.2; /* Slightly enlarge on hover */
     }
-}
-div.navLeft{
-    display: flex;
-    flex-direction: row;
-    padding-left: 2vw;
-    text-align: left;
-    padding-top:0.5vh;
-    width: 30%;
-   
-}
-div.navRight{
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    align-items: center;
-    padding-top: 0.5vh;
-    padding-right:2vw;
-    gap: 1rem;
-    text-align: right;
-    width: 70%;
-    
-}
-div.imgContainer{
-    transform: translateY(-1px);
-    justify-content: center;
-    img {
-        width: 20px;
-        height: 20px;
-        margin-left:.5vw;
-      }
-      
 }
 
+/* Navbar left section */
+div.navLeft{
+    display: flex; /* Use flexbox for layout */
+    flex-direction: row; /* Horizontal layout */
+    padding-left: 2vw; /* Left padding */
+    text-align: left; /* Align text to the left */
+    padding-top:0.5vh; /* Top padding */
+    width: 30%; /* 30% width */
+}
+
+/* Navbar right section */
+div.navRight{
+    display: flex; /* Use flexbox for layout */
+    flex-direction: row; /* Horizontal layout */
+    justify-content: end; /* Align to the end */
+    align-items: center; /* Center items vertically */
+    padding-top: 0.5vh; /* Top padding */
+    padding-right:2vw; /* Right padding */
+    gap: 1rem; /* Space between items */
+    text-align: right; /* Align text to the right */
+    width: 70%; /* 70% width */
+}
+
+/* Logo container */
+div.imgContainer{
+    transform: translateY(-1px); /* Move up by 1px */
+    justify-content: center; /* Center content vertically */
+
+    /* Logo image */
+    img {
+        width: 20px; /* Width: 20px */
+        height: 20px; /* Height: 20px */
+        margin-left:.5vw; /* Left margin */
+      }
+}
+
+/* Dark mode styles */
 @media (prefers-color-scheme: dark) {
+    /* Dark mode styles for the navbar container */
     div.navbarContainer {
-        background-color: #141414;
-        border: 1px solid #ededeb;
-        width: calc(100vw - 2px);
-        color: #ededeb;
+        background-color: #141414; /* Dark background color */
+        border: 1px solid #ededeb; /* Light border with 1px width */
+        width: calc(100vw - 2px); /* Full width minus 2px */
+        color: #ededeb; /* Light text color */
     }
+
+    /* Dark mode styles for the links */
     div.navLeft a, div.navRight a{
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
+
+    /* Dark mode styles for the logo */
     div.imgContainer img {
-        border: 1px solid #ededeb;
-        border-radius: 4px;
+        border: 1px solid #ededeb; /* Light border with 1px width */
+        border-radius: 4px; /* Rounded corners */
     }
 }
