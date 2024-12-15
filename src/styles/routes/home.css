@@ -1,78 +1,85 @@
+/* Styles for the Home route */
+
+/* Main container for the page layout */
 .pageContainer {
-    display: grid;
-    width: 100%;
-    max-width: 100vw; /* Add this line */
-    grid-template-areas:
+    display: grid; /* Use grid layout for organizing sections */
+    width: 100%; /* Full page width */
+    max-width: 100vw; /* Prevent the container from exceeding the viewport width */
+    grid-template-areas: /* Define grid areas for sections */
         "pageBackground"
         "contentContainer";
 }
 
+/* Background section of the page */
 .pageBackground {
-    position: relative;
-    grid-area: pageBackground;
+    position: relative; /* Allow positioning of child elements and pseudo-elements */
+    grid-area: pageBackground; /* Assign this section to the 'pageBackground' grid area */
 
-    height: 35vw;
-    width: 100%;
-    max-width:100vw;
-    
-    background-image: url('../assets/HiResMountain.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    height: 35vw; /* Height is responsive to viewport width */
+    width: 100%; /* Full width of the viewport */
+    max-width: 100vw; /* Prevent the background from exceeding the viewport width */
 
-    justify-items:center;
+    background-image: url('../assets/HiResMountain.jpg'); /* Set the background image */
+    background-size: cover; /* Ensure the image covers the container */
+    background-repeat: no-repeat; /* Do not repeat the background image */
+    background-position: center; /* Center the background image */
 
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
+    justify-items: center; /* Horizontally align items in the grid */
+    display: grid; /* Use grid layout for the content inside */
+    grid-template-rows: 1fr 1fr; /* Two equal rows */
+    grid-template-areas: /* Define areas for the logo and title */
         "logo"
         "title";
-    padding-top: 5vh;
-    
+
+    padding-top: 5vh; /* Add space at the top */
 }
 
+/* Gradient overlay on the background */
 .pageBackground::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 33%;
+    content: ""; /* Create an empty pseudo-element */
+    position: absolute; /* Position it relative to the parent container */
+    bottom: 0; /* Align it to the bottom */
+    left: 0; /* Align it to the left */
+    width: 100%; /* Full width of the parent */
+    height: 33%; /* Cover the bottom third of the background */
+
+    /* Gradient effect transitioning from transparent to white */
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-    pointer-events: none; 
+    pointer-events: none; /* Make it unclickable */
 }
 
+/* Logo displayed in the background */
 .logo {
-    grid-area: logo;
-    width: auto;
-    height: 18vw;
-
+    grid-area: logo; /* Assign to the 'logo' grid area */
+    width: auto; /* Automatically adjust width */
+    height: 18vw; /* Height responsive to viewport width */
 }
 
+/* Title section displayed in the background */
 .title {
-    grid-area: title;
-
-    font-size: 4vw;
-    font-family: "Anonymous Pro", monospace;
-    color: #141414;
-    height: 4vw;
+    grid-area: title; /* Assign to the 'title' grid area */
+    font-size: 4vw; /* Responsive font size */
+    font-family: "Anonymous Pro", monospace; /* Monospace font for styling */
+    color: #141414; /* Set text color */
+    height: 4vw; /* Match the font size */
 }
 
+/* Main container for page content */
 .contentContainer {
-    grid-area: contentContainer;
-    margin-left: 2vh;
-    margin-right: 2vh;
+    grid-area: contentContainer; /* Assign to the 'contentContainer' grid area */
+    margin-left: 2vh; /* Left margin for spacing */
+    margin-right: 2vh; /* Right margin for spacing */
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-    font-size: 1.3em;
-    font-family: "Anonymous Pro"," monospace";
-    color: #141414;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange items in a column */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
 
-    grid-template-areas:
+    font-size: 1.3em; /* Font size for content */
+    font-family: "Anonymous Pro", monospace; /* Monospace font for styling */
+    color: #141414; /* Set text color */
+
+    grid-template-areas: /* Define grid areas for subsections */
         "intro"
         "mission"
         "popularResorts"
@@ -81,240 +88,254 @@
         "footer";
 }
 
+/* Introduction section */
 .intro {
-    grid-area: intro;
-    margin-top: 2vw;
+    grid-area: intro; /* Assign to the 'intro' grid area */
+    margin-top: 2vw; /* Add space at the top */
 
-    font-size: clamp(1rem, 4vw, 2rem);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: 2vw;
+    font-size: clamp(1rem, 4vw, 2rem); /* Responsive font size using clamp */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange items in a column */
+    justify-content: center; /* Center items vertically */
+    text-align: center; /* Center align the text */
+    margin-bottom: 2vw; /* Add space at the bottom */
 }
 
+/* Section for the mission statement */
 .mission {
-    grid-area: mission;
-    margin-top: 10vh;
-    margin-bottom: 10vh;
-
-    height: auto;
-
-    font-size: 1.4em;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    grid-area: mission; /* Assign to the mission grid area */
+    margin-top: 10vh; /* Top margin for spacing */
+    margin-bottom: 10vh; /* Bottom margin for spacing */
+    
+    height: auto; /* Adjust height automatically */
+    
+    font-size: 1.4em; /* Slightly larger font size */
+    
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Vertical layout */
+    justify-content: center; /* Center contents vertically */
+    align-items: center; /* Center contents horizontally */
 }
 
+/* Section for popular resorts */
 .popularResorts {
-    grid-area: popularResorts;
-    margin-top: 4vw;
-    margin-bottom: 10vw;
-
-    height: 100vh;
+    grid-area: popularResorts; /* Assign to the popular resorts grid area */
+    margin-top: 4vw; /* Top margin for spacing */
+    margin-bottom: 10vw; /* Bottom margin for spacing */
     
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    height: 100vh; /* Full viewport height */
+    
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Vertical layout */
+    justify-content: center; /* Center contents vertically */
+    align-items: center; /* Center contents horizontally */
+    text-align: center; /* Center text alignment */
+    
+    height: 20%; /* Adjust height to fit content */
 
-    height: 20%;
-
+    /* Styling for links within this section */
     a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: flex; /* Use flexbox layout */
+        justify-content: center; /* Center links horizontally */
+        align-items: center; /* Center links vertically */
     }
-
 }
 
+
+/* Container for the explore button */
 .exploreButtonContainer {
-    justify-self: center;
-    width: 85%;
-    background-image: url("../assets/exploreButton.png");
-    background-size: cover;
-    cursor: pointer; 
-    transition: transform 0.3s ease; 
+    justify-self: center; /* Center horizontally within its grid */
+    width: 85%; /* Set the container width */
+    background-image: url("../assets/exploreButton.png"); /* Button background image */
+    background-size: cover; /* Ensure image covers container */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: transform 0.3s ease; /* Smooth scaling animation */
 }
 
+/* Explore button image styling */
 .exploreButtonImg {
-    width: 100%; 
-    height: auto; 
-    opacity: 0;
+    width: 100%; /* Full width of the container */
+    height: auto; /* Automatic height adjustment */
+    opacity: 0; /* Fully transparent */
 }
 
+/* Hover effect for the explore button container */
 .exploreButtonContainer:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
+/* NOAA section with text and image */
 .NOAA {
-    grid-area: NOAA;
-    margin-top: 4vw;
-    height: 100vh;
-
-    display: grid; 
-    grid-template-columns: 2fr 1fr; 
+    grid-area: NOAA; /* Assign to the NOAA grid area */
+    margin-top: 4vw; /* Top margin for spacing */
+    height: 100vh; /* Full viewport height */
+    
+    display: grid; /* Use grid layout */
+    grid-template-columns: 2fr 1fr; /* Two columns with different proportions */
     grid-template-areas: 
-        "NOAAText NOAAImg";
+        "NOAAText NOAAImg"; /* Define named grid areas */
 }
 
+/* NOAA text area */
 .NOAAText {
-    grid-area: NOAAText;
-
-    font-size: 1.4em;
-
-    margin-right: 2vw;
+    grid-area: NOAAText; /* Assign to the text grid area */
+    font-size: 1.4em; /* Larger font size */
+    margin-right: 2vw; /* Right margin for spacing */
 }
 
+/* NOAA image area */
 .NOAAImg {
-    grid-area: NOAAImg;
-
-    margin-top: 20vh;
-
-    width: auto;
-    height: auto;
-
-    border: 2px solid #141414;
-    border-radius: 20px;
-
-    width: 100%;
+    grid-area: NOAAImg; /* Assign to the image grid area */
+    margin-top: 20vh; /* Top margin for spacing */
+    width: auto; /* Automatic width adjustment */
+    height: auto; /* Automatic height adjustment */
+    border: 2px solid #141414; /* Dark border */
+    border-radius: 20px; /* Rounded corners */
+    width: 100%; /* Full width */
 }
 
+/* Team section with text and image */
 .team {
-    grid-area: team;
-    margin-top: 4vw;
-    height: 100vh;
-
-    font-size: 2vw;
+    grid-area: team; /* Assign to the team grid area */
+    margin-top: 4vw; /* Top margin for spacing */
+    height: 100vh; /* Full viewport height */
     
-    display: grid; 
-    grid-template-columns: 1fr 2fr; 
+    font-size: 2vw; /* Larger font size */
+    
+    display: grid; /* Use grid layout */
+    grid-template-columns: 1fr 2fr; /* Two columns with different proportions */
     grid-template-areas: 
-        "teamImg teamText";
+        "teamImg teamText"; /* Define named grid areas */
 }
 
+/* Team image styling */
 .teamImg {
-    grid-area: teamImg;
-
-    margin-top: 20vh;
-
-    width: auto;
-    height: auto;
-
-    border: 2px solid #141414;
-    border-radius: 20px;
-
-    width: 100%;
+    grid-area: teamImg; /* Assign to the image grid area */
+    margin-top: 20vh; /* Top margin for spacing */
+    width: auto; /* Automatic width adjustment */
+    height: auto; /* Automatic height adjustment */
+    border: 2px solid #141414; /* Dark border */
+    border-radius: 20px; /* Rounded corners */
+    width: 100%; /* Full width */
 }
 
-
+/* Team text styling */
 .teamText {
-    grid-area: teamText;
-
-    font-size: 1.4em;
-
-    margin-top: 4vw;
-    margin-left: 2vw;
-    background-color: pink;
+    grid-area: teamText; /* Assign to the text grid area */
+    font-size: 1.4em; /* Larger font size */
+    margin-top: 4vw; /* Top margin for spacing */
+    margin-left: 2vw; /* Left margin for spacing */
+    background-color: pink; /* Pink background */
 }
 
-
+/* Footer section */
 .footer {
-    grid-area: footer;
-    margin-top: 5vh;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
+    grid-area: footer; /* Assign to the footer grid area */
+    margin-top: 5vh; /* Top margin for spacing */
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Vertical layout */
+    justify-content: center; /* Center contents vertically */
+    align-items: center; /* Center contents horizontally */
 }
 
+/* Sign-in redirect button */
 .signinRedirect {
-    cursor: pointer;
-    transition: transform 0.3s ease; 
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: transform 0.3s ease; /* Smooth scaling animation */
 }
 
+/* Hover effect for the sign-in redirect button */
 .signinRedirect:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1); /* Slightly enlarge on hover */
 }
-
   
+/* Responsive styles for small screens */
 @media (max-width: 964px) {
+    /* Adjustments for smaller screens */
     .pageContainer {
-        width: 100vw; /* Add this line */
+        width: 100vw; /* Full viewport width */
     }
+
+    /* Background section adjustments */
     .NOAA {
-        height: auto;
-        grid-template-columns: 1fr; 
+        height: auto; /* Adjust height automatically */
+        grid-template-columns: 1fr; /* Single column layout */
         grid-template-areas: 
             "NOAAText"
-            "NOAAImg";
+            "NOAAImg"; /* Stack text and image vertically */
     }
 
+    /* Team section adjustments */
     .team {
-        height: auto;
-        grid-template-columns: 1fr; 
+        height: auto; /* Adjust height automatically */
+        grid-template-columns: 1fr; /* Single column layout */
         grid-template-areas: 
             "teamText"
-            "teamImg";
+            "teamImg"; /* Stack text and image vertically */
     }
 }
 
+/* Dark mode styles */
 @media (prefers-color-scheme: dark) {
- 
+    /* Dark mode styles for the page container */
     .pageContainer {
-        background-color: #141414;
+        background-color: #141414; /* Dark background color */
     }
 
+    /* Dark mode styles for the title */
     .pageBackground {
-        background-image: url('../assets/dark-mode-background.jpg');
-        background-position: center;
+        background-image: url('../assets/dark-mode-background.jpg'); /* Dark mode background image */
+        background-position: center; /* Center the background image */
     }
 
+    /* Dark mode styles for the title */
     .title {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the intro section */
     .pageBackground::after {
-        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
+        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);  /* Dark gradient overlay */
     }
 
+    /* Dark mode styles for the intro section */
     .intro {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the mission section */
     .mission {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the popular resorts section */
     .popularResorts {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the explore button */
     .exploreButtonContainer {
-        background-image: url("../assets/exploreButtonDark.png");
+        background-image: url("../assets/exploreButtonDark.png"); /* Dark mode image */
     }
 
+    /* Dark mode styles for the NOAA section */
     .footer {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the team section */
     .teamText {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the footer section */
     .NOAAText {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the footer section */
     .signinRedirect {
-        margin-top: 2vh;
-        border: 1px solid #ededeb;
+        margin-top: 2vh; /* Adjusted top margin */
+        border: 1px solid #ededeb; /* Light border */
     }
-
 }

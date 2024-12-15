@@ -1,94 +1,108 @@
+/* Resort Card */
+
+/* Resort Card Container */
 .cardContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
     
-    width: 90%;
-    grid-template-areas:
+    width: 90%; /* 90% width */
+    grid-template-areas: /* Define grid areas */
         "resortName"
         "resortImg"
-        "resortInfo";
+        "resortInfo"; /* Define grid areas */
 }
 
+/* Resort Name */
 .resortName {
-    grid-area: resortName;
+    grid-area: resortName; /* Assign to the 'resortName' grid area */
 
-    font-size: 3rem;
+    font-size: 3rem; /* Font size: 3 rem */
 
-    justify-self: center;
+    justify-self: center; /* Center text horizontally */
 
-    margin-bottom: 2vh;
-    font-family: 'Anonymous Pro';
+    margin-bottom: 2vh; /* Bottom margin: 2 vh */
+    font-family: 'Anonymous Pro'; /* Font style */
 }
 
+/* Resort Image */
 .resortImg {
-    grid-area: resortImg;
-    padding-bottom: 1rem;
-    width: 100%;
+    grid-area: resortImg; /* Assign to the 'resortImg' grid area */
+    padding-bottom: 1rem; /* Bottom padding: 1 rem */
+    width: 100%; /* 100% width */
 
-    display: flex;
-    justify-content: center;
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center items horizontally */
 
+    /* Image styling */
     img {
-        width: 100%;
-        max-width: 70vw;
-        height: auto;
-        max-height: 60vh;
-        object-fit: cover;
+        width: 100%; /* 100% width */
+        max-width: 70vw; /* Maximum width: 70 vw */
+        height: auto; /* Automatic height */
+        max-height: 60vh; /* Maximum height: 60 vh */
+        object-fit: cover; /* Cover the container */
     }
 }
 
+/* Resort Information */
 .resortInfo {
-    grid-area: resortInfo;
+    grid-area: resortInfo; /* Assign to the 'resortInfo' grid area */
 
-    width: 100%;
-    max-width: 70vw;
+    width: 100%; /* 100% width */
+    max-width: 70vw; /* Maximum width: 70 vw */
 
-    font-size: clamp(1em, 3vw ,1rem);
+    font-size: clamp(1em, 3vw ,1rem); /* Responsive font size */
 
-    padding-block: 1rem;
-    font-family: "Anonymous Pro";
+    padding-block: 1rem; /* Padding: 1 rem */
+    font-family: "Anonymous Pro"; /* Font style */
 }
 
+/* Resort Card Container */
 .address {
-    grid-area: address;
-    width: 100%;
-    padding-right: 2vw;
-    display: flex;
-    flex-direction: row-reverse;
-    height: fit-content;
+    grid-area: address; /* Assign to the 'address' grid area */
+    width: 100%; /* 100% width */
+    padding-right: 2vw; /* Right padding: 2 vw */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: row-reverse; /* Reverse the row direction */
+    height: fit-content; /* Fit the content height */
 }
 
+/* Resort Card Container */
 .snowfall {
-    grid-area: snowfall;
-    width: 20vw;
+    grid-area: snowfall; /* Assign to the 'snowfall' grid area */
+    width: 20vw; /* 20 vw width */
 }
 
+/* Resort Card Container */
 .visitPageButton {
-    grid-area: visitPageButton;
-    height: 60px;
-    width: 15vw;
+    grid-area: visitPageButton; /* Assign to the 'visitPageButton' grid area */
+    height: 60px; /* 60 px height */
+    width: 15vw; /* 15 vw width */
 
-    background-color: #141414;
-    color:#ededeb;
+    background-color: #141414; /* Dark background color */
+    color:#ededeb; /* Light text color */
 
-    transition: transform 0.3s ease; 
+    transition: transform 0.3s ease; /* Smooth scaling animation */
 }
 
+/* Hover effect for the visit page button */
 .visitPageButton:hover {
-    transform: scale(1.1);
+    transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
+/* Dark mode specific styles */
 @media (prefers-color-scheme: dark) {
  
+    /* Dark mode styles for the card container */
     .cardContainer {
-        background-color: #141414;
+        background-color: #141414; /* Dark background color */
     }
 
+    /* Dark mode styles for the resort name */
     .visitPageButton {
-        border: 2px solid #ededeb;
-        background-color: #141414;
-        color: #ededeb; 
+        border: 2px solid #ededeb; /* Light border */
+        background-color: #141414; /* Dark background color */
+        color: #ededeb; /* Light text color */
     }
 
 }
