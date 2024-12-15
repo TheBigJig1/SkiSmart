@@ -26,47 +26,51 @@ const Signup: React.FC = () => {
     return re.test(password);
   };
 
-//handle submit function to create account
-  const handleSubmit = async (e:React.FormEvent) => {
+  /**
+   * Handles form submission
+   * @param e - form event
+   * @returns void
+   */
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-        // Reset error messages
-        setEmailError('');
-        setPasswordError('');
-    
-        // Validate email and password
-        let valid = true;
-        if (!validateEmail(email)) {
-          setEmailError('Please enter a valid email address.');
-          valid = false;
-        }
-    
-        if (!validatePassword(password)) {
-          setPasswordError('Password must be at least 8 characters long, contain at least one number and one special character.');
-          valid = false;
-        }
-    
-        if (!valid) {
-          return;
-        }
+    // Reset error messages
+    setEmailError('');
+    setPasswordError('');
 
+    // Validate email and password
+    let valid = true;
+    if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address.');
+      valid = false;
+    }
+
+    // Password must be at least 8 characters long, contain at least one number and one special character
+    if (!validatePassword(password)) {
+      setPasswordError('Password must be at least 8 characters long, contain at least one number and one special character.');
+      valid = false;
+    }
+
+    if (!valid) {
+      return;
+    }
+
+    // Send form data to server
     try {
-
       const formData = new URLSearchParams();
       formData.append('fullname', fullname);
       formData.append('email', email);
       formData.append('password', password);
       formData.append('zipcode', zipcode);
-      
+
       const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const response = await fetch(`${API_BASE_URL}/users/create`, {
+      const response = await fetch(`${API_BASE_URL}/users/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: formData.toString(),
-        // credentials: 'include',
       });
 
       if (response.ok) {
@@ -83,81 +87,81 @@ const response = await fetch(`${API_BASE_URL}/users/create`, {
       console.error('Error:', error);
     }
   };
-//html code for the signup page
-    return (
-      <div className="signin-background">
-        <div className="signin-container">
-          <div className="signin-form">
-            <div className="signin-logo">
-              <img src={logo} alt="Skismart Logo" className="logo-image" />
-              <h2 className="logo-text">SkiSmart</h2>
-            </div>
-            <form className="signup-form-fields" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="full-name" className="form-label">Full Name:</label>
-                <input
-                  name="fullname"
-                  required
-                  className="form-input"
-                  placeholder="Firstname Lastname"
-                  value={fullname}
-                  onChange={(e) => setFullname(e.target.value)}
-            />
-              </div>  
-              <div className="form-group">
-                <label htmlFor="email" className="form-label">E-Mail:</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="form-input"
-                  placeholder="user@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
-              </div>
-              <div className="form-group">
-                <label htmlFor="password" className="form-label">Password:</label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="form-input"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
-              </div>
-              <div className="form-group">
-                <label htmlFor="zipcode" className="form-label">Zipcode (Optional):</label>
-                <input 
-                    type="text"
-                    name="zipcode"
-                    className="form-input"
-                    placeholder="XXXXX"
-                    value={zipcode}
-                    onChange={(e) => setZipcode(e.target.value)}
-                />
-              </div>
-              <div className="form-submit">
-                <button type="submit" className="submit-button">
-                  Create Account
-                </button>
-              </div>
-              <div className="contact-info" style={{ width: '100%', textAlign: 'center', color: 'black', backgroundColor: 'rgba(0, 0, 0, 0)'}}>
-                Contact Us: skismartwv@gmail.com (304) 449-4516
-              </div>
-            </form>
+
+  return (
+    <div className="signin-background">
+      <div className="signin-container">
+        <div className="signin-form">
+          <div className="signin-logo">
+            <img src={logo} alt="Skismart Logo" className="logo-image" />
+            <h2 className="logo-text">SkiSmart</h2>
           </div>
+          <form className="signup-form-fields" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="full-name" className="form-label">Full Name:</label>
+              <input
+                name="fullname"
+                required
+                className="form-input"
+                placeholder="Firstname Lastname"
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email" className="form-label">E-Mail:</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="form-input"
+                placeholder="user@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
+            </div>
+            <div className="form-group">
+              <label htmlFor="password" className="form-label">Password:</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="form-input"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+            </div>
+            <div className="form-group">
+              <label htmlFor="zipcode" className="form-label">Zipcode (Optional):</label>
+              <input
+                type="text"
+                name="zipcode"
+                className="form-input"
+                placeholder="XXXXX"
+                value={zipcode}
+                onChange={(e) => setZipcode(e.target.value)}
+              />
+            </div>
+            <div className="form-submit">
+              <button type="submit" className="submit-button">
+                Create Account
+              </button>
+            </div>
+            <div className="contact-info" style={{ width: '100%', textAlign: 'center', color: 'black', backgroundColor: 'rgba(0, 0, 0, 0)' }}>
+              Contact Us: skismartwv@gmail.com (304) 449-4516
+            </div>
+          </form>
         </div>
       </div>
-    )
- }
+    </div>
+  )
+}
 
- export default Signup
+export default Signup

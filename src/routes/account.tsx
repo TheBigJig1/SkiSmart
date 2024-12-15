@@ -5,8 +5,14 @@ import ResortCard from "../components/resortCard"
 
 import { jwtDecode } from 'jwt-decode';
 
+/**
+ * The Account component displays user account information and bookmarks.
+ * 
+ * @returns The Account component.
+ */
 function Account() {
 
+    //  State variables
     const [name, setName] = useState('Guest');
     const [resorts, setResorts] = useState<ResortObj[]>([]);
 
@@ -28,6 +34,7 @@ function Account() {
                 // Endpoint is parameterized
                 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+                // Send request to server to load bookmarks
                 const response = await fetch(`${API_BASE_URL}/users/loadbookmarks`, {
                     method: 'GET',
                     headers: {
@@ -57,6 +64,9 @@ function Account() {
 
     }, []); // Effect run once
 
+    /**
+     * Handles user logout by revoking the token and redirecting to the home page.
+     */
     const logoutHandler = async () => {
         const token = localStorage.getItem('token') || ''
 
@@ -64,6 +74,7 @@ function Account() {
             // Offering server chance to revoke token
             const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+            // Send request to server to logout
             const response = await fetch(`${API_BASE_URL}/users/logout`, {
                 method: 'POST',
                 headers: {
@@ -73,6 +84,7 @@ function Account() {
                 credentials: 'include',
             });
 
+            // Check if logout was successful
             if (response.ok) {
                 console.log('Logging out');
                 localStorage.removeItem('token');
@@ -105,6 +117,7 @@ function Account() {
                         </ul>
                     </div>
                     <div className="accountResorts">
+                        {/* Load all resorts */}
                         <h1>Your Bookmarks</h1>
                         {resorts && resorts.map((resort, resortIndex) => (
                             <ResortCard key={resortIndex}{...resort} />

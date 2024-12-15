@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import ResortCard from "../components/resortCard"
 import { jwtDecode } from "jwt-decode";
 
+/**
+ * Interface representing a resort object.
+ */
 export interface ResortObj {
     ID: number;
     Name: string;
@@ -15,6 +18,9 @@ export interface ResortObj {
     ImageLink: string;
 }
 
+/**
+ * Interface representing a weather object.
+ */
 export interface WeatherObj {
     temperature: number;
     snowfall: number;
@@ -25,14 +31,21 @@ export interface WeatherObj {
     weatherAdvisories: string;
 }
 
+/**
+ * Resort component that displays the resort page containing a list of resorts.
+ */
 function Resort() {
 
+    // State variables
     const [resorts, setResorts] = useState<ResortObj[]>([]);
     const [limit, setLimit] = useState(5);
     const [userZip, setZip] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [search, setSearch] = useState(false);
 
+    /**
+        * Fetches the user's zipcode from the token stored in localStorage.
+    */
     useEffect(() => {
         const token = localStorage.getItem('token') || '';
         if (token) {
@@ -49,6 +62,10 @@ function Resort() {
         }
     }, []);
 
+    /**
+     * Fetches a list of resorts from the server.
+     * @param limit - The number of resorts to fetch.
+     */
     const listResorts = async (limit: number) => {
         try {
             // Fetch resorts from server
@@ -80,6 +97,11 @@ function Resort() {
         }
     };
 
+    /**
+     * Fetches a list of resorts from the server.
+     * Recall the listResorts function when the userZip or limit state variables change.
+     * @param limit - The number of resorts to fetch.
+     */
     useEffect(() => {
         if (!userZip) return;
 
@@ -87,7 +109,16 @@ function Resort() {
 
     }, [userZip, limit]);
 
+    /**
+     * Fetches a list of resorts from the server.
+     * Recall the listResorts function when the search state variable changes.
+     * @param inputValue - The search input value.
+     */
     useEffect(() => {
+        // If search is false, return
+        if (!search) return;
+
+        // Function to search for resorts by string fragment in name
         const searchResorts = async (inputValue: string) => {
             if (inputValue === '') {
                 setLimit(5);
@@ -98,6 +129,7 @@ function Resort() {
             try {
                 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+                // Send request to server to search for resorts
                 const response = await fetch(`${API_BASE_URL}/resorts/get?name=${inputValue}`, {
                     method: 'GET',
                     headers: {
@@ -125,6 +157,10 @@ function Resort() {
 
     }, [search]);
 
+    /**
+     * Function to set the search state variable to false if the search bar is empty.
+     * @param inputValue - The search input value.
+     */
     useEffect(() => {
         if (inputValue == '') {
             setSearch(false);
@@ -151,6 +187,7 @@ function Resort() {
                 <button className="searchButton" onClick={() => { setSearch(true) }}>Search</button>
             </div>
             <div className="resortContentContainer">
+                {/* Load all resorts from resort */}
                 {resorts && resorts.map((resort, resortIndex) => (
                     <ResortCard key={resortIndex}{...resort} />
                 ))}

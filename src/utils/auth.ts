@@ -1,11 +1,10 @@
 /**
- * Checks if the user is authenticated by verifying the presence and validity of a token in localStorage.
+ * Checks if the user is authenticated by verifying the token stored in localStorage.
  * 
- * @returns {boolean} - Returns true if the user is authenticated, otherwise false.
+ * @returns {boolean} - Returns true if the token is valid and not expired, otherwise false.
  */
-
 export function isAuthenticated(): boolean {
-    // Retrieve the token from localStorage
+    // Check if token is stored in localStorage
     const token = localStorage.getItem('token') || '';
 
     // If the token is not present, return false
@@ -13,6 +12,7 @@ export function isAuthenticated(): boolean {
         return false;
     }
 
+    // Decode the tokn - if its expired, remove it from localStorage
     try {
         // Decode the token
         const payload = JSON.parse(atob(token.split('.')[1]));

@@ -8,12 +8,22 @@ import * as EsriLeaflet from 'esri-leaflet';
 import proj4 from 'proj4';
 import 'proj4leaflet';
 
+/**
+ * Interface representing a legend object.
+ */
 interface LegendProps {
     handleToggleDepth: (range: string) => void;
     isLegendVisible?: boolean;
 }
 
+/**
+ * Legend component that displays the legend for the snow depth layer.
+ * @param handleToggleDepth - Function to handle the toggle of snow depth range visibility.
+ * @param isLegendVisible - Boolean indicating whether the legend is visible.
+ * @returns A React component displaying the legend.
+ */
 const Legend: React.FC<LegendProps> = ({ handleToggleDepth, isLegendVisible }) => {
+    // Legend items
     const legendItems = [
         { range: "0 - 0.39", color: "#d1d9db" },
         { range: "0.39 - 2.0", color: "#79c3c9" },
@@ -29,6 +39,7 @@ const Legend: React.FC<LegendProps> = ({ handleToggleDepth, isLegendVisible }) =
         { range: "394 - 787", color: "#4d191f" },
     ];
 
+    // Return null if the legend is not visible
     if (!isLegendVisible) return null;
 
     return (
@@ -62,10 +73,16 @@ const Legend: React.FC<LegendProps> = ({ handleToggleDepth, isLegendVisible }) =
     );
 }
 
+/**
+ * ResortInfo component that displays information about a specific resort,
+ * including weather data, interactive map, and bookmark functionality.
+ * @returns A React component displaying resort information.
+ */
 function ResortInfo() {
     // Get the current resort from local storage and intialize it
     let thisResortStr = localStorage.getItem("curResort");
 
+    // Initialize the current resort object
     let thisResort: ResortObj = {
         ID: 0,
         Name: "",
@@ -78,10 +95,12 @@ function ResortInfo() {
         ImageLink: ""
     };
 
+    // Parse the current resort object from local storage
     if (thisResortStr) {
         thisResort = JSON.parse(thisResortStr);
     }
 
+    // Initialize the current weather object
     const [thisWeather, setThisWeather] = useState<WeatherObj>({
         temperature: 0,
         snowfall: 0,
@@ -92,8 +111,11 @@ function ResortInfo() {
         weatherAdvisories: ""
     });
 
-    // Load the numerical weather data for the current resort
+    /**
+     * Fetches the weather data for the current resort from the OpenMeteo API.
+     */
     useEffect(() => {
+        // Parameters for the OpenMeteo API
         const params = {
             "latitude": thisResort.Lat,
             "longitude": thisResort.Long,
@@ -105,7 +127,9 @@ function ResortInfo() {
         };
         const url = "https://api.open-meteo.com/v1/forecast";
 
+        // Fetch the weather data from the OpenMeteo API
         const fetchData = async () => {
+            // Fetch the weather data from the OpenMeteo API
             const responses = await fetchWeatherApi(url, params);
             console.log(responses);
 
@@ -138,6 +162,7 @@ function ResortInfo() {
 
             };
 
+            // Set the current weather object
             setThisWeather({
                 temperature: parseFloat(weatherData.hourly.temperature2m[0].toFixed(2)),
                 precipitationProb: parseFloat(weatherData.hourly.precipitationProbability[0].toFixed(2)),
@@ -148,15 +173,22 @@ function ResortInfo() {
                 weatherAdvisories: ""
             });
 
+            // Store the current weather object in local storage
             localStorage.setItem("curWeather", JSON.stringify(thisWeather));
         };
 
+        // Fetch the weather data
         fetchData();
 
     }, []);
 
-    // Function to toggle the bookmark status of the current resort
+    /**
+     * Toggles the bookmark status of the current resort.
+     * Sends a POST request to the server to toggle the bookmark status.
+     * @returns A Promise that resolves when the bookmark status is toggled.
+     */
     const toggleBookmark = async () => {
+        // Get the token from local storage
         const token = localStorage.getItem('token') || ''
         const resortID = thisResort.ID;
 
@@ -200,7 +232,11 @@ function ResortInfo() {
 
     const snowDepthLayerRef = useRef<L.Layer | null>(null);
 
-    // Initialize the map
+    /**
+     * Initializes the map and adds a marker for the current resort.
+     * The map is centered on the resort's coordinates.
+     * The map is initialized with two base layers: World Imagery and OpenStreetMap.
+     */
     useEffect(() => {
         const mapInstance = L.map('map', {
             // crs: crs102100,
@@ -208,6 +244,7 @@ function ResortInfo() {
             zoom: 15
         });
 
+        // Add base layers
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
             {
                 attribution: 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
@@ -221,9 +258,11 @@ function ResortInfo() {
             }
         ).addTo(mapInstance);
 
+        // Add a marker for the resort
         const marker = L.marker([thisResort.Lat, thisResort.Long]).addTo(mapInstance);
         marker.bindPopup(thisResort.Name).openPopup();
 
+        // Set the map state variable
         setMap(mapInstance);
 
         return () => {
@@ -231,18 +270,28 @@ function ResortInfo() {
         };
     }, [thisResort.Lat, thisResort.Long]);
 
-    // Snow depth Layer
+    /**
+     * Adds the snow depth layer to the map and updates it based on the map view.
+     * The snow depth layer is fetched from the NOAA REST API.
+     * Updates the snow depth layer when the map view changes.
+     * @returns Updated map with the snow depth layer.
+     */
     useEffect(() => {
         if (map) {
+            // Update the snow depth overlay based on the map view
             const updateOverlay = () => {
+                // NOAA REST API URL
                 const url = 'https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/export';
 
+                // Get the map bounds and size
                 const bounds = map.getBounds();
                 const size = map.getSize();
 
+                // Convert the bounds to the required projection
                 const sw = proj4('EPSG:4326', 'EPSG:3857', [bounds.getWest(), bounds.getSouth()]);
                 const ne = proj4('EPSG:4326', 'EPSG:3857', [bounds.getEast(), bounds.getNorth()]);
 
+                // Construct the bounding box and query string
                 const bbox = `${sw[0]},${sw[1]},${ne[0]},${ne[1]}`;
 
                 const params = {
@@ -261,6 +310,7 @@ function ResortInfo() {
                 const timestamp = new Date().getTime();
                 const imageUrl = `${url}?${queryString}&_=${timestamp}`;
 
+                // Remove the existing snow depth layer if it exists
                 if (snowDepthLayerRef.current) {
                     map.removeLayer(snowDepthLayerRef.current);
                 }
@@ -270,6 +320,7 @@ function ResortInfo() {
                 snowDepthLayerRef.current = newSnowDepthLayer;
                 setSnowDepthLayer(newSnowDepthLayer);
 
+                // Add the snow depth layer to the map if it is visible
                 if (isSnowDepthLayerVisible) {
                     newSnowDepthLayer.addTo(map);
                 }
@@ -289,7 +340,11 @@ function ResortInfo() {
         }
     }, [map, isSnowDepthLayerVisible]);
 
-    // Snowfall layer
+    /**
+     * Adds the snowfall layer to the map and binds a popup to each feature.
+     * The snowfall layer is fetched from the NOAA REST API.
+     * Updates the snowfall layer when the map view changes.
+     */
     useEffect(() => {
         if (map) {
             function getColor(d: number): string {
@@ -332,9 +387,18 @@ function ResortInfo() {
         }
     }, [map]);
 
-    // Weather advisory layer
+    /**
+     * Adds the weather advisory layer to the map and binds a popup to each feature.
+     * The weather advisory layer is fetched from the NOAA REST API.
+     * Updates the weather advisory layer when the map view changes.
+     */
     useEffect(() => {
         if (map) {
+            /**
+             * Function to style the advisory layer based on the event type.
+             * @param feature - The feature to style.
+             * @returns The style object for the feature.
+             */
             function advisoryStyle(feature: { properties: { Event: string } }) {
                 const warningColor: { [key: string]: string } = {
                     'Winter Storm Warning': '#ff0000',
@@ -350,6 +414,7 @@ function ResortInfo() {
                 };
             }
 
+            // Add the advisory layer to the map
             const advisoryLayer = EsriLeaflet.featureLayer({
                 url: 'https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/6',
                 style: advisoryStyle,
@@ -376,6 +441,9 @@ function ResortInfo() {
         }
     }, [map]);
 
+    /**
+     * Toggles the visibility of the snow depth layer on the map.
+     */
     const handleToggleDepth = (): void => {
         if (map && snowDepthLayer) {
             if (isSnowDepthLayerVisible) {
@@ -389,6 +457,9 @@ function ResortInfo() {
         }
     };
 
+    /**
+     * Toggles the visibility of the snowfall layer on the map.
+     */
     const handleToggleForecast = () => {
         if (map && snowfallLayer) {
             if (isSnowfallLayerVisible) {
@@ -400,6 +471,9 @@ function ResortInfo() {
         }
     };
 
+    /**
+     * Toggles the visibility of the weather advisory layer on the map.
+     */
     const handleToggleAdvisory = () => {
         if (map && advisoryLayer) {
             if (isAdvisoryLayerVisible) {
