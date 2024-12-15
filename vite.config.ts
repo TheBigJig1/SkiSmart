@@ -18,5 +18,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets'
-  }
+  },
+  envDir: './',
+  envPrefix: 'VITE_',
+  mode: process.env.NODE_ENV === 'prod' ? 'prod' : 'dev'
 })

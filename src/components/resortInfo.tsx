@@ -7,7 +7,7 @@ import L, { Icon } from 'leaflet';
 import * as EsriLeaflet from 'esri-leaflet';
 import proj4 from 'proj4';
 import 'proj4leaflet';
-import marker from '../Assets/Location.png';
+import marker from '../Assets/Location_pin_icon.png';
 
 /**
  * Interface representing a legend object.
