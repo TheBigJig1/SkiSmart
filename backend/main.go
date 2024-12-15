@@ -28,10 +28,10 @@ var reactDir = ""
 
 // TODO: Add JWT secret key flag
 // var pwHash = "testHash"
+
 /*
 Main function to start the server
 Contains flags to establish connection and create, populate, and drop tables in SQL databases
-
 */
 func main() {
 	// Establish up Database connection
@@ -154,7 +154,7 @@ func main() {
 
 	}
 
-	// Flag function to wipe user data
+	// Flag function to wipe user data - must drop and recreate UserBookmarkedResorts and UserVisitedResorts due to foreign key constraints
 	if *wipeuserdb {
 		_, err = db.ExecContext(ctx, DropUserBookmarkedResorts)
 		if err != nil {
@@ -187,7 +187,7 @@ func main() {
 		fmt.Println("UserVisitedResorts database created successfully.")
 	}
 
-	// Flag function to wipe resort data
+	// Flag function to wipe resort data - must drop and recreate UserBookmarkedResorts and UserVisitedResorts due to foreign key constraints
 	if *wiperesortdb {
 		_, err = db.ExecContext(ctx, DropUserBookmarkedResorts)
 		if err != nil {
@@ -245,7 +245,6 @@ func main() {
 	mux.HandleFunc("/resorts/get", ResortGet)
 	mux.HandleFunc("/users/togglebookmark", ToggleUserBookmark)
 	mux.HandleFunc("/users/loadbookmarks", GetBookmarks)
-	// mux.HandleFunc("/snow-data", SnowData)
 
 	// Serve API routes
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -280,7 +279,7 @@ func main() {
 
 	// CORS handler
 	corsHandler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:5173", "http://172.174.105.76:5173"}, // HACK: Frontend origin and VM
+		AllowedOrigins:   []string{"http://localhost:5173", "http://172.174.105.76:5173", "http://172.174.105.76:8080"}, // HACK: Frontend origin and VM
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"*"},
@@ -288,11 +287,13 @@ func main() {
 
 	handler := corsHandler.Handler(mux)
 
+	// Start server
 	server := &http.Server{
 		Addr:    fmt.Sprintf(":%d", hport),
 		Handler: handler,
 	}
 
+	// log server start
 	log.Println("Listening...")
 	if err = server.ListenAndServe(); err != nil {
 		fmt.Println(err)
