@@ -3,10 +3,11 @@ import { useEffect, useState, useRef } from 'react';
 import { ResortObj, WeatherObj } from "../routes/resort"
 import { fetchWeatherApi } from 'openmeteo';
 import "leaflet/dist/leaflet.css";
-import L from 'leaflet';
+import L, { Icon } from 'leaflet';
 import * as EsriLeaflet from 'esri-leaflet';
 import proj4 from 'proj4';
 import 'proj4leaflet';
+import marker from '../Assets/Location.png';
 
 /**
  * Interface representing a legend object.
@@ -232,6 +233,11 @@ function ResortInfo() {
 
     const snowDepthLayerRef = useRef<L.Layer | null>(null);
 
+    const myIcon = new Icon({
+        iconUrl: marker,
+        iconSize: [32, 32]
+    });
+
     /**
      * Initializes the map and adds a marker for the current resort.
      * The map is centered on the resort's coordinates.
@@ -258,8 +264,8 @@ function ResortInfo() {
             }
         ).addTo(mapInstance);
 
-        // Add a marker for the resort
-        const marker = L.marker([thisResort.Lat, thisResort.Long]).addTo(mapInstance);
+        // Add a marker for the resort with custom icon
+        const marker = L.marker([thisResort.Lat, thisResort.Long], { icon: myIcon }).addTo(mapInstance);
         marker.bindPopup(thisResort.Name).openPopup();
 
         // Set the map state variable
