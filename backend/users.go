@@ -28,6 +28,7 @@ type User struct {
 	Zipcode  string `json:"zipcode"`
 }
 
+// Create user claims struct
 type UserClaims struct {
 	User User `json:"user"`
 	jwt.StandardClaims
@@ -85,13 +86,17 @@ var DropUserVisitedResorts = `DROP TABLE if exists UserVisitedResorts;`
 // JWT secret key
 var jwtKey = []byte("SBk@1c$km3@nrdt")
 
+// Function to hash password
 func encryptPW(pwd string) string {
-
 	hashedPW, _ := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
 	return string(hashedPW)
 }
 
-// Function to take value from front end and create new entry in Users
+/*
+Function to create a new user in the Users table
+@params: w http.ResponseWriter, r *http.Request
+@returns: nil
+*/
 func UserCreate(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("recieved create request")
 	if err := r.ParseForm(); err != nil {
@@ -163,7 +168,12 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// Function to take value from front end and check against existing Users credentials
+/*
+Function to take value from front end and check against existing Users credentials
+If successful, create JWT token and send to client
+@params: w http.ResponseWriter, r *http.Request
+@returns: nil
+*/
 func UserLogin(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("recieved Login request")
 	if err := r.ParseForm(); err != nil {
@@ -243,18 +253,24 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewEncoder(w).Encode(response)
 }
 
-// In case something needs cleaned up server side
-// TODO: revoke JWT token
+/*
+Function to log out a user
+TODO: revoke JWT token
+@params: w http.ResponseWriter, r *http.Request
+@returns: nil
+*/
 func UserLogout(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	bearer := r.Header.Get("Authorization")
 
+	// Check if user is logged in
 	if !strings.HasPrefix(bearer, "Bearer ") {
 		w.WriteHeader(http.StatusUnauthorized)
 		fmt.Println("Invalid token")
 		return
 	}
 
+	// Parse token
 	token := strings.TrimPrefix(bearer, "Bearer ")
 
 	t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
@@ -278,9 +294,12 @@ func UserLogout(w http.ResponseWriter, r *http.Request) {
 
 // I need to send the user ID and resort ID to the backend
 
-// Function to create a new user Bookmark in the UserBookmarkedResorts table
+/*
+Function to create a new user Bookmark in the UserBookmarkedResorts table
+@params: w http.ResponseWriter, r *http.Request
+@returns: nil
+*/
 func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
-
 	// Acknowledge request
 	fmt.Println("recieved Bookmark request")
 	if err := r.ParseForm(); err != nil {
@@ -290,7 +309,6 @@ func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Check if user is logged in
-	// Think I can handle it here by allowing the front end to send null token
 	bearer := r.Header.Get("Authorization")
 	if !strings.HasPrefix(bearer, "Bearer ") {
 		w.WriteHeader(http.StatusUnauthorized)
@@ -332,6 +350,7 @@ func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Unmarshal request body
 	var requestBody struct {
 		ResortID int `json:"resortID"`
 	}
@@ -373,7 +392,12 @@ func ToggleUserBookmark(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// Function to retrieve all bookmarks for a user
+/*
+Function to retrieve all bookmarks for a user
+Encodes the list of bookmarks as a JSON object and sends it to the client
+@params: w http.ResponseWriter, r *http.Request
+@returns: nil
+*/
 func GetBookmarks(w http.ResponseWriter, r *http.Request) {
 	// Acknowledge request
 	fmt.Println("recieved GetBookmarks request")
@@ -457,5 +481,4 @@ func GetBookmarks(w http.ResponseWriter, r *http.Request) {
 	log.Println("Bookmark List returned successfully")
 	w.WriteHeader(http.StatusOK) // 200 OK
 	_ = json.NewEncoder(w).Encode(&resorts)
-
 }

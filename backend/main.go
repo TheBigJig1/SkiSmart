@@ -28,7 +28,11 @@ var reactDir = ""
 
 // TODO: Add JWT secret key flag
 // var pwHash = "testHash"
+/*
+Main function to start the server
+Contains flags to establish connection and create, populate, and drop tables in SQL databases
 
+*/
 func main() {
 	// Establish up Database connection
 	flag.StringVar(&password, "password", "", "password")
@@ -243,6 +247,7 @@ func main() {
 	mux.HandleFunc("/users/loadbookmarks", GetBookmarks)
 	// mux.HandleFunc("/snow-data", SnowData)
 
+	// Serve API routes
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// Serve API routes
 		if strings.HasPrefix(r.URL.Path, "/users/") ||
@@ -273,6 +278,7 @@ func main() {
 		http.ServeFile(w, r, path)
 	})
 
+	// CORS handler
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173", "http://172.174.105.76:5173"}, // HACK: Frontend origin and VM
 		AllowCredentials: true,

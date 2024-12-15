@@ -93,7 +93,12 @@ var WipeResorts = `TRUNCATE TABLE [dbo].[Resorts];`
 // SQL command to remove Resorts table
 var DropResorts = `DROP TABLE if exists Resorts`
 
-// Function to grab Resorts from DB and display on webpage
+/*
+Function to grab Resorts from DB and display on webpage
+Encodes resorts into JSON format
+@params w http.ResponseWriter, r *http.Request
+@return void
+*/
 func ResortPreviewList(w http.ResponseWriter, r *http.Request) {
 	// Server acknowledges request
 	fmt.Println("recieved list request")
@@ -165,7 +170,12 @@ func ResortPreviewList(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewEncoder(w).Encode(&resorts)
 }
 
-// Function to get get a single resort from the DB
+/*
+Function to get get a single resort from the DB
+Encodes resorts into JSON format
+@params w http.ResponseWriter, r *http.Request
+@return void
+*/
 func ResortGet(w http.ResponseWriter, r *http.Request) {
 	// Server acknowledges request
 	fmt.Println("recieved get request")
