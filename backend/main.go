@@ -6,7 +6,11 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"mime"
 	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
 
 	_ "github.com/microsoft/go-mssqldb"
 	"github.com/rs/cors"
@@ -15,19 +19,27 @@ import (
 // Connection arguments
 var db *sql.DB
 var server = "cs3301.database.windows.net"
-var port = 1433
+var dbport = 1433
+var hport = 8080
 var user = ""
 var password = ""
 var database = "CS_330_1"
+var reactDir = ""
 
 // TODO: Add JWT secret key flag
 // var pwHash = "testHash"
+/*
+Main function to start the server
+Contains flags to establish connection and create, populate, and drop tables in SQL databases
 
+*/
 func main() {
 	// Establish up Database connection
 	flag.StringVar(&password, "password", "", "password")
 	flag.StringVar(&user, "user", "cs330admin", "user")
-	flag.IntVar(&port, "port", 1433, "port")
+	flag.IntVar(&dbport, "dbport", 1433, "port")
+	flag.IntVar(&hport, "hport", 8080, "port")
+	flag.StringVar(&reactDir, "react-dir", "../dist", "ReactJS path")
 
 	// Optional flags
 	createdb := flag.Bool("create-db", false, "initialize DB")
@@ -40,7 +52,7 @@ func main() {
 
 	// Build connection string
 	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-		server, user, password, port, database)
+		server, user, password, dbport, database)
 	var err error
 	// Create connection pool
 	db, err = sql.Open("sqlserver", connString)
@@ -219,6 +231,11 @@ func main() {
 
 	// Start web server - connects backend to npm app / terminal
 	mux := http.NewServeMux()
+
+	// Serve static files from the React app
+	fs := http.FileServer(http.Dir(reactDir))
+	http.Handle("/", fs)
+
 	mux.HandleFunc("/users/create", UserCreate)
 	mux.HandleFunc("/users/login", UserLogin)
 	mux.HandleFunc("/users/logout", UserLogout)
@@ -230,8 +247,40 @@ func main() {
 	mux.HandleFunc("/users/loadbookmarks", GetBookmarks)
 	// mux.HandleFunc("/snow-data", SnowData)
 
+	// Serve API routes
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// Serve API routes
+		if strings.HasPrefix(r.URL.Path, "/users/") ||
+			strings.HasPrefix(r.URL.Path, "/feedback/") ||
+			strings.HasPrefix(r.URL.Path, "/resorts/") {
+			mux.ServeHTTP(w, r)
+			return
+		}
+
+		// Construct the full file path
+		path := filepath.Join(reactDir, r.URL.Path)
+
+		// Check if the file exists
+		_, err := os.Stat(path)
+		if os.IsNotExist(err) || r.URL.Path == "/" {
+			// If the file doesn't exist or path is root, serve index.html for client-side routing
+			path = filepath.Join(reactDir, "index.html")
+		}
+
+		// Get the file extension to determine the MIME type
+		ext := filepath.Ext(path)
+		mimeType := mime.TypeByExtension(ext)
+
+		// Set the Content-Type header
+		w.Header().Set("Content-Type", mimeType)
+
+		// Serve the file
+		http.ServeFile(w, r, path)
+	})
+
+	// CORS handler
 	corsHandler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:5173"}, // Frontend origin
+		AllowedOrigins:   []string{"http://localhost:5173", "http://172.174.105.76:5173"}, // HACK: Frontend origin and VM
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"*"},
@@ -240,7 +289,7 @@ func main() {
 	handler := corsHandler.Handler(mux)
 
 	server := &http.Server{
-		Addr:    ":8080",
+		Addr:    fmt.Sprintf(":%d", hport),
 		Handler: handler,
 	}
 

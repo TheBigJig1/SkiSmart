@@ -1,254 +1,272 @@
-.fcontainer {
-    display: grid;
-    width: 100%;
+/* Styles for the feedback page */
 
-    background-image: url('src/assets/feedback-background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+/* Container for the feedback section */
+.fcontainer {
+    display: grid; /* Use grid layout to organize sections */
+    width: 100%; /* Full width of the container */
+    background-image: url('../assets/feedback-background.jpg'); /* Set background image */
+    background-size: cover; /* Ensure the image covers the container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the background image */
     
-    grid-template-areas:
+    grid-template-areas: /* Define grid areas for feedback sections */
         "fbackground"
         "feedbackDisplay";
 }
 
+/* Background section containing logo, title, and feedback box */
 .fbackground {
-    position: relative;
-    grid-area: fbackground;
-
-    height: 70vw;
-    min-height: 80vh;
-    width: 100%;
-
-    justify-items:center;
-
-    display: grid;
-    grid-template-rows: 1fr 1fr 2fr;
-    grid-template-areas:
+    position: relative; /* Allow positioning of child elements */
+    grid-area: fbackground; /* Assign to the 'fbackground' grid area */
+    height: 70vw; /* Height is responsive to viewport width */
+    min-height: 80vh; /* Minimum height to ensure full display */
+    width: 100%; /* Full width */
+    
+    background-image: url('../assets/feedback-background.jpg'); /* Background image */
+    background-size: cover; /* Ensure image covers the area */
+    background-repeat: no-repeat; /* Prevent image repetition */
+    justify-items: center; /* Align items in the center horizontally */
+    
+    display: grid; /* Use grid layout for internal sections */
+    grid-template-rows: 1fr 1fr 2fr; /* Define row proportions */
+    grid-template-areas: 
         "flogo"
         "ftitle"
         "feedback-box";
-    padding-top: 5vh;
+    padding-top: 5vh; /* Add spacing from the top */
 }
 
+/* Gradient overlay effect at the bottom of the background */
 .fbackground::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 20%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-    pointer-events: none; 
+    content: ""; /* Create an empty pseudo-element */
+    position: absolute; /* Position it relative to the parent */
+    bottom: 0; /* Align it to the bottom */
+    left: 0; /* Align it to the left */
+    width: 100%; /* Full width of the container */
+    height: 20%; /* Gradient height covering the bottom part */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%); /* Gradient effect */
+    pointer-events: none; /* Disable interactions with the overlay */
 }
 
+/* Logo section in the background */
 .flogo {
-    grid-area: flogo;
-    width: auto;
-    height: 18vw;
+    grid-area: flogo; /* Assign to the 'flogo' grid area */
+    width: auto; /* Automatically adjust the width */
+    height: 18vw; /* Height is responsive to viewport width */
 }
 
+/* Title section in the background */
 .ftitle {
-    grid-area: ftitle;
-    
-    font-size: 4vw;
-    font-family: "Anonymous Pro", monospace;
-    color: #141414;
-
-    height: 4vw;
-
+    grid-area: ftitle; /* Assign to the 'ftitle' grid area */
+    font-size: 4vw; /* Responsive font size */
+    font-family: "Anonymous Pro", monospace; /* Monospace font */
+    color: #141414; /* Dark text color */
+    height: 4vw; /* Match the font size */
 }
 
+/* Feedback box container */
 .feedback-box {
-    grid-area: feedback-box;
-    width: 70vw;
-    height: 30vw;
-    min-height: 35vh;
-
-    transform: translateY(-8vw);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    font-family: "Anonymous Pro", monospace;
-    background-color: rgba(217,217,217,0.8);
-    border-radius: 20px;
-
+    grid-area: feedback-box; /* Assign to the 'feedback-box' grid area */
+    width: 70vw; /* Set width relative to viewport */
+    height: 30vw; /* Height relative to viewport */
+    min-height: 35vh; /* Minimum height */
+    transform: translateY(-8vw); /* Slight vertical offset */
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    font-family: "Anonymous Pro", monospace; /* Monospace font */
+    background-color: rgba(217, 217, 217, 0.8); /* Semi-transparent background */
+    border-radius: 20px; /* Rounded corners */
     grid-template-areas: 
         "label"
         "textarea"
         "thisfeedback"
         "starRating"
-        "submit";
-
-    margin-bottom: 4vw;
+        "submit"; /* Define areas for input elements */
+    margin-bottom: 4vw; /* Bottom margin for spacing */
 }
 
+/* Label for feedback input */
 .label {
-    grid-area: label;
-
-    margin-bottom: 10px;
-    font-weight: bold;
-    font-family: "Anonymous Pro", monospace;
+    grid-area: label; /* Assign to the 'label' grid area */
+    margin-bottom: 10px; /* Bottom margin for spacing */
+    font-weight: bold; /* Bold font weight */
+    font-family: "Anonymous Pro", monospace; /* Monospace font */
 }
 
+/* Textarea for feedback input */
 .feedback-box {
-    max-width: 90vw;
-    padding: 20px;
-    border-radius: 8px;
+    max-width: 90vw; /* Maximum width */
+    padding: 20px; /* Padding around the box */
+    border-radius: 8px; /* Rounded corners */
+
+    background-color: rgba(182, 182, 182, 0.849); /* Semi-transparent background */
     
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;  /* Center items horizontally */
 }
 
+/* Feedback input box */
 .thisfeedback {
-    grid-area: thisfeedback;
-    min-height: 5vw;
-
-    border: 1px solid #000000;
-    border-radius: 5px;
-    resize: none;
-    margin-bottom: 2vw;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    grid-area: thisfeedback; /* Assign to the 'thisfeedback' grid area */
+    min-height: 5vw; /* Minimum height */
+    border: 1px solid #000000; /* Black border */
+    border-radius: 5px; /* Rounded corners */
+    resize: none; /* Disable resizing */
+    margin-bottom: 2vw; /* Bottom margin for spacing */
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
 }
 
+/* Star rating display */
 .starRating {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center stars horizontally */
+    margin: 10px 0; /* Vertical margin */
 }
 
+/* Star icon styling */
 .star {
-    font-size: 2rem;
-    cursor: pointer;
-    color: #ededed;
-    transition: color 0.2s;
+    font-size: 2rem; /* Set the star size */
+    cursor: pointer; /* Pointer cursor on hover */
+    color: #ededed; /* Light color */
+    transition: color 0.2s; /* Smooth color transition */
 }
 
+/* Hover effect for stars */
 .star:hover {
-    color: gold;
-}
-.star.selected{
-    color: gold;
+    color: gold; /* Change color to gold on hover */
 }
 
+/* Selected star styling */
+.star.selected {
+    color: gold; /* Gold color for selected stars */
+}
+
+/* Static review star styling */
 .staticReviewstar {
-    font-size: 1.5rem;
-    color: #ededed;
-    transition: color 0.2s;
-    cursor: default;
+    font-size: 1.5rem; /* Smaller font size */
+    color: #ededed; /* Light color */
+    transition: color 0.2s; /* Smooth color transition */
+    cursor: default; /* Default cursor (non-interactive) */
 }
 
+/* Static selected star */
 .staticReviewstar.selected {
-    color: gold;
+    color: gold; /* Gold color for selected stars */
 }
 
+/* Submit button styling */
 .submitButton {
-    cursor: pointer;
-    transition: transform 0.3s ease; 
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: transform 0.3s ease; /* Smooth scaling animation */
 }
 
+/* Hover effect for submit button */
 .submitButton:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
+/* Feedback display section */
 .feedbackDisplay {
-    grid-area: feedbackDisplay;
-    
-    background-color: #ededed;
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    grid-area: feedbackDisplay; /* Assign to 'feedbackDisplay' grid area */
+    background-color: white; /* White background */
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
 }
 
+/* Heading styling for feedback display */
 .feedbackDisplay h1 {
-    font-size: 4vw;
-    font-family: "Anonymous Pro", monospace;
-    color: #141414;
+    font-size: 4vw; /* Responsive font size */
+    font-family: "Anonymous Pro", monospace; /* Monospace font */
+    color: #141414; /* Dark text color */
 }
 
-
+/* Feedback item styling in the display section */
 .feedbackItem {
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 1vw;
-    width: 70%;
-    max-width: 80vw;
-    height: fit-content;
-
-    background-color: rgba(217,217,217,0.8);
+    border: 1px solid #000; /* Black border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Padding around content */
+    margin: 1vw; /* Margin around items */
+    width: 70%; /* Width relative to viewport */
+    max-width: 80vw; /* Maximum width */
+    height: fit-content; /* Adjust height based on content */
+    background-color: rgba(217,217,217,0.8); /* Semi-transparent background */
 }
 
+/* "More reviews" button */
 .moreReviews {
-    padding: 10px 20px;
-    margin-top: 4vw;
-    margin-bottom: 2vw;
-
-    font-size: 16px;
-    background: #141414;
-    color: #ededed;
-    cursor: pointer;
-    transition: transform 0.3s ease; 
+    padding: 10px 20px; /* Padding inside button */
+    margin-top: 4vw; /* Top margin for spacing */
+    margin-bottom: 2vw; /* Bottom margin for spacing */
+    font-size: 16px; /* Font size */
+    background: #141414; /* Dark background */
+    color: #ededed; /* Light text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: transform 0.3s ease; /* Smooth scaling animation */
 }
 
+/* Hover effect for "more reviews" button */
 .moreReviews:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
+/* Responsive styles for smaller screens */
 @media (max-width: 728px) {
     .fbackground {
-        grid-template-rows: 1fr 1fr 3fr;
+        grid-template-rows: 1fr 1fr 3fr; /* Adjust grid layout for smaller screens */
     }
 }
 
+/* Dark mode styles */
 @media (prefers-color-scheme: dark) {
- 
+    /* Dark mode styles for the feedback container */
     .fcontainer {
-        background-color: #141414;
+        background-color: #141414; /* Dark background color */
     }
 
+    /* Dark mode styles for the feedback background */
     .fbackground {
-        background-image: url('src/assets/feedback-background-dark.jpg');
-        background-position: top;
+        background-image: url('../assets/feedback-background-dark.jpg'); /* Dark mode background */
     }
 
+    /* Dark mode styles for the feedback title */
     .ftitle {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the feedback box */
     .fbackground::after {
-        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
+        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%); /* Dark gradient overlay */
     }
 
+    /* Dark mode styles for the feedback input label */
     .submitButton {
-        border: 2px solid #ededeb;
-        background-color: #141414;
-        color: #ededeb; 
+        border: 2px solid #ededeb; /* Light border */
+        background-color: #141414; /* Dark background */
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the feedback display section */
     .feedbackDisplay {
-        background-color: #141414;
-        color: #ededeb;
+        background-color: #141414; /* Dark background */
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the feedback display heading */
     .feedbackDisplay h1 {
-        color: #ededeb
-
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the feedback item */
     .moreReviews {
-        margin-top: 2vh;
-        border: 1px solid #ededeb;
+        margin-top: 2vh; /* Adjusted top margin */
+        border: 1px solid #ededeb; /* Light border */
     }
-
 }

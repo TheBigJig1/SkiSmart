@@ -54,7 +54,9 @@ function Resort() {
             // Fetch resorts from server
 
             // Endpoint is parameterized
-            const response = await fetch(`http://localhost:8080/resorts/list?zip=${userZip}&limit=${limit}`, {
+            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+            const response = await fetch(`${API_BASE_URL}/resorts/list?zip=${userZip}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -87,14 +89,16 @@ function Resort() {
 
     useEffect(() => {
         const searchResorts = async (inputValue: string) => {
-            if(inputValue === '') {
+            if (inputValue === '') {
                 setLimit(5);
                 listResorts(limit);
                 return;
             }
 
             try {
-                const response = await fetch(`http://localhost:8080/resorts/get?name=${inputValue}`, {
+                const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+                const response = await fetch(`${API_BASE_URL}/resorts/get?name=${inputValue}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -122,7 +126,7 @@ function Resort() {
     }, [search]);
 
     useEffect(() => {
-        if(inputValue == '') {
+        if (inputValue == '') {
             setSearch(false);
         }
     }, [inputValue]);
@@ -130,21 +134,21 @@ function Resort() {
     return (
         <div className="resortContainer">
             <div className="resortBackground">
-                <img src='src/assets/logoCircle.png' className="resortLogo"></img>
+                <img src='../assets/logoCircle.png' className="resortLogo"></img>
                 <div className="resortTitle">SkiSmart</div>
             </div>
             <div className="resortText">
                 <h1 className="resortText">Find Your Resort</h1>
             </div>
             <div className="searchbar">
-                <input 
-                    type="text" 
-                    className="textBar" 
-                    placeholder="Search for a resort..." 
+                <input
+                    type="text"
+                    className="textBar"
+                    placeholder="Search for a resort..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    />
-                <button className="searchButton" onClick={() => {setSearch(true) }}>Search</button>
+                />
+                <button className="searchButton" onClick={() => { setSearch(true) }}>Search</button>
             </div>
             <div className="resortContentContainer">
                 {resorts && resorts.map((resort, resortIndex) => (
@@ -152,7 +156,7 @@ function Resort() {
                 ))}
 
                 <div>
-                    <button className="moreResorts" onClick={() => {setLimit(limit + 5) }}>
+                    <button className="moreResorts" onClick={() => { setLimit(limit + 5) }}>
                         More Resorts
                     </button>
                 </div>

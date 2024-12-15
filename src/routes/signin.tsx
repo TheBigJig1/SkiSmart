@@ -1,4 +1,4 @@
-import '@/styles/routes/signin.css';
+import '../styles/routes/signIn.css';
 import logo from '../assets/logoCircle.png';
 import { useState } from 'react';
 
@@ -18,7 +18,10 @@ function Signin() {
       formData.append('password', password);
 
       // Sending form data to server
-      const response = await fetch('http://localhost:8080/users/login', {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+      console.log(API_BASE_URL)
+
+      const response = await fetch(`${API_BASE_URL}/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -31,12 +34,12 @@ function Signin() {
         // Handle successful response
         const data = await response.json();
         const token = data.token;
-        
+
         // Store token in localstorage 
         localStorage.setItem('token', token);
-        
+
         console.log('Login successful');
-        
+
         // Redirect the user to account page
         window.location.href = '/account'
       } else {
@@ -44,9 +47,9 @@ function Signin() {
         alert('Invalid email or password');
       }
     } catch (error) {
-        // catch login error
-        console.error('An error occurred', error);
-        alert('An error occurred during login. Please try again.');
+      // catch login error
+      console.error('An error occurred', error);
+      alert('An error occurred during login. Please try again.');
     }
   }
 
@@ -85,8 +88,9 @@ function Signin() {
             </div>
             <div className="form-links">
               <div style={{ color: 'black' }}>
-                Don't have an account? <a href="/signup" className="signup-link">Create Account</a>
+                Don't have an account?
               </div>
+              <a href="/signup" className="signup-link">Create Account</a>
               <a href="#" className="forgot-password-link">
                 Forgot password?
               </a>

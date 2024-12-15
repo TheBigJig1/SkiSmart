@@ -31,7 +31,11 @@ var WipeFeedback = `TRUNCATE TABLE [dbo].[Feedback];`
 // SQL command to remove Feedback table
 var DropFeedback = `DROP TABLE if exists Feedback;`
 
-// Function to take feedback from front end and create new entry in Feedback
+/*
+Function to take feedback from front end and create new entry in Feedback
+@params w http.ResponseWriter, r *http.Request
+@return void
+*/
 func FeedbackAdd(w http.ResponseWriter, r *http.Request) {
 	// Server acknowledges request
 	fmt.Println("recieved add request")
@@ -79,7 +83,12 @@ func FeedbackAdd(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// Function to grab Feedback from the database and display on the webpage
+/*
+Function to grab Feedback from the database and display on the webpage
+Returns feedback in descending order of rating/ID as array of JSON objects
+@params w http.ResponseWriter, r *http.Request
+@return void
+*/
 func FeedbackList(w http.ResponseWriter, r *http.Request) {
 	// Server acknowledges request
 	fmt.Println("recieved get request")

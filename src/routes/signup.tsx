@@ -1,13 +1,3 @@
-/*
-Breif: This file contains the code for the Sign Up page.
-It contains a form with fields for Full Name, Email, Password, and Zipcode.
-The form is submitted to the server when the user clicks the "Create Account" button.
-The server will create a new user account if the email is not already in use.
-If the account is created successfully, the user is redirected to the Sign In page.
-If there is an error creating the account, an error message is displayed in the console.
-*/
-
-//import statements
 import '@/styles/routes/signin.css';
 import logo from '../assets/logoCircle.png';
 import React, { useState } from 'react';
@@ -68,7 +58,9 @@ const Signup: React.FC = () => {
       formData.append('password', password);
       formData.append('zipcode', zipcode);
       
-      const response = await fetch('http://localhost:8080/users/create', {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const response = await fetch(`${API_BASE_URL}/users/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

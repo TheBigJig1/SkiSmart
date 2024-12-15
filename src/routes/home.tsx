@@ -13,12 +13,12 @@ function Home() {
     return (
         <div className="pageContainer">
             <div className="pageBackground">
-                <img className="logo" src='src/assets/logoCircle.png'></img> 
+                <img className="logo" src='../assets/logoCircle.png'></img> 
                 <div className="title">SkiSmart</div>
             </div>
             <div className="contentContainer">
                 <div className="intro">
-                    <h1>Welcome to SkiSmart: Your Ultimate Companion for Safer Skiing</h1>
+                    <h1>Welcome to SkiSmart<br></br>Your Ultimate Companion for Safer Skiing</h1>
                 </div>
                 <div className="mission">
                     <h2>Our Mission</h2>
@@ -38,7 +38,7 @@ function Home() {
                     <h1>Explore Popular Resorts</h1>
                     <a href="/resorts">
                         <div className="exploreButtonContainer">
-                            <img className="exploreButtonImg" src="src/assets/exploreButton.png" alt="Explore Resorts" />
+                            <img className="exploreButtonImg" src="../assets/exploreButton.png" alt="Explore Resorts" />
                         </div>
                     </a>
                 </div>
@@ -53,10 +53,10 @@ function Home() {
                             about current and upcoming snow conditions, enhancing their safety and overall skiing experience.
                         </p>
                     </div>
-                    <img className="NOAAImg" src='src/assets/NOAALandingImg.png'></img> 
+                    <img className="NOAAImg" src='../assets/NOAALandingImg.png'></img> 
                 </div>
                 <div className="team">
-                    <img className="teamImg" src='src/assets/placeholder.png'></img> 
+                    <img className="teamImg" src='../assets/placeholder.png'></img> 
                     <div className="teamText">
                         <h2 className="teamText">The Team</h2>
                             <p>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { ResortObj } from "../routes/resort"
 import ResortCard from "../components/resortCard"
 
-import { jwtDecode }  from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 function Account() {
 
@@ -21,26 +21,28 @@ function Account() {
         }
 
         // Load user bookmarks
-        const loadBookmarks = async () => {   
+        const loadBookmarks = async () => {
             try {
                 // Fetch reviews from server
-    
+
                 // Endpoint is parameterized
-                const response = await fetch(`http://localhost:8080//users/loadbookmarks`, {
+                const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+                const response = await fetch(`${API_BASE_URL}/users/loadbookmarks`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + token
                     }
                 });
-    
-                if(response.ok) {
+
+                if (response.ok) {
                     // Handle successful response
                     const resorts = await response.json();
-    
+
                     // Update reviews state variable
                     setResorts(resorts);
-    
+
                     // Log reviews
                     console.log('bookmark list fetched successfully');
                     console.log(resorts);
@@ -58,9 +60,11 @@ function Account() {
     const logoutHandler = async () => {
         const token = localStorage.getItem('token') || ''
 
-        try{
+        try {
             // Offering server chance to revoke token
-            const response = await fetch('http://localhost:8080/users/logout', {
+            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+            const response = await fetch(`${API_BASE_URL}/users/logout`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +105,7 @@ function Account() {
                         </ul>
                     </div>
                     <div className="accountResorts">
-                        <h2>Your Bookmarks</h2>
+                        <h1>Your Bookmarks</h1>
                         {resorts && resorts.map((resort, resortIndex) => (
                             <ResortCard key={resortIndex}{...resort} />
                         ))}

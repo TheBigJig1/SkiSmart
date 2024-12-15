@@ -1,314 +1,377 @@
+/* This file contains the styles for the ResortInfo component */
+
+/* Individual resort page container */
 .indvContainer {
-    display: grid;
-    width: 100%;
-    grid-template-areas:
+    display: grid; /* Use grid layout */
+    width: 100%; /* Full width */
+    grid-template-areas: /* Define grid areas */
         "indvBackground"
-        "indvPageContainer";
+        "indvPageContainer"; /* Define grid areas */
 }
 
+/* Background section of the individual resort page */
 .indvBackground {
-    position: relative;
-    grid-area: indvBackground;
+    position: relative; /* Allow positioning of pseudo-elements */
+    grid-area: indvBackground; /* Assign to the grid area */
 
-    height: 35vw;
-    width: 100%;
+    height: 35vw; /* Height is responsive to viewport width */
+    width: 100%; /* Full width of the viewport */
 
-    background-image: url('src/assets/HiResMountain.jpg');
-    background-size: 100%;
-    background-repeat: no-repeat;
+    background-image: url('../assets/HiResMountain.jpg'); /* Add a background image */
+    background-size: 100%; /* Scale image to fit container width */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
 
-    justify-items: center;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
+    justify-items: center; /* Center items within the grid horizontally */
+    display: grid; /* Use grid layout for content */
+    grid-template-rows: 1fr 1fr; /* Two equal-height rows */
+    grid-template-areas: /* Define areas for logo and title */
         "indvLogo"
-        "indvTitle";
+        "indvTitle"; /* Define grid areas */
 
-    padding-top: 5vh;
-    margin-bottom: 10vh;
+    padding-top: 5vh; /* Top padding for spacing */
+    margin-bottom: 10vh; /* Bottom margin for spacing below */
 }
 
+/* Gradient overlay on the background section */
 .indvBackground::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 33%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-    pointer-events: none;
+    content: ""; /* Empty content for the overlay */
+    position: absolute; /* Positioned relative to the parent */
+    bottom: 0; /* Stick to the bottom of the parent */
+    left: 0; /* Align with the left side */
+    width: 100%; /* Full width */
+    height: 33%; /* Covers the bottom third of the background */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%); /* Gradient effect transitioning from transparent to white */
+    pointer-events: none; /* Prevent interaction with the overlay */
 }
 
+/* Logo area inside the background */
 .indvLogo {
-    grid-area: indvLogo;
-    width: auto;
-    height: 18vw;
-
+    grid-area: indvLogo; /* Assigned to the logo grid area */
+    width: auto; /* Automatically adjust width */
+    height: 18vw; /* Height responsive to viewport width */
 }
 
+/* Title displayed in the background section */
 .indvTitle {
-    grid-area: indvTitle;
+    grid-area: indvTitle; /* Assigned to the title grid area */
 
-    font-size: 4vw;
-    font-family: "Anonymous Pro", monospace;
-    color: #141414;
+    font-size: 4vw; /* Responsive font size */
+    font-family: "Anonymous Pro", monospace; /* Monospace font style */
+    color: #141414; /* Dark gray color */
 
-    height: 4vw;
+    height: 4vw; /* Height matches font size */
 }
 
+/* Individual resort page container */
 .indvPageContainer {
-    grid-area: indvPageContainer;
-    margin-left: 2vh;
-    margin-right: 2vh;
+    grid-area: indvPageContainer; /* Assign to the grid area */
+    margin-left: 2vh; /* Adds left margin */
+    margin-right: 2vh; /* Adds right margin */
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: flex; /* Uses flexbox layout */
+    flex-direction: column; /* Stacks elements vertically */
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
 
-    font-size: 1.3em;
-    font-family: "Anonymous Pro", " monospace";
-    color: #141414;
+    font-size: 1.3em; /* Font size based on viewport width */
+    font-family: "Anonymous Pro", " monospace"; /* Font settings */
+    color: #141414; /* Text color */
 
-    display: grid;
-    grid-template-areas:
-        "pageInfo"
+    display: grid; /* Use grid layout */
+    grid-template-areas: /* Define grid areas */
+        "pageInfo" 
         "leaflet"
-        "skiData";
+        "skiData"; /* Define grid areas */
 }
 
+/* Page information section */
 .pageInfo {
-    grid-area: pageInfo;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    padding: 2vh;
+    grid-area: pageInfo; /* Assign to the grid area */
+    margin-top: 2vh; /* Adds margin to the top */
+    margin-bottom: 2vh; /* Adds margin to the bottom */
+    padding: 2vh; /* Adds padding around the content */
 
+    /* Center content */
     h3 {
-        margin: 2vh;
+        margin: 2vh; /* Adds margin around the heading */
     }
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    display: flex; /* Uses flexbox layout */
+    flex-direction: column; /* Stacks elements vertically */
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
+    text-align: center; /* Centers text */
 
-    height: auto;
+    height: auto; /* Automatically adjust height */
 }
 
+/* Title container */
 .titleContainer {
-    margin: 1vh;
-    margin-bottom: 2vh;
+    margin: 1vh; /* Adds margin around the container */
+    margin-bottom: 2vh; /* Adds margin to the bottom */
 
-    display: flex;
-    align-items: center;
-    font-size: 1em;
-    font-family: "Anonymous Pro", monospace;
+    display: flex; /* Uses flexbox layout */
+    align-items: center; /* Centers items horizontally */
+    font-size: 1em; /* Font size based on viewport width */
+    font-family: "Anonymous Pro", monospace; /* Font settings */
 }
 
+/* Title styling */
 .titleContainer h1 {
-    margin-right: 10px;
+    margin-right: 10px; /* Adds margin to the right */
 }
 
+/* Favorite button styling */
 .favoriteButton {
-    cursor: pointer;
-    transition: transform 0.3s ease;
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: transform 0.3s ease; /* Smooth scaling animation */
 
-    width: 8vh;
+    width: 8vh; /* Width of the button */
 
-    padding-top: 0%;
-    padding-bottom: 1%;
-    padding-left: 2.5%;
-    padding-right: 3%;
+    padding-top: 0%; /* Padding around the content */
+    padding-bottom: 1%; /* Padding around the content */
+    padding-left: 2.5%; /* Padding around the content */
+    padding-right: 3%; /* Padding around the content */
 
-    font-size: 2em;
+    font-size: 2em; /* Font size based on viewport width */
 
-    border-color: #141414;
-    border-radius: 10px;
-    border-width: 2px;
+    border-color: #141414; /* Dark border color */
+    border-radius: 10px; /* Rounded corners */
+    border-width: 2px; /* Border width */
 }
 
+/* Hover effect for favorite button */
 .favoriteButton:hover {
-    transform: scale(1.1);
+    transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
+/* Image styling */
 .pageInfo img {
-    width: 80%;
-    height: auto;
+    width: 80%; /* 80% width */
+    height: auto; /* Automatic height */
 }
 
+/* Leaflet map section */
 .leaflet {
-    height: auto;
+    height: auto; /* Automatically adjust height */
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    display: flex; /* Uses flexbox layout */
+    flex-direction: column; /* Stacks elements vertically */
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
+    text-align: center; /* Centers text */
 
-    grid-area: leaflet;
+    grid-area: leaflet; /* Assign to the grid area */
 
+    /* Map button styling */
+    h1 {
+        font-size: clamp(1rem, 10vw, 4rem); /* Responsive font size */
+    }
+
+    /* Map button container */
     .mapbuttons {
-        margin-top: 2vh;
-        display: flex;
-        gap: 2vw;
+        margin-top: 2vh; /* Adds margin to the top */
+        display: flex; /* Uses flexbox layout */
+        gap: 2vw; /* Spacing between elements */
 
+        /* Button styling */
         button {
-            width: 25vw;
-            padding: 1.5vh;
-            background-color: #141414;
-            color: #ededed;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            width: 25vw; /* 25 vw width */
+            padding: 1.5vh; /* Padding around the content */
+            background-color: #141414; /* Dark background color */
+            color: #ededed; /* Light text color */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: transform 0.3s ease; /* Smooth scaling animation */
         }
 
+        /* Hover effect for buttons */
         button:hover {
-            transform: scale(1.1);
+            transform: scale(1.1); /* Slightly enlarge on hover */
         }
     }
 
+    /* Legend container */
     .legend-container {
-        position: absolute;
-        top: 1vh;
-        right: .5vw;
-        z-index: 1000;
+        position: absolute; /* Position relative to the parent */
+        top: 1vh; /* Distance from the top */
+        right: .5vw; /* Distance from the right */
+        z-index: 1000; /* Higher stacking order */
 
-        display: flex;
-        color: #141414;
-        background-color: #ededed;
-        padding: 5px;
+        display: flex; /* Uses flexbox layout */
+        color: #141414; /* Dark text color */
+        background-color: #ededed; /* Light background color */
+        padding: 5px; /* Padding around the content */
 
-        border-radius: 5px;
-        border-width: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 5px; /* Rounded corners */
+        border-width: 10px; /* Border width */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    }
+
+    /* Legend styling */
+    .legend {
+        padding: 10px; /* Padding around the content */
+        border: 1px solid #ccc; /* Light gray border */
+        max-width: 200px; /* Maximum width */
+        margin: 10px auto; /* Margin around the legend */
     }
 }
 
+/* Ski data section */
 .skiData {
-    grid-area: skiData;
+    grid-area: skiData; /* Assign to the grid area */
 
-    margin-top: 5vh;
-    height: auto;
-    width: 100%;
+    margin-top: 5vh; /* Adds margin to the top */
+    height: auto; /* Automatically adjust height */
+    width: 100%; /* Full width */
 
-    grid-template-areas:
+    grid-template-areas: /* Define grid areas */
         "skiIntro"
-        "skiConditions";
+        "skiConditions"; /* Define grid areas */
 }
 
+/* Ski data introduction section */
 .skiIntro {
-    grid-area: skiIntro;
+    grid-area: skiIntro; /* Assign to the grid area */
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    display: flex; /* Uses flexbox layout */
+    flex-direction: column; /* Stacks elements vertically */
+    justify-content: center; /* Centers content vertically */
+    text-align: center; /* Centers text */
 
-    height: 10vh;
-    width: auto;
+    height: 10vh; /* Height of the section */
+    width: auto; /* Automatically adjust width */
 }
 
+/* Ski conditions section */
 .skiConditions {
-    grid-area: skiConditions;
+    grid-area: skiConditions; /* Assign to the grid area */
 
-    height: auto;
-    width: 100%;
+    height: auto; /* Automatically adjust height */
+    width: 100%; /* Full width */
 
-    display: grid;
-    grid-template-areas:
+    display: grid; /* Uses grid layout */
+    grid-template-areas: /* Define grid areas */
         "temperature windSpeed"
         "snowfallRecent precipitationProb"
-        "snowDepth visibility";
+        "snowDepth visibility"; /* Define grid areas */
 }
 
+/* Individual data sections */
 .temperature {
-    justify-self: center;
-    grid-area: temperature;
+    justify-self: center; /* Center horizontally */
+    grid-area: temperature; /* Assign to the grid area */
 }
 
+/* Individual data sections */
+/* Wind speed */
 .windSpeed {
-    justify-self: center;
-    grid-area: windSpeed;
+    justify-self: center; /* Center horizontally */
+    grid-area: windSpeed; /* Assign to the grid area */
 }
 
+/* Snowfall in the recent period */
 .snowfallRecent {
-    justify-self: center;
-    grid-area: snowfallRecent;
+    justify-self: center; /* Center horizontally */
+    grid-area: snowfallRecent; /* Assign to the grid area */
 }
 
+/* Precipitation probability */
 .precipitationProb {
-    justify-self: center;
-    grid-area: precipitationProb;
+    justify-self: center; /* Center horizontally */
+    grid-area: precipitationProb; /* Assign to the grid area */
 }
 
+/* Snow depth */
 .snowDepth {
-    justify-self: center;
-    grid-area: snowDepth;
+    justify-self: center; /* Center horizontally */
+    grid-area: snowDepth; /* Assign to the grid area */
 }
 
+/* Visibility */
 .visibility {
-    justify-self: center;
-    grid-area: visibility;
+    justify-self: center; /* Center horizontally */
+    grid-area: visibility; /* Assign to the grid area */
 }
 
+/* Weather advisories section */
 .weatherAdvisories {
-    justify-self: center;
-    grid-area: weatherAdvisories;
+    justify-self: center; /* Center horizontally */
+    grid-area: weatherAdvisories; /* Assign to the grid area */
 }
 
+/* Responsive design for dark mode */
 @media (prefers-color-scheme: dark) {
 
+    /* Dark mode styles for the individual resort page container */
     .indvContainer {
-        background-color: #141414;
-        color: #ededeb;
+        background-color: #141414; /* Dark background for the container */
+        color: #ededeb; /* Light text color */
 
+        /* Dark mode styles for the title */
         a {
-            color: #ededeb;
+            color: #ededeb; /* Light text color */
         }
 
+        /* Dark mode styles for the favorite button */
         button {
-            border-color: #ededed;
+            border-color: #ededed; /* Light border color */
         }
     }
 
+    /* Dark mode styles for the background section */
     .indvBackground {
-        background-image: url('src/assets/dark-mode-background.jpg');
-        background-position: center;
+        background-image: url('../assets/dark-mode-background.jpg'); /* Dark mode background image */
+        background-position: center; /* Center the background image */
     }
 
+    /* Dark mode styles for the title */
     .indvTitle {
-        color: #ededeb;
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the gradient overlay */
     .indvBackground::after {
-        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
+        background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%); /* Dark gradient overlay */
     }
 
+    /* Dark mode styles for the page information section */
     .indvPageContainer {
-        background-color: #141414;
-        color: #ededeb;
+        background-color: #141414; /* Dark background color */
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the title container */
     .favoriteButton {
-        border-color: #ededeb;
-        color: #ededeb;
+        border-color: #ededeb; /* Light border color */
+        color: #ededeb; /* Light text color */
     }
 
+    /* Dark mode styles for the leaflet map section */
     .leaflet {
-        .legend-container {
-            color: #ededeb;
-            background-color: #141414;
+        .legend-container { 
+            color: #ededeb; /* Light text color */
+            background-color: #141414; /* Dark background color */
         }
     }
 
 }
 
+/* Responsive design for smaller screens */
+@media (max-width: 700px) {
+    .legend-container {
+        transform: scale(.6) translate(20%, 20%); /* Scale and translate the legend container */
+    }
+}
+
+/* Responsive design for smaller screens */
 @media (max-width: 612px) {
+    /* Title container */
     .titleContainer {
-        font-size: 2.8vw;
+        font-size: 2.8vw; /* Responsive font size */
     }
 
+    /* Favorite button */
     .favoriteButton {
-        width: 6vh;
+        width: 6vh; /* Width of the button */
     }
 }
