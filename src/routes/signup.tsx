@@ -1,4 +1,4 @@
-import '../styles/routes/signIn.css';
+import '@/styles/routes/signin.css';
 import logo from '../assets/logoCircle.png';
 import React, { useState } from 'react';
 
@@ -26,6 +26,7 @@ const Signup: React.FC = () => {
     return re.test(password);
   };
 
+//handle submit function to create account
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
 
@@ -82,7 +83,7 @@ const response = await fetch(`${API_BASE_URL}/users/create`, {
       console.error('Error:', error);
     }
   };
-
+//html code for the signup page
     return (
       <div className="signin-background">
         <div className="signin-container">
