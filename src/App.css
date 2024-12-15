@@ -1,10 +1,13 @@
+/* This is the main CSS file for the application. */
+
+/* Container class styles the main container of the application. */
 .container {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
-  overflow-x: hidden;
-  width: 100%;
-  background-color: #ededed;
+  box-sizing: border-box; /* This property includes padding and border in the element's total width and height. */
+  display: flex; /* This property defines a flex container. */
+  align-items: center; /* This property aligns the flex container's items when the items do not use all available space on the cross-axis. */
+  justify-content: flex-start; /* This property aligns the flex container's items when the items do not use all available space on the main-axis. */
+  flex-direction: column; /* This property defines the direction of the main axis which defines the direction in which the flex items are placed in the flex container. */
+  overflow-x: hidden; /* This property specifies whether to clip content or to add scrollbars when the content of an element is too big to fit in the specified area. */
+  width: 100%; /* This property specifies the width of the element. */
+  background-color: #ededed; /* This property specifies the background color of the element. */
 }

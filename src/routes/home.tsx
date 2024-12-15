@@ -18,7 +18,7 @@ function Home() {
             </div>
             <div className="contentContainer">
                 <div className="intro">
-                    <h1>Welcome to SkiSmart<br></br>Your Ultimate Companion for Safer Skiing</h1>
+                    <h1>Welcome to SkiSmart<br></br>Your Ultimate Companion for Smarter Skiing</h1>
                 </div>
                 <div className="mission">
                     <h2>Our Mission</h2>
