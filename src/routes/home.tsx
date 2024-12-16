@@ -56,13 +56,14 @@ function Home() {
                     <img className="NOAAImg" src='../assets/NOAALandingImg.png'></img> 
                 </div>
                 <div className="team">
-                    <img className="teamImg" src='../assets/placeholder.png'></img> 
+                    <img className="teamImg" src='src\assets\Group Photo.JPG'></img> 
                     <div className="teamText">
                         <h2 className="teamText">The Team</h2>
                             <p>
-                                TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM
-                                TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM
-                                TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM TEAM
+                                We are a group of 8 Computer Science and Engineering students at WVU. We developed SkiSmart in our Intro to Software Engineering class.
+                            </p>
+                            <p>
+                                Team Members: Michael Adams, Jaxon Fielding, Tristan Girardi, Tyler Lannon, Jacob Milkie, Logan Noroski, Landon Urcho, Caden Youngblood.
                             </p>
                     </div>
                 </div>

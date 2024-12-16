@@ -222,10 +222,11 @@
 /* Team text styling */
 .teamText {
     grid-area: teamText; /* Assign to the text grid area */
-    font-size: 1.4em; /* Larger font size */
+    font-size: 1.3em; /* Larger font size */
     margin-top: 4vw; /* Top margin for spacing */
     margin-left: 2vw; /* Left margin for spacing */
     background-color: pink; /* Pink background */
+    padding-left: 1vw; /*Left padding for text spacing*/
 }
 
 /* Footer section */
