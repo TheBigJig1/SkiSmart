@@ -89,7 +89,7 @@ const Signup: React.FC = () => {
   };
 
   return (
-      <div className="signin-container">
+      <div className={`signin-container ${passwordError ? 'height-increase' : ''}`}>
         <div className="signin-form">
           <div className="signin-logo">
             <img src={logo} alt="Skismart Logo" className="logo-image" />
