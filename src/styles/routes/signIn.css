@@ -2,8 +2,13 @@
 
 /* Container for the sign-in page */
 .signin-container {
-  height: calc(100vh - 2px); /* Full viewport height minus 2 pixels */
+  height: fit-content; /* Full viewport height minus 2 pixels */
   width: 100%; /* Full width */
+
+  background-image: url('../assets/sign-in-background.jpg'); /* Background image */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat;
 
   font-family: "Anonymous Pro", monospace; /* Font style */
 
@@ -11,25 +16,14 @@
   justify-content: center; /* Center content horizontally */
 }
 
-/* Background styling for the sign-in page */
-.signin-background {
-  background-image: url('../assets/sign-in-background.jpg'); /* Background image */
-  background-size: cover; /* Cover the entire container */
-  background-position: center; /* Center the background image */
-  background-repeat: no-repeat; /* Do not repeat the background image */
-  justify-content: center; /* Center content horizontally */
-  height: calc(96vh - 2px); /* 96% of viewport height minus 2 pixels */
-  width: 100vw; /* Full viewport width */
-}
-
 .signin-form {
-  padding: 5vh 5vw; /* Padding: 5% of viewport height and width */
+  padding: 2vh 2vw; /* Padding: 2% of viewport height and width */
   padding-top: 3vh; /* Top padding: 3% of viewport height */
   margin-top: 2vh; /* Top margin: 2% of viewport height */
   margin-bottom: 2vh; /* Bottom margin: 2% of viewport height */
-  width: 100%; /* Full width */
-  height: auto; /* Automatic height */
-  max-height: 90vh; /* Maximum height: 90% of viewport height */
+  width: 90%; /* Full width */
+  height: fit-content; /* Automatic height */
+  min-height: 100vh; /* Maximum height: 90% of viewport height */
 
   background-color: rgba(182, 182, 182, 0.849); /* Semi-transparent background color */
   border: 0px; /* No border */
@@ -81,7 +75,8 @@
 /* Styling for the form fields container */
 .signin-form-fields {
   display: flex; /* Flexbox layout */
-  flex-direction: column; /* Column layout */
+  flex-direction: column; /* Column direction */
+  align-items: center; 
   gap: 1rem; /* Gap between items: 1 rem */
 }
 

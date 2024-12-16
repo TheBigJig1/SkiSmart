@@ -1,4 +1,4 @@
-import '@/styles/routes/signin.css';
+import '../styles/routes/signIn.css';
 import logo from '../assets/logoCircle.png';
 import React, { useState } from 'react';
 
@@ -89,7 +89,6 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="signin-background">
       <div className="signin-container">
         <div className="signin-form">
           <div className="signin-logo">
@@ -160,7 +159,6 @@ const Signup: React.FC = () => {
           </form>
         </div>
       </div>
-    </div>
   )
 }
 

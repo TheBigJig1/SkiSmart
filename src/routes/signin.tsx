@@ -54,7 +54,6 @@ function Signin() {
   }
 
   return (
-    <div className="signin-background">
       <div className="signin-container">
         <div className="signin-form">
           <div className="signin-logo">
@@ -106,7 +105,6 @@ function Signin() {
           </form>
         </div>
       </div>
-    </div>
   );
 };
 
