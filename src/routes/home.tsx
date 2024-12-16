@@ -1,4 +1,5 @@
-import '@/styles/routes/home.css';
+import '../styles/routes/home.css';
+import teamphoto from '../assets/Group-Photo.jpg';
 import { useEffect, useState } from 'react';
 import { isAuthenticated } from '../utils/auth';
 
@@ -56,14 +57,13 @@ function Home() {
                     <img className="NOAAImg" src='../assets/NOAALandingImg.png'></img> 
                 </div>
                 <div className="team">
-                    <img className="teamImg" src='src\assets\Group Photo.JPG'></img> 
+                    <img className="teamImg" src={teamphoto}></img> 
                     <div className="teamText">
                         <h2 className="teamText">The Team</h2>
                             <p>
-                                We are a group of 8 Computer Science and Engineering students at WVU. We developed SkiSmart in our Intro to Software Engineering class.
-                            </p>
-                            <p>
-                                Team Members: Michael Adams, Jaxon Fielding, Tristan Girardi, Tyler Lannon, Jacob Milkie, Logan Noroski, Landon Urcho, Caden Youngblood.
+                                We are a group of 8 Computer Science and Engineering students at WVU. We developed SkiSmart in collaboration 
+                                with NOAA in our Intro to Software Engineering class. <br></br> Team Members: Michael Adams, Jaxon Fielding, 
+                                Tristan Girardi, Tyler Lannon, Jacob Milkie, Logan Noroski, Landon Urcho, Caden Youngblood.
                             </p>
                     </div>
                 </div>
