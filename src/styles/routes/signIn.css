@@ -3,6 +3,7 @@
 /* Container for the sign-in page */
 .signin-container {
   height: fit-content; /* Full viewport height minus 2 pixels */
+  min-height: 100vh; /* Maximum height: 90% of viewport height */
   width: 100%; /* Full width */
 
   background-image: url('../assets/sign-in-background.jpg'); /* Background image */
@@ -23,7 +24,6 @@
   margin-bottom: 2vh; /* Bottom margin: 2% of viewport height */
   width: 90%; /* Full width */
   height: fit-content; /* Automatic height */
-  min-height: 100vh; /* Maximum height: 90% of viewport height */
 
   background-color: rgba(182, 182, 182, 0.849); /* Semi-transparent background color */
   border: 0px; /* No border */
@@ -34,10 +34,7 @@
   display: grid; /* Grid layout */
   grid-template-areas: /* Define grid areas */
     "signinLogo"
-    "form-group"
-    "form-links"
-    "form-submit"
-    "contact-info";
+    "form-group";
 }
 
 /* Styling for the logo area in the sign-in form */
@@ -77,6 +74,7 @@
   display: flex; /* Flexbox layout */
   flex-direction: column; /* Column direction */
   align-items: center; 
+  height: fit-content; /* Automatic height */
   gap: 1rem; /* Gap between items: 1 rem */
 }
 

@@ -56,7 +56,7 @@ function Signin() {
   return (
       <div className="signin-container">
         <div className="signin-form">
-          <div className="signin-logo">
+          <div className="signin-logo no-margin-bottom">
             <img src={logo} alt="SkiSmart Logo" className="logo-image" />
             <h2 className="logo-text">SkiSmart</h2>
           </div>
