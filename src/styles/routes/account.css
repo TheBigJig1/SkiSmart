@@ -117,12 +117,7 @@
     }
 }
 
-/* Account info section layout */
-.accountInfo {
-    grid-area: accountInfo; /* Grid area assignment */
-    width: 96vw; /* Sets the width */
-    display: flex; /* Flexbox for layout */
-}
+
 
 /* Footer section for account page */
 .accountFooter {

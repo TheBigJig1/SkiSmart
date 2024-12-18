@@ -109,13 +109,6 @@ function Account() {
             </div>
             <div className="accountContentContainer">
                 <div className="accountPersonal">
-                    <div className="accountInfo">
-                        <ul>
-                            <h3>Your Info:</h3>
-                            <li>Resorts Viewed: </li>
-                            <li>Trips Completed: </li>
-                        </ul>
-                    </div>
                     <div className="accountResorts">
                         {/* Load all resorts */}
                         <h1>Your Bookmarks</h1>
