@@ -4,7 +4,6 @@
 import '@/App.css'
 // Importing components and routes
 import Navbar from './components/navbar'
-import Weather from './routes/weather'
 import Resort from './routes/resort'
 import Home from './routes/home'
 import Feedback from './routes/feedback'
@@ -28,9 +27,6 @@ function App() {
         {/* Define the route for the home page */}
         {/* Route for each page */}
         <Route path='/' element={<Home />} />
-
-        {/* Define the route for the weather page */}
-        <Route path='/weather' element={<Weather />} />
 
         {/* Define the route for the resorts page */}
         <Route path='/resorts' element={<Resort />} />

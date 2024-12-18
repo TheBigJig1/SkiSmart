@@ -1,7 +1,7 @@
 /* Styles for the account page layout */
 
 /* Main container for the account layout */
-.accountCounter {
+.accountContainer {
     display: grid; /* Uses grid layout */
     width: 100%; /* Full width of its container */
     max-width: 100vw; /* Maximum width set to viewport width */
@@ -14,7 +14,7 @@
 /* Background container for account section */
 .accountBackground {
     position: relative; /* Allows positioning of pseudo-elements */
-    grid-area: resortBackground; /* Assigns the grid area */
+    grid-area: accountBackground; /* Assigns the grid area */
 
     height: 20vw; /* Height based on viewport width */
     width: 100%; /* Full width of its container */
@@ -108,6 +108,7 @@
     align-items: center; /* Centers items vertically */
     display: flex; /* Flexbox for layout */
     flex-direction: column; /* Stacks items vertically */
+    min-height: 80vh;
 
     font-size: 1.5vw; /* Font size based on viewport width */
 

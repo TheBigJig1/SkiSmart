@@ -1,5 +1,5 @@
 ## Makefile for skismart
-## 
+
 all: clean test build
 
 ## remve all build artifacts
