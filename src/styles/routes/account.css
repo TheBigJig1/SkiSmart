@@ -97,7 +97,6 @@
     display: grid; /* Uses grid layout */
     grid-template-columns: 1fr; /* One column */
     grid-template-areas:
-        "accountInfo"
         "accountResorts"; /* Defines grid areas for info and resorts */
     margin-bottom: 2vw; /* Adds margin to the bottom */
 }
