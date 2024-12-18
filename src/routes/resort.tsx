@@ -115,8 +115,6 @@ function Resort() {
      * @param inputValue - The search input value.
      */
     useEffect(() => {
-        // If search is false, return
-        if (!search) return;
 
         // Function to search for resorts by string fragment in name
         const searchResorts = async (inputValue: string) => {
