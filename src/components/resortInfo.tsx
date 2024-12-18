@@ -529,7 +529,7 @@ function ResortInfo() {
                 <div className="skiData">
                     <h1 className="skiIntro">Current Weather</h1>
                     <div className="skiConditions">
-                        <h3 className="temperature">Temperature: {thisWeather.temperature}</h3>
+                        <h3 className="temperature">Temperature: {thisWeather.temperature} °F</h3>
                         <h3 className="snowfallRecent">Recent Snowfall: {thisWeather.snowfall} in</h3>
                         <h3 className="snowDepth">Snow Depth: {thisWeather.snowDepth} in</h3>
                         <h3 className="windSpeed">Wind Speed: {thisWeather.windSpeed} mph</h3>
