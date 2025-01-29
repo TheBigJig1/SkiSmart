@@ -165,6 +165,19 @@ function Resort() {
         }
     }, [inputValue]);
 
+    // Example resort object for Jackson Hole
+    const jacksonHoleResort: ResortObj = {
+        ID: 1,
+        Name: "Jackson Hole",
+        Address: "3395 Cody Lane, Teton Village, WY",
+        Zipcode: "83025",
+        Lat: 43.586985,
+        Long: -110.826246,
+        HomeLink: "https://www.jacksonhole.com/",
+        CameraLink: "https://www.jacksonhole.com/mountain-cams",
+        ImageLink: "https://i0.wp.com/buckrail.com/wp-content/uploads/2022/11/unnamed-10.jpg?fit=1430%2C1071&ssl=1"
+    };
+
     return (
         <div className="resortContainer">
             <div className="resortBackground">
@@ -186,9 +199,11 @@ function Resort() {
             </div>
             <div className="resortContentContainer">
                 {/* Load all resorts from resort */}
-                {resorts && resorts.map((resort, resortIndex) => (
+                {/* {resorts && resorts.map((resort, resortIndex) => (
                     <ResortCard key={resortIndex}{...resort} />
-                ))}
+                ))} */}
+
+                <ResortCard {...jacksonHoleResort} />
 
                 <div>
                     <button className="moreResorts" onClick={() => { setLimit(limit + 5) }}>
