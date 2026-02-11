@@ -1,6 +1,16 @@
-# React + TypeScript + Vite
+# SkiSmart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive platform that provides real-time weather updates, snow conditions, and resort information for skiers.
+
+## Documentation
+
+- [Weather Data Protocols](./WEATHER_DATA_PROTOCOLS.md) - Comprehensive documentation of all protocols and APIs used for weather data visualization
+- [Project Overview](./SkiSafe_readme.md) - Full project documentation
+- [Frontend Documentation](./src/readme.md) - Frontend-specific information
+
+## Tech Stack
+
+This project uses React + TypeScript + Vite with HMR and ESLint rules.
 
 Currently, two official plugins are available:
 
